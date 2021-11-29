@@ -1,0 +1,19 @@
+#!/bin/bash
+
+if [[ $EUID > 0 ]]
+then
+	case "$LANG" in
+		es*)
+			echo "debe correse como raíz."
+		;;
+		*)
+			echo "must be run as root."
+		;;
+	esac
+	exit 1
+fi
+
+$1
+exit 0
+
+

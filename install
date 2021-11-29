@@ -1,0 +1,19 @@
+#!/bin/bash
+
+./root-do "gcc ptree.c -o /usr/bin/ptree -Ofast"
+
+if [[ $? == 0 ]]
+then
+	case "$LANG" in
+		es*)
+			echo "instalado exitosamente."
+			;;
+		*)
+			echo "installed successfully."
+			;;
+	esac
+fi
+
+
+
+

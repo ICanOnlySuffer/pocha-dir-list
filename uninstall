@@ -1,0 +1,19 @@
+#!/bin/bash
+
+./root-do "rm /usr/bin/ptree"
+
+if [[ $? == 0 ]]
+then
+	case "$LANG" in
+		es*)
+			echo "desinstalado exitosamente."
+			;;
+		*)
+			echo "uninstalled successfully."
+			;;
+	esac
+fi
+
+
+
+
