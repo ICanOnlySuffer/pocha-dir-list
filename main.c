@@ -41,6 +41,7 @@ ix0 ptree (ix1 * path) {
 		lang_regular_ones = "regular_ones(+)";
 	}
 	
+	putchar ('\n');
 	printf (LANG (lang_directories), n_directories);
 	printf (", ");
 	printf (LANG (lang_regular_ones), n_regular_ones);
