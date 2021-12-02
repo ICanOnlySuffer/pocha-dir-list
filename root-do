@@ -1,19 +1,33 @@
 #!/bin/bash
 
-if [[ $EUID > 0 ]]
-then
-	case "$LANG" in
+if [[ $EUID > 0 ]]; then
+	if [ "$ROOTER" ]; then
+		rooter=$ROOTER
+	elif [ -f "/usr/bin/doas" ]; then
+		rooter=doas
+	elif [ -f "/usr/bin/sudo" ]; then
+		rooter=sudo
+	else
+		case "$LANG" in
 		es*)
-			echo "debe correse como raíz."
-		;;
+			echo "programa rooter no encontrado, intenta definir \$ROOTER";;
 		*)
-			echo "must be run as root."
-		;;
+			echo "rooter program not found, try setting it as \$ROOTER";;
+		esac
+		exit 1
+	fi
+else
+	case "$LANG" in
+	es*)
+		echo "no debe correse como raíz.";;
+	*)
+		echo "must not be run as root.";;
 	esac
 	exit 1
 fi
 
-$1
+eval "$rooter $SHELL -c \"$1\""
+
 exit 0
 
 
