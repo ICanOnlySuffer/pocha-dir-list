@@ -3,7 +3,7 @@
 # include <dirent.h>
 # include <string.h>
 
-# include "pstrcat.h"
+# include "pstring.h"
 # include "vector.h"
 # pragma once
 
@@ -26,8 +26,25 @@ define_vector (f_v, struct file);
 typedef struct f_v f_v;
 
 
-ux2 n_directories = 0;
-ux2 n_files = 0;
+# define FILECMP_ARGS const ix0 * file_1, const ix0 * file_2
+
+ix4 file_compare_alphanumerically (FILECMP_ARGS) {
+	return strcmp (
+		((struct file *) file_1) -> name,
+		((struct file *) file_2) -> name
+	);
+}
+
+ix4 file_compare_directories_first (FILECMP_ARGS) {
+	return (
+		((struct file *) file_1) -> is_regular -
+		((struct file *) file_2) -> is_regular
+	);
+}
+
+
+ux4 n_directories = 0;
+ux4 n_regular_ones = 0;
 
 /* listing */
 
@@ -59,7 +76,7 @@ f_v get_files (ix1 * path) {
 			// not either "," or ".."
 			!strcmp (entry -> d_name, ".") ||
 			!strcmp (entry -> d_name, "..") ||
-			// bool 'all' is false and the file is hidden
+			// bool 'list_hidden' is false and the file is hidden
 			(
 				!list_hidden && entry -> d_name [0] == '.'
 			) ||
@@ -100,7 +117,7 @@ f_v get_files (ix1 * path) {
 			
 		case S_IFREG:
 			if (to_list != DIRECTORIES_ONLY) {
-				n_files++;
+				n_regular_ones++;
 				file.is_regular = true;
 				f_v_append (&files, file);
 			}
@@ -116,20 +133,21 @@ f_v get_files (ix1 * path) {
 					if (to_list != FILES_ONLY) {
 						n_directories++;
 						file.is_regular = false;
+						f_v_append (&files, file);
 					}
 					break;
 				case S_IFREG:
 					if (to_list != DIRECTORIES_ONLY) {
-						n_files++;
+						n_regular_ones++;
 						file.is_regular = true;
+						f_v_append (&files, file);
 					}
 				}
-			} else {
-				n_files++;
+			} else if (to_list != DIRECTORIES_ONLY) {
+				n_regular_ones++;
 				file.exists = false;
+				f_v_append (&files, file);
 			}
-			
-			f_v_append (&files, file);
 		}
 	}
 	
