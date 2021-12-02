@@ -42,7 +42,7 @@ usage: ptree [-Ldfah] [-Sad] [-Pc]
 Example:
 
 ```
-$ ptree -SadPc
+$ ptree -Sad
 ```
 
 ```
