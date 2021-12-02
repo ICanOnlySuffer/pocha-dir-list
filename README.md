@@ -83,7 +83,7 @@ Bug reports, suggestions and pull requests are welcome!
 
 ## Licence
 
-This project is available as open source under terms of the [MIT Licence] (
+This project is available as open source under terms of the [MIT Licence](
 	https://opensource.org/licenses/MIT).
 
 
