@@ -1,0 +1,29 @@
+# error
+path_doesnt_exist   Error: camino '%s' no existe.
+
+# usage
+usage               uso
+listing             Listado
+	listing(d)          solo directorios
+	listing(r)          solo regulares
+	listing(b)          directorios y regulares
+	listing(h)          archivos ocultos
+sorting             Ordenamiendo
+	sorting(a)          alphanumericamente
+	sorting(d)          directorios primero
+printing            Impresión
+	printing(c)         con colores de LS_COLORS
+	printing(l)         en bucle
+	printing(d)         demora de refresco del bucle
+
+# count
+directories(0)      %u directorios
+directories(1)      %u directorio
+directories(+)      %u directorios
+regular_ones(0)     %u regulares
+regular_ones(1)     %u regular
+regular_ones(+)     %u regulares
+
+# version
+credits             Basado en 'tree', por:
+copyright           Bajo Licencia MIT
