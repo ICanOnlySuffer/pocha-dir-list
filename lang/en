@@ -1,0 +1,20 @@
+# error
+file_doesnt_exist	ERROR: path '%s' doesn't exist.
+
+# usage
+usage               usage
+listing             Listing
+	listing(d)          directories only
+	listing(f)          files only
+	listing(b)          both
+	listing(h)          hidden files
+sorting             Sorting
+	sorting(a)          alphanumerically
+	sorting(d)          directories first
+printing            Printing
+	printing(c)         color
+	printing(l)         loop
+
+# version
+credits             Based on 'tree', by
+copyright           Under MIT Licence
