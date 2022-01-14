@@ -20,7 +20,8 @@ nil help (enum flag flag) {
 			"  -P           ", LANG ("printing"),
 			"\n    -a           ", LANG ("printing(a)"),
 			"\n    -c           ", LANG ("printing(c)"),
-			"\n    -l(DELAY)    ", LANG ("printing(l)")
+			"\n    -d(DELAY)    ", LANG ("printing(d)"),
+			"\n    -l           ", LANG ("printing(l)")
 		);
 		break;
 		
