@@ -1,81 +1,30 @@
 # PTree (pocha-tree)
 
-A simple directory visualizer based on 'tree' by
-Steve Baker, Thomas Moore, Francesc Rocher, Florian Sesser & Kyosuke Tokoro
+A simple directory visualizer based on 'tree'.
 
 ## Installation
 
 ```shell
 $ git clone https://github.com/ICanOnlySuffer/ptree
 $ cd ptree
-$ ./install
+# ./install
 ```
 
 ## Uninstallation
 
 ```shell
-$ ./uninstall
+# ./uninstall
 ```
 
 ## Usage
 
-```shell
-$ ptree -h
-```
+![help](./images/help.png)
 
-```ruby
-usage: ptree [-Ldfah] [-Sad] [-Pc]
-  -P    Printing
-    -c    with colors from LS_COLORS
-    -l    on loop
-    -d    loop refresh delay
-  -S    Sorting
-    -a    alphanumerically
-    -d    directories first
-  -L    Listing
-    -d    only directories
-    -r    only regular ones
-    -b    directories and regular ones
-    -h    hidden files
-```
+Examples:
 
-Example:
-
-```
-$ ptree -Sad
-```
-
-```
-.
-|-- flags/
-|   |-- listing.h
-|   |-- number.h
-|   |-- other.h
-|   |-- printing.h
-|   `-- sorting.h
-|-- lang/
-|   |-- en
-|   `-- es
-|-- LICENCE.txt
-|-- README.md
-|-- file.h
-|-- flags.h
-|-- getch.h
-|-- hashmap.h
-|-- help.h
-|-- install
-|-- lang.h
-|-- main.c
-|-- pstdio.h
-|-- pstring.h
-|-- root-do
-|-- tree.h
-|-- types.h
-|-- uninstall
-`-- vector.h
-
-2 directories, 24 regular ones
-```
+![0](./images/0.png)
+![1](./images/1.png)
+![2](./images/2.png)
 
 ## Contributing
 
