@@ -63,22 +63,21 @@ nil *quit (nil *) {
 	}
 }
 
-ix4 main (ux1 argc, str args []) {
-	
+ux1 main (ux1 argc, str args []) {
 	set_lang_map ("/usr/share/ptree/lang/");
-	
+	file_compare_functions = *vector_new (4);
 	str path = parse_flags (argc, args);
-	ix1 path_buffer [PATH_SIZE];
 	
-	// check dir
+	
 	DIR *dir = opendir (path);
-	if (dir == NULL) {
-		ix1 * error;
+	if (not dir) {
 		fprintf (stderr, LANG ("path_doesnt_exist"), path);
 		putchar ('\n');
 		return 1;
 	}
 	closedir (dir);
+	
+	
 	
 	if (printing.loop) {
 		pthread_t ptree_thread;
