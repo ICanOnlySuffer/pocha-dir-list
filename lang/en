@@ -6,22 +6,25 @@ usage               usage
 listing             Listing
 	listing(d)          only directories
 	listing(r)          only regular ones
-	listing(b)          directories and regular ones
-	listing(h)          hidden files
-sorting             Sorting
-	sorting(a)          alphanumerically
-	sorting(d)          directories first
+	listing(h)          only hidden
+	listing(a)          all
 printing            Printing
-	printing(c)         with colors from LS_COLORS
+	printing(a)         alternate buffer (on loop only)
+	printing(c)         use colors from LS_COLORS
+	printing(d)         delay (on loop only)
 	printing(l)         on loop
-	printing(d)         loop refresh delay
+sorting             Sorting
+	sorting(d)          directories first
+	sorting(a)          alphanumerically
 
 # count
 directories(0)      %u directories
 directories(1)      %u directory
+directories(2)      %u directories
 directories(+)      %u directories
 regular_ones(0)     %u regular ones
 regular_ones(1)     %u regular one
+regular_ones(2)     %u regular ones
 regular_ones(+)     %u regular ones
 
 # version

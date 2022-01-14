@@ -6,15 +6,16 @@ usage               uso
 listing             Listado
 	listing(d)          solo directorios
 	listing(r)          solo regulares
-	listing(b)          directorios y regulares
-	listing(h)          archivos ocultos
-sorting             Ordenamiendo
-	sorting(a)          alphanumericamente
-	sorting(d)          directorios primero
+	listing(h)          solo ocultos
+	listing(a)          todos
 printing            Impresión
-	printing(c)         con colores de LS_COLORS
+	printing(a)         buffer alternativo (solo en bucle)
+	printing(c)         usar colores de LS_COLORS
+	printinf(d)         demora (solo en bucle)
 	printing(l)         en bucle
-	printing(d)         demora de refresco del bucle
+sorting             Ordenamiendo
+	sorting(d)          directorios primero
+	sorting(a)          alfanuméricamente
 
 # count
 directories(0)      %u directorios
