@@ -1,7 +1,6 @@
 # include <stdlib.h>
-
-# include "hashmap.h"
-# include "pstring.h"
+# include <stdio.h>
+# include "utils/hashmap.h"
 # pragma once
 
 # ifndef LANG_MAX_BUFFER_SIZE
@@ -18,36 +17,36 @@
 
 ix1 lang_buffer [LANG_MAX_BUFFER_SIZE];
 
-struct hashmap lang_map;
+struct {
+	struct vector map;
+	ix1 lang [3];
+} lang = {
+	.lang = "en"
+};
 
 # define LANG(key_) \
-	hashmap_get(lang_map, key_)
+	hashmap_get(&(lang.map), key_)
 
-ix0 lang_compile (ix1 * path) {
-	ix1 * lang_env = getenv ("LANG");
-	ix1 lang [] = "en";
+nil set_lang_map (str path) {
+	lang.map = *vector_new (32);
+	str lang_env = getenv ("LANG");
 	
 	if (lang_env) {
-		lang [0] = lang_env [0];
-		lang [1] = lang_env [1];
+		lang.lang [0] = lang_env [0];
+		lang.lang [1] = lang_env [1];
 	}
 	
 	ix1 path_buffer [MAX_PATH_LENGTH] = "";
 	
-	FILE * file = fopen (
-		pstrcat (path_buffer, MAX_PATH_LENGTH, path, lang), "r"
+	FILE *file = fopen (
+		pstrcpy (path_buffer, MAX_PATH_LENGTH, path, lang.lang), "r"
 	);
-	
-	path_buffer [0] = 0;
 	
 	if (file || (
 		file = fopen (
-			pstrcat (path_buffer, MAX_PATH_LENGTH, path, lang), "r")
+			pstrcpy (path_buffer, MAX_PATH_LENGTH, path, lang.lang), "r")
 		)
 	) {
-		ux2 i = 0;
-		ix1 string = 0;
-		ix1 c = ' ';
 		
 		enum {
 			READING_STRING,
@@ -57,8 +56,12 @@ ix0 lang_compile (ix1 * path) {
 			SPACES
 		} state = NEW_LINE;
 		
-		ix1 * key;
-		ix1 * value;
+		ix1 string = 0;
+		ix1 c = ' ';
+		ux2 i = 0;
+		
+		str key;
+		str value;
 		
 		while (c != EOF && i < LANG_MAX_BUFFER_SIZE) {	
 			c = fgetc (file);
@@ -68,13 +71,18 @@ ix0 lang_compile (ix1 * path) {
 				if (c == '\n') {
 					state = NEW_LINE;
 					lang_buffer [i] = 0;
-					struct hash lang_hash = {key, value};
-					hashmap_append (&lang_map, lang_hash);
+					
+					struct hash *hash = malloc (sizeof (struct hash));
+					hash->key = key;
+					hash->value = value;
+					
+					vector_append (&lang.map, hash);
 				} else {
 					lang_buffer [i] = c;
 				}
 				i++;
 				break;
+				
 			case READING_KEY:
 				if (c == ' ' || c == '\t') {
 					state = SPACES;
@@ -84,6 +92,7 @@ ix0 lang_compile (ix1 * path) {
 				}
 				i++;
 				break;
+				
 			case NEW_LINE:
 				if (c == '#') {
 					state = COMMENT;
@@ -93,11 +102,13 @@ ix0 lang_compile (ix1 * path) {
 					key = &lang_buffer [i++];
 				}
 				break;
+				
 			case COMMENT:
 				if (c == '\n') {
 					state = NEW_LINE;
 				}
 				break;
+				
 			case SPACES:
 				if (c != ' ' && c != '\t') {
 					state = READING_STRING;
@@ -107,7 +118,6 @@ ix0 lang_compile (ix1 * path) {
 				break;
 			}
 		}
-		
 		fclose (file);
 	}
 }
