@@ -1,19 +1,6 @@
 #!/bin/bash
 
-./root-do "
-	gcc main.c -o /usr/bin/ptree -lpthread -Ofast;
-	mkdir -pv /usr/lib/ptree;
-	cp -TRv lang /usr/lib/ptree/lang
-"
-
-if [[ $? == 0 ]]
-then
-	case "$LANG" in
-		es*) echo "instalado exitosamente.";;
-		*) echo "installed successfully.";;
-	esac
-fi
-
-
-
+gcc src/ptree.c -o /usr/bin/ptree -lpthread -Ofast
+mkdir -pv /usr/share/ptree
+cp -TRv lang /usr/share/ptree/lang
 
