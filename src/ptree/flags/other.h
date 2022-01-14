@@ -1,5 +1,5 @@
 # include "../help.h"
-# define VERSION "1.0.0"
+# define VERSION "1.0.1"
 # pragma once
 
 nil version () {
@@ -10,7 +10,7 @@ nil version () {
 		"  Thomas Moore\n"    \
 		"  Francesc Rocher\n" \
 		"  Florian Sesser\n"  \
-		"  Kyosuke Tokoro",
+		"  Kyosuke Tokoro\n\n",
 		LANG ("copyright")
 	);
 }
