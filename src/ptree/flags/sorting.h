@@ -2,7 +2,7 @@
 # include "../help.h"
 # pragma once
 
-struct vector file_compare_functions = {.size = 0, .capacity = 0};
+struct vector file_compare_functions;
 
 nil flag_sorting (str *options) {
 	switch (**options) {
