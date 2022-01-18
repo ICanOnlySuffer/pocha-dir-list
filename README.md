@@ -20,8 +20,6 @@ $ cd ptree
 
 ![help](./images/help.png)
 
-### Examples:
-
 ![0](./images/0.png)
 
 ![1](./images/1.png)
