@@ -1,23 +1,27 @@
+# ifndef _TREE_
+# define _TREE_
+
 # include "flags/printing.h"
 # include "flags/listing.h"
 # include "utils/pstring.h"
 # include "utils/pstdio.h"
 # include "file.h"
-# pragma once
 
 # define putf(...) \
 	pputs (__VA_ARGS__, reset_color)
 
 nil tree (str padding, str path) {
 	struct vector files = get_files (path);
-	ix1 sub_padding [MAX_PATH_LENGTH];
+	ix1 sub_padding [MAX_PATH_SIZE];
 	tof is_last;
 	
-	for_index (i, file_compare_functions) {
-		vector_sort (files, file_compare_functions.items [i]);
+	if (compare_functions) {
+		for (ux2 i = 0; i < compare_functions -> size; i++) {
+			vector_sort (files, compare_functions -> items [i]);
+		}
 	}
 	
-	for_index (i, files) {
+	for (ux2 i = 0; i < files.size; i++) {
 		struct file *file = files.items [i];
 		is_last = i < files.size - 1;
 		
@@ -62,8 +66,7 @@ nil tree (str padding, str path) {
 	vector_free (&files);
 }
 
-
-
+# endif // _TREE_
 
 
 

@@ -1,22 +1,30 @@
-# include "../file.h"
-# include "../help.h"
-# pragma once
+# ifndef _FLAG_SORTING_
+# define _FLAG_SORTING_
 
-struct vector file_compare_functions;
+# include "../file.h"
+# include "help.h"
+
+struct vector *compare_functions = NULL;
 
 nil flag_sorting (str *options) {
 	switch (**options) {
 	case 'a':
+		if (not compare_functions) {
+			compare_functions = vector_new (4);
+		}
 		vector_append (
-			&file_compare_functions,
-			&file_compare_alphanumerically
+			compare_functions,
+			compare_alphanumerically
 		);
 		break;
 		
 	case 'd':
+		if (not compare_functions) {
+			compare_functions = vector_new (4);
+		}
 		vector_append (
-			&file_compare_functions,
-			&file_compare_directories_first
+			compare_functions,
+			compare_directories_first
 		);
 		break;
 		
@@ -26,4 +34,5 @@ nil flag_sorting (str *options) {
 	}
 }
 
+# endif // _FLAG_SORTING_
 

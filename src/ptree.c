@@ -65,9 +65,7 @@ nil *quit (nil *) {
 
 ux1 main (ux1 argc, str args []) {
 	set_lang_map ("/usr/share/ptree/lang/");
-	file_compare_functions = *vector_new (4);
 	str path = parse_flags (argc, args);
-	
 	
 	DIR *dir = opendir (path);
 	if (not dir) {
@@ -76,8 +74,6 @@ ux1 main (ux1 argc, str args []) {
 		return 1;
 	}
 	closedir (dir);
-	
-	
 	
 	if (printing.loop) {
 		pthread_t ptree_thread;
