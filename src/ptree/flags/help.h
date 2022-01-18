@@ -55,8 +55,8 @@ nil help (enum flag flag) {
 		
 	case OTHER:
 		help (PRINTING);
-		help (SORTING);
 		help (LISTING);
+		help (SORTING);
 	}
 }
 
