@@ -1,7 +1,9 @@
+# ifndef _LANG_
+# define _LANG_
+
 # include <stdlib.h>
 # include <stdio.h>
 # include "utils/hashmap.h"
-# pragma once
 
 # ifndef LANG_MAX_BUFFER_SIZE
 # define LANG_MAX_BUFFER_SIZE 4096
@@ -11,24 +13,25 @@
 # define LANG_MAP_MAX_BUFFER_SIZE 32
 # endif
 
-# ifndef MAX_PATH_LENGTH
-# define MAX_PATH_LENGTH 1024
+# ifndef MAX_PATH_SIZE
+# define MAX_PATH_SIZE 1024
 # endif
 
 ix1 lang_buffer [LANG_MAX_BUFFER_SIZE];
 
 struct {
-	struct vector map;
+	struct vector *map;
 	ix1 lang [3];
 } lang = {
-	.lang = "en"
+	.lang = "en",
+	.map = NULL
 };
 
 # define LANG(key_) \
-	hashmap_get(&(lang.map), key_)
+	hashmap_get(lang.map, key_)
 
 nil set_lang_map (str path) {
-	lang.map = *vector_new (32);
+	lang.map = vector_new (32);
 	str lang_env = getenv ("LANG");
 	
 	if (lang_env) {
@@ -36,15 +39,15 @@ nil set_lang_map (str path) {
 		lang.lang [1] = lang_env [1];
 	}
 	
-	ix1 path_buffer [MAX_PATH_LENGTH] = "";
+	ix1 path_buffer [MAX_PATH_SIZE] = "";
 	
 	FILE *file = fopen (
-		pstrcpy (path_buffer, MAX_PATH_LENGTH, path, lang.lang), "r"
+		pstrcpy (path_buffer, MAX_PATH_SIZE, path, lang.lang), "r"
 	);
 	
 	if (file || (
 		file = fopen (
-			pstrcpy (path_buffer, MAX_PATH_LENGTH, path, lang.lang), "r")
+			pstrcpy (path_buffer, MAX_PATH_SIZE, path, lang.lang), "r")
 		)
 	) {
 		
@@ -76,7 +79,7 @@ nil set_lang_map (str path) {
 					hash->key = key;
 					hash->value = value;
 					
-					vector_append (&lang.map, hash);
+					vector_append (lang.map, hash);
 				} else {
 					lang_buffer [i] = c;
 				}
@@ -84,7 +87,7 @@ nil set_lang_map (str path) {
 				break;
 				
 			case READING_KEY:
-				if (c == ' ' || c == '\t') {
+				if (c == ' ' or c == '\t') {
 					state = SPACES;
 					lang_buffer [i] = 0;
 				} else {
@@ -96,7 +99,7 @@ nil set_lang_map (str path) {
 			case NEW_LINE:
 				if (c == '#') {
 					state = COMMENT;
-				} else if (c != '\t' && c != ' ' && c != '\n') {
+				} else if (c != '\t' and c != ' ' and c != '\n') {
 					state = READING_KEY;
 					lang_buffer [i] = c;
 					key = &lang_buffer [i++];
@@ -110,7 +113,7 @@ nil set_lang_map (str path) {
 				break;
 				
 			case SPACES:
-				if (c != ' ' && c != '\t') {
+				if (c != ' ' and c != '\t') {
 					state = READING_STRING;
 					lang_buffer [i] = c;
 					value = &lang_buffer [i++];
@@ -122,7 +125,7 @@ nil set_lang_map (str path) {
 	}
 }
 
-
+# endif // _LANG_
 
 
 
