@@ -2,7 +2,7 @@
 path_doesnt_exist   Error: camino '%s' no existe.
 
 # usage
-usage               uso
+usage               Uso
 listing             Listado
 	listing(d)          solo directorios
 	listing(r)          solo regulares
