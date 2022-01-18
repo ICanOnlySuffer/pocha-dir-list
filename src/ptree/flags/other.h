@@ -6,13 +6,13 @@
 
 nil version () {
 	pputs (
-		"ptree v" VERSION " - ICanOnlySuffer (Piero Rojas)\n\n",
+		"ptree v" VERSION " - ICanOnlySuffer (Piero Rojas)\n",
 		LANG ("credits"), "\n" \
 		"  Steve Baker,\n"    \
 		"  Thomas Moore\n"    \
 		"  Francesc Rocher\n" \
 		"  Florian Sesser\n"  \
-		"  Kyosuke Tokoro\n\n",
+		"  Kyosuke Tokoro\n",
 		LANG ("copyright")
 	);
 }
