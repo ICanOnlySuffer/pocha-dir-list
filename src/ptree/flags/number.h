@@ -1,7 +1,9 @@
+# ifndef _FLAG_NUMBER_
+# define _FLAG_NUMBER_
+
 # include <stdlib.h>
 # include <stdio.h>
-# include "../utils/types.h"
-# pragma once
+# include "help.h"
 
 ux4 parse_number (str *args) {
 	ix1 buffer [8] = {0};
@@ -13,7 +15,7 @@ ux4 parse_number (str *args) {
 	return atoi (buffer);
 }
 
-
+# endif // _FLAG_NUMBER_
 
 
 

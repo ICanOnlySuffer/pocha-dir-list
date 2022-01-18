@@ -1,5 +1,7 @@
-# include "../help.h"
-# pragma once
+# ifndef _FLAG_LISTING_
+# define _FLAG_LISTING_
+
+# include "help.h"
 
 struct {
 	tof hidden_regs;
@@ -20,6 +22,7 @@ nil flag_listing (str *args) {
 			listing.hidden_regs = false;
 		}
 		listing.dirs = true;
+		listing.regs = false;
 		break;
 		
 	case 'r':
@@ -27,6 +30,7 @@ nil flag_listing (str *args) {
 			listing.hidden_dirs = false;
 		}
 		listing.regs = true;
+		listing.dirs = false;
 		break;
 		
 	case 'h':
@@ -49,7 +53,7 @@ nil flag_listing (str *args) {
 	}
 }
 
-
+# endif // _FLAG_LISTING_
 
 
 

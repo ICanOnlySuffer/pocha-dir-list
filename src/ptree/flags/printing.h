@@ -1,14 +1,14 @@
+# ifndef _FLAG_PRINTING_
+# define _FLAG_PRINTING_
+
 # include "../utils/pstring.h"
-# include "../help.h"
 # include "number.h"
-# include <stdlib.h>
-# include <stdio.h>
+
 # define di_color printing.colors.di
 # define fi_color printing.colors.fi
 # define ln_color printing.colors.ln
 # define ex_color printing.colors.ex
 # define reset_color printing.colors.reset
-# pragma once
 
 struct {
 	struct {
@@ -88,4 +88,5 @@ nil flag_printing (str *args) {
 	}
 }
 
+# endif // _FLAG_PRINTING_
 

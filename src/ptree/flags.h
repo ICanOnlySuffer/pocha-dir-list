@@ -1,3 +1,6 @@
+# ifndef _FLAGS_
+# define _FLAGS_
+
 # include "flags/printing.h"
 # include "flags/sorting.h"
 # include "flags/listing.h"
@@ -34,7 +37,7 @@ str parse_flags (ux1 argc, str args []) {
 	return path;
 }
 
-
+# endif // _FLAGS_
 
 
 

@@ -1,10 +1,12 @@
-# include "../help.h"
-# define VERSION "1.0.1"
-# pragma once
+# ifndef _FLAG_OTHER_
+# define _FLAG_OTHER_
+
+# include "help.h"
+# define VERSION "1.0.2"
 
 nil version () {
 	pputs (
-		"ptree v", VERSION, " - ICanOnlySuffer (Piero Rojas)\n",
+		"ptree v" VERSION " - ICanOnlySuffer (Piero Rojas)\n\n",
 		LANG ("credits"), "\n" \
 		"  Steve Baker,\n"    \
 		"  Thomas Moore\n"    \
@@ -26,7 +28,7 @@ nil flag_other (str *options) {
 	}
 }
 
-
+# endif // _FLAG_OTHER_
 
 
 
