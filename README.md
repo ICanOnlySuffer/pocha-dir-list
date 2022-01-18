@@ -1,30 +1,26 @@
-# PTree (pocha-tree)
+# ptree (pocha-tree)
 
 A simple directory visualizer based on 'tree'.
 
 ## Installation
 
-```shell
-$ git clone https://github.com/ICanOnlySuffer/ptree
-$ cd ptree
-# ./install
-```
+	$ git clone https://github.com/ICanOnlySuffer/ptree
+	$ cd ptree
+	# ./install
 
 ## Uninstallation
 
-```shell
-# ./uninstall
-```
+	# ./uninstall
 
 ## Usage
 
-![help](./images/help.png)
+![](./images/help.png)
 
-![0](./images/0.png)
+![](./images/0.png)
 
-![1](./images/1.png)
+![](./images/1.png)
 
-![2](./images/2.png)
+![](./images/2.png)
 
 ## Contributing
 
@@ -32,8 +28,8 @@ Bug reports, suggestions and pull requests are welcome!
 
 ## Licence
 
-This project is available as open source under terms of the [MIT Licence](
-	https://opensource.org/licenses/MIT).
+This project is available as open source under terms of the
+[MIT Licence](https://opensource.org/licenses/MIT).
 
 
 
