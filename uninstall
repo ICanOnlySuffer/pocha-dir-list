@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env sh
 
 rm -rf /usr/bin/ptree /usr/share/ptree
 

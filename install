@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env sh
 
 gcc src/ptree.c -o /usr/bin/ptree -lpthread -Ofast
 mkdir -pv /usr/share/ptree
