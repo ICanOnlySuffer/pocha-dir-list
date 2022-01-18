@@ -1,12 +1,15 @@
-# define PATH_SIZE 1024
-# define NAME_SIZE 256
+# ifndef _FILE_
+# define _FILE_
+
 # include <sys/stat.h>
 # include <unistd.h>
 # include <dirent.h>
 # include "flags/listing.h"
 # include "utils/pstring.h"
 # include "utils/vector.h"
-# pragma once
+
+# define PATH_SIZE 1024
+# define NAME_SIZE 256
 
 struct file {
 	ix1 name [NAME_SIZE];
@@ -30,21 +33,19 @@ struct file *file_new (str name, str path, ix4 mode) {
 	return file;
 }
 
-ix4 file_compare_alphanumerically (con nil *file_1, con nil *file_2) {
+ix4 compare_alphanumerically (con nil *file_1, con nil *file_2) {
 	return strcmp (
 		(*(struct file **) file_1)->name,
 		(*(struct file **) file_2)->name
 	);
 }
 
-ix4 file_compare_directories_first (con nil *file_1, con nil *file_2) {
+ix4 compare_directories_first (con nil *file_1, con nil *file_2) {
 	return (
 		((*(struct file **) file_1)->type == S_IFREG) -
 		((*(struct file **) file_2)->type == S_IFREG)
 	);
 }
-
-struct vector file_compare_functions;
 
 struct {
 	ux4 regs;
@@ -135,7 +136,7 @@ struct vector get_files (str path) {
 	return files;
 }
 
-
+# endif // _FILE_
 
 
 
