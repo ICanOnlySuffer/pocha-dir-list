@@ -1,133 +1,112 @@
 # ifndef _FILE_
 # define _FILE_
 
+# include <putils/string.h>
+# include <putils/vector.h>
 # include <sys/stat.h>
 # include <unistd.h>
 # include <dirent.h>
+
 # include "flags/listing.h"
-# include "utils/pstring.h"
-# include "utils/vector.h"
 
 # define PATH_SIZE 1024
 # define NAME_SIZE 256
 
 struct file {
-	ix1 name [NAME_SIZE];
-	ix1 path [PATH_SIZE];
-	tof is_link;
-	tof is_exe;
-	tof exists;
-	ix4 type;
+	chr name [NAME_SIZE];
+	chr path [PATH_SIZE];
+	u08 is_link;
+	u08 is_exe;
+	u08 exists;
+	s32 type;
+	u32 size;
 };
 
-struct file *file_new (str name, str path, ix4 mode) {
-	struct file *file = malloc (sizeof (struct file));
-	strncpy (file->name, name, NAME_SIZE);
-	strncpy (file->path, path, PATH_SIZE);
+struct file * file_new (str name, str path, s32 mode) {
+	struct file * file = malloc (sizeof (struct file));
 	
-	file->exists = true;
-	file->is_link = false;
-	file->is_exe = mode & X_OK;
-	file->type = mode & S_IFMT;
+	strncpy (file -> name, name, NAME_SIZE);
+	strncpy (file -> path, path, PATH_SIZE);
+	
+	file -> is_link = false;
+	file -> exists = true;
+	file -> is_exe = mode & X_OK;
+	file -> type = mode & S_IFMT;
 	
 	return file;
 }
 
-ix4 compare_alphanumerically (con nil *file_1, con nil *file_2) {
-	return strcmp (
-		(*(struct file **) file_1)->name,
-		(*(struct file **) file_2)->name
-	);
-}
-
-ix4 compare_directories_first (con nil *file_1, con nil *file_2) {
-	return (
-		((*(struct file **) file_1)->type == S_IFREG) -
-		((*(struct file **) file_2)->type == S_IFREG)
-	);
-}
-
 struct {
-	ux4 regs;
-	ux4 dirs;
+	u32 regs;
+	u32 dirs;
 } n_files = {
 	.regs = 0,
 	.dirs = 0
 };
 
-/* get files */
-
-struct vector get_files (str path) {
-	struct vector files = *vector_new (4);
-	
-	DIR *dir = opendir (path);
+vec * get_files (str path) {
+	vec * files = vector_new (16);
+	DIR * dir = opendir (path);
 	if (not dir) {
 		return files;
 	}
 	
-	struct dirent *entry;
+	struct dirent * entry;
 	struct stat info;
 	
+	chr subpath [PATH_SIZE];
+	chr buffer [PATH_SIZE];
+	u08 is_hidden;
+	chr name;
+	
 	while (entry = readdir (dir)) {
-		ix1 subpath [PATH_SIZE] = {0};
+		name = entry -> d_name;
+		if (name [0] == '.') {
+			if (
+				(name [1] == 0) or
+				(name [1] == '.' and name [2] == 0)
+			) {
+				continue;
+			}
+			is_hidden = true;
+		}
 		
-		if (
-			streql (entry->d_name, ".") or  // file is "."
-			streql (entry->d_name, "..") or // file is ".."
-			lstat (                         // lstat error
-				pstrcpy (subpath, PATH_SIZE, path, "/", entry->d_name),
-				&info
-			)
-		) {
+		pstrcpy (subpath, PATH_SIZE, path, "/", entry -> d_name);
+		
+		if (lstat (subpath, &info)) {
 			continue;
 		}
 		
-		tof hidden = *(entry->d_name) == '.';
+		struct file * file = file_new (name, subpath, info.st_mode);
 		
-		struct file *file = file_new (entry->d_name, subpath, info.st_mode);
-		
-		switch (file->type) {
+		type_switch:
+		switch (file -> type) {
 		case S_IFREG:
-			if (hidden ? listing.hidden_regs : listing.regs) {
+			if (is_hidden ? listing.hidden_regs : listing.regs) {
+				vector_append (files, file);
 				n_files.regs++;
-				vector_append (&files, file);
 			}
 			break;
-			
 		case S_IFDIR:
-			if (hidden ? listing.hidden_dirs : listing.dirs) {
+			if (is_hidden ? listing.hidden_dirs : listing.dirs) {
+				vector_append (files, file);
 				n_files.dirs++;
-				vector_append (&files, file);
 			}
 			break;
-			
 		case S_IFLNK:
-			file->is_link = true;
-			ix1 buffer [PATH_SIZE];
 			readlink (subpath, buffer, PATH_SIZE);
+			file -> is_link = true;
 			
-			if (not lstat (file->path, &info)) {
-				file->type = info.st_mode & S_IFMT;
-				
-				switch (file->type) {
-				case S_IFREG:
-					if (hidden ? listing.hidden_regs : listing.regs) {
-						n_files.regs++;
-						vector_append (&files, file);
-					}
-					break;
-					
-				case S_IFDIR:
-					if (hidden ? listing.hidden_dirs : listing.dirs) {
-						n_files.dirs++;
-						vector_append (&files, file);
-					}
-				}
-			} else if (hidden ? listing.hidden_regs : listing.regs) {
-				file->exists = false;
-				n_files.regs++;
-				vector_append (&files, file);
+			if (not lstat (file -> path, &info)) {
+				file -> type = info.st_mode & S_IFMT;
+			} else {
+				file -> exists = false;
+				file -> type = S_IFREG:
 			}
+			
+			goto type_switch; // forgive me
+		default:
+			free (file);
 		}
 	}
 	
