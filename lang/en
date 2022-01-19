@@ -18,13 +18,13 @@ sorting             Sorting
 	sorting(a)          alphanumerically
 
 # count
-directories(0)      %u directories
-directories(1)      %u directory
-directories(2)      %u directories
+directories(0)      0 directories
+directories(1)      1 directory
+directories(2)      2 directories
 directories(+)      %u directories
-regular_ones(0)     %u regular ones
-regular_ones(1)     %u regular one
-regular_ones(2)     %u regular ones
+regular_ones(0)     0 regular ones
+regular_ones(1)     1 regular one
+regular_ones(2)     2 regular ones
 regular_ones(+)     %u regular ones
 
 # version
