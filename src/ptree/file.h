@@ -57,22 +57,20 @@ vec * get_files (str path) {
 	chr subpath [PATH_SIZE];
 	chr buffer [PATH_SIZE];
 	u08 is_hidden;
-	chr name;
+	str name;
 	
 	while (entry = readdir (dir)) {
 		name = entry -> d_name;
-		if (name [0] == '.') {
+		if (is_hidden = name [0] == '.') {
 			if (
 				(name [1] == 0) or
 				(name [1] == '.' and name [2] == 0)
 			) {
 				continue;
 			}
-			is_hidden = true;
 		}
 		
 		pstrcpy (subpath, PATH_SIZE, path, "/", entry -> d_name);
-		
 		if (lstat (subpath, &info)) {
 			continue;
 		}
@@ -101,7 +99,7 @@ vec * get_files (str path) {
 				file -> type = info.st_mode & S_IFMT;
 			} else {
 				file -> exists = false;
-				file -> type = S_IFREG:
+				file -> type = S_IFREG;
 			}
 			
 			goto type_switch; // forgive me
