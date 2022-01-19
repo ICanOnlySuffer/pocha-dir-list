@@ -1,9 +1,10 @@
+# include <putils/getch.h>
 # include <pthread.h>
-# include "ptree/utils/getch.h"
+
 # include "ptree/flags.h"
 # include "ptree/tree.h"
 
-nil *ptree (nil *path) {
+nil * ptree (nil * path) {
 	if (printing.alternative) {
 		printf ("\e[?1049h\x1b[?25l");
 	}
@@ -11,47 +12,51 @@ nil *ptree (nil *path) {
 		printf ("\e[1;1H\e[2J");
 	}
 	
-	while (true) {
+	str lang_n_dirs [] = {
+		LANG ("directories(0)"),
+		LANG ("directories(1)"),
+		LANG ("directories(2)"),
+		LANG ("directories(+)")
+	};
+	
+	str lang_n_regs [] = {
+		LANG ("regular_ones(0)"),
+		LANG ("regular_ones(1)"),
+		LANG ("regular_ones(2)"),
+		LANG ("regular_ones(+)")
+	};
+	
+	tree_loop:
+	pputs (printing.colors.di, path, printing.colors.reset);
+	tree ("", path);
+	
+	putchar ('\n');
+	printf (
+		lang_n_dirs [n_files.dirs > 3 ? 3 : n_files.dirs],
+		n_files.dirs
+	);
+	printf (", ");
+	printf (
+		lang_n_regs [n_files.regs > 3 ? 3 : n_files.regs],
+		n_files.regs
+	);
+	putchar ('\n');
+	
+	if (printing.loop) {
+		printf ("\e[1;1H\e[2J");
 		
-		pputs (printing.colors.di, path, printing.colors.reset);
-		tree ("", path);
+		n_files.dirs = 0;
+		n_files.regs = 0;
 		
-		str n_dirs = (str []) {
-			"directories(0)",
-			"directories(1)",
-			"directories(2)",
-			"directories(+)"
-		} [n_files.dirs > 3 ? 3 : n_files.dirs];
-		
-		str n_regs = (str []) {
-			"regular_ones(0)",
-			"regular_ones(1)",
-			"regular_ones(2)",
-			"regular_ones(+)"
-		} [n_files.regs > 3 ? 3 : n_files.regs];
-		
-		putchar ('\n');
-		printf (LANG (n_dirs), n_files.dirs);
-		printf (", ");
-		printf (LANG (n_regs), n_files.regs);
-		putchar ('\n');
-		
-		if (printing.loop) {
-			printf ("\e[1;1H\e[2J");
-			
-			n_files.dirs = 0;
-			n_files.regs = 0;
-			
-			for (ux1 i = 0; i < printing.delay * 10; i++) {
-				usleep (100000);
-			}
-		} else {
-			break;
+		for (u16 i = 0; i < printing.delay * 10; i++) {
+			usleep (100000);
 		}
+		
+		goto tree_loop;
 	}
 }
 
-nil *quit (nil *) {
+nil * quit (nil *) {
 	while (printing.loop) {
 		switch (getch ()) {
 		case 'q':
@@ -63,11 +68,11 @@ nil *quit (nil *) {
 	}
 }
 
-ux1 main (ux1 argc, str args []) {
+chr main (u16 argc, str args []) {
 	set_lang_map ("/usr/share/ptree/lang/");
 	str path = parse_flags (argc, args);
 	
-	DIR *dir = opendir (path);
+	DIR * dir = opendir (path);
 	if (not dir) {
 		fprintf (stderr, LANG ("path_doesnt_exist"), path);
 		putchar ('\n');

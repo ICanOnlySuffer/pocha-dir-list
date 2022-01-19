@@ -1,7 +1,7 @@
 # ifndef _FLAG_PRINTING_
 # define _FLAG_PRINTING_
 
-# include "../utils/pstring.h"
+# include <putils/string.h>
 # include "number.h"
 
 # define di_color printing.colors.di
@@ -13,14 +13,14 @@
 struct {
 	struct {
 		str reset;
-		ix1 di [16];
-		ix1 fi [16];
-		ix1 ln [16];
-		ix1 ex [16];
+		chr di [16];
+		chr fi [16];
+		chr ln [16];
+		chr ex [16];
 	} colors;
-	tof alternative;
-	ux4 delay;
-	tof loop;
+	u08 alternative;
+	u32 delay;
+	u08 loop;
 } printing = {
 	.alternative = false,
 	.colors = {"\e[0m", "", "", "", ""},
@@ -32,11 +32,11 @@ nil parse_colors () {
 	str env_colors = getenv ("LS_COLORS");
 	
 	if (env_colors and *env_colors) {
-		tof reading = true;
-		ix1 buffer [16];
+		u08 reading = true;
+		chr buffer [16];
 		str color;
 		
-		for (ux1 i = 0, j = 2; ; env_colors++) {
+		for (u08 i = 0, j = 2; ; env_colors++) {
 			if (reading) {	
 				if (*env_colors == '=') {
 					reading = false;
@@ -76,7 +76,7 @@ nil parse_colors () {
 	}
 }
 
-nil flag_printing (str *args) {
+nil flag_printing (str * args) {
 	switch (**args) {
 	case 'd': printing.delay = parse_number (args); break;
 	case 'a': printing.alternative = true; break;

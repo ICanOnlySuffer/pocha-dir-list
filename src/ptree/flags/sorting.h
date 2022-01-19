@@ -18,7 +18,7 @@ s32 compare_directories_first (const nil * file_1, const nil * file_2) {
 	);
 }
 
-struct vector * compare_functions = NULL;
+vec * compare_functions = NULL;
 
 nil flag_sorting (str * options) {
 	switch (**options) {

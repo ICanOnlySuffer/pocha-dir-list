@@ -1,9 +1,9 @@
-# ifndef _LANG_
-# define _LANG_
+# ifndef _PTREE_LANG_
+# define _PTREE_LANG_
 
+# include <putils/hashmap.h>
 # include <stdlib.h>
 # include <stdio.h>
-# include "utils/hashmap.h"
 
 # ifndef LANG_MAX_BUFFER_SIZE
 # define LANG_MAX_BUFFER_SIZE 4096
@@ -17,37 +17,32 @@
 # define MAX_PATH_SIZE 1024
 # endif
 
-ix1 lang_buffer [LANG_MAX_BUFFER_SIZE];
-
-struct {
-	struct vector *map;
-	ix1 lang [3];
-} lang = {
-	.lang = "en",
-	.map = NULL
-};
+chr lang_buffer [LANG_MAX_BUFFER_SIZE];
+vec * lang_map = NULL;
 
 # define LANG(key_) \
-	hashmap_get(lang.map, key_)
+	hashmap_get(lang_map, key_)
 
 nil set_lang_map (str path) {
-	lang.map = vector_new (32);
+	lang_map = vector_new (32);
 	str lang_env = getenv ("LANG");
+	chr lang [3] = "en";
 	
 	if (lang_env) {
-		lang.lang [0] = lang_env [0];
-		lang.lang [1] = lang_env [1];
+		lang [0] = lang_env [0];
+		lang [1] = lang_env [1];
+	} else {
+		return;
 	}
 	
-	ix1 path_buffer [MAX_PATH_SIZE] = "";
+	chr path_buffer [MAX_PATH_SIZE] = "";
+	pstrcpy (path_buffer, MAX_PATH_SIZE, path, lang);
 	
-	FILE *file = fopen (
-		pstrcpy (path_buffer, MAX_PATH_SIZE, path, lang.lang), "r"
-	);
+	FILE * file = fopen (path_buffer, "r");
 	
 	if (file || (
 		file = fopen (
-			pstrcpy (path_buffer, MAX_PATH_SIZE, path, lang.lang), "r")
+			pstrcpy (path_buffer, MAX_PATH_SIZE, path, lang), "r")
 		)
 	) {
 		
@@ -59,9 +54,9 @@ nil set_lang_map (str path) {
 			SPACES
 		} state = NEW_LINE;
 		
-		ix1 string = 0;
-		ix1 c = ' ';
-		ux2 i = 0;
+		chr string = 0;
+		chr c = ' ';
+		u16 i = 0;
 		
 		str key;
 		str value;
@@ -74,12 +69,7 @@ nil set_lang_map (str path) {
 				if (c == '\n') {
 					state = NEW_LINE;
 					lang_buffer [i] = 0;
-					
-					struct hash *hash = malloc (sizeof (struct hash));
-					hash->key = key;
-					hash->value = value;
-					
-					vector_append (lang.map, hash);
+					vector_append (lang_map, hash_new (key, value));
 				} else {
 					lang_buffer [i] = c;
 				}
@@ -121,11 +111,12 @@ nil set_lang_map (str path) {
 				break;
 			}
 		}
+		
 		fclose (file);
 	}
 }
 
-# endif // _LANG_
+# endif // _PTREE_LANG_
 
 
 

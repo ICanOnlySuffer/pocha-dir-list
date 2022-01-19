@@ -4,10 +4,10 @@
 # include "help.h"
 
 struct {
-	tof hidden_regs;
-	tof hidden_dirs;
-	tof regs;
-	tof dirs;
+	u08 hidden_regs;
+	u08 hidden_dirs;
+	u08 regs;
+	u08 dirs;
 } listing = {
 	false,
 	false,
