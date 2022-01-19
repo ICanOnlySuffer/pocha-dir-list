@@ -95,7 +95,7 @@ vec * get_files (str path) {
 			readlink (subpath, buffer, PATH_SIZE);
 			file -> is_link = true;
 			
-			if (not lstat (file -> path, &info)) {
+			if (lstat (file -> path, &info)) {
 				file -> type = info.st_mode & S_IFMT;
 			} else {
 				file -> exists = false;
