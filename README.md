@@ -4,14 +4,14 @@ A simple directory visualizer based on 'tree'.
 
 ## Installation
 
-[putils](https://github.com/ICanOnlySuffer/putils) 
-(compilation dependency, can be uninstalled afterwards):
+**[putils](https://github.com/ICanOnlySuffer/putils) 
+(compilation dependency, can be uninstalled afterwards):**
 
 	$ git clone https://github.com/ICanOnlySuffer/putils
 	$ cd putils
 	# ./install
 
-ptree:
+**ptree:**
 
 	$ git clone https://github.com/ICanOnlySuffer/ptree
 	$ cd ptree
