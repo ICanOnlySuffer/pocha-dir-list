@@ -1,6 +1,6 @@
 # ifndef _FLAG_VERSION_
 # define _FLAG_VERSION_
-# define VERSION "1.0.4"
+# define VERSION "1.0.3"
 
 nil version () {
 	puts ("ptree v" VERSION " - ICanOnlySuffer (Piero Rojas)");
