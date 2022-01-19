@@ -2,13 +2,13 @@
 # define _FLAG_OTHER_
 
 # include "help.h"
-# define VERSION "1.0.2"
+# define VERSION "1.0.3"
 
 nil version () {
 	pputs (
 		"ptree v" VERSION " - ICanOnlySuffer (Piero Rojas)\n",
 		LANG ("credits"), "\n" \
-		"  Steve Baker,\n"    \
+		"  Steve Baker\n"    \
 		"  Thomas Moore\n"    \
 		"  Francesc Rocher\n" \
 		"  Florian Sesser\n"  \
