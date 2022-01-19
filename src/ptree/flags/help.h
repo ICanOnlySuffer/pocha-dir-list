@@ -1,5 +1,5 @@
-# ifndef _HELP_
-# define _HELP_
+# ifndef _PTREE_HELP_
+# define _PTREE_HELP_
 
 # include "../utils/pstring.h"
 # include "../utils/pstdio.h"
@@ -14,7 +14,7 @@ enum flag {
 };
 
 nil help (enum flag flag) {
-	static tof called_already = false;
+	static u08 called_already = false;
 	
 	if (not called_already) {
 		called_already = true;
@@ -60,7 +60,7 @@ nil help (enum flag flag) {
 	}
 }
 
-# endif // _HELP_
+# endif // _PTREE_HELP_
 
 
 
