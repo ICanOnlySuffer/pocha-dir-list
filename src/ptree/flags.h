@@ -7,12 +7,12 @@
 # include "flags/number.h"
 # include "flags/other.h"
 
-str parse_flags (ux1 argc, str args []) {
+str parse_flags (u16 argc, str args []) {
 	str path = ".";
 	
 	enum flag current = OTHER;
 	
-	for (ux1 i = 1; i < argc; i++) {
+	for (u16 i = 1; i < argc; i++) {
 		if (args [i][0] == '-') {
 			while (*++args [i]) {
 				switch (*args [i]) {
