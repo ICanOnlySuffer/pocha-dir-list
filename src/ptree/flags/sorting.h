@@ -4,9 +4,23 @@
 # include "../file.h"
 # include "help.h"
 
-struct vector *compare_functions = NULL;
+s32 compare_alphanumerically (const nil * file_1, const nil * file_2) {
+	return strcmp (
+		(*(struct file **) file_1) -> name,
+		(*(struct file **) file_2) -> name
+	);
+}
 
-nil flag_sorting (str *options) {
+s32 compare_directories_first (const nil * file_1, const nil * file_2) {
+	return (
+		((*(struct file **) file_1) -> type == S_IFREG) -
+		((*(struct file **) file_2) -> type == S_IFREG)
+	);
+}
+
+struct vector * compare_functions = NULL;
+
+nil flag_sorting (str * options) {
 	switch (**options) {
 	case 'a':
 		if (not compare_functions) {
@@ -17,7 +31,6 @@ nil flag_sorting (str *options) {
 			compare_alphanumerically
 		);
 		break;
-		
 	case 'd':
 		if (not compare_functions) {
 			compare_functions = vector_new (4);
@@ -27,7 +40,6 @@ nil flag_sorting (str *options) {
 			compare_directories_first
 		);
 		break;
-		
 	default:
 		help (SORTING);
 		exit (1);
