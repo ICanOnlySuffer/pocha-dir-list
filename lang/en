@@ -15,7 +15,7 @@ printing            Printing
 	printing(l)         on loop
 sorting             Sorting
 	sorting(d)          directories first
-	sorting(a)          alphanumerically
+	sorting(n)          by name
 
 # count
 directories(0)      0 directories

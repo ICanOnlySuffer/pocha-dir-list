@@ -4,31 +4,31 @@
 # include "../file.h"
 # include "help.h"
 
-s32 compare_alphanumerically (const nil * file_1, const nil * file_2) {
+s32 compare_name (const nil* file_1, const nil* file_2) {
 	return strcmp (
 		(*(struct file **) file_1) -> name,
 		(*(struct file **) file_2) -> name
 	);
 }
 
-s32 compare_directories_first (const nil * file_1, const nil * file_2) {
+s32 compare_is_dir (const nil* file_1, const nil* file_2) {
 	return (
-		((*(struct file **) file_1) -> type == S_IFREG) -
-		((*(struct file **) file_2) -> type == S_IFREG)
+		((*(struct file**) file_1) -> type == S_IFREG) -
+		((*(struct file**) file_2) -> type == S_IFREG)
 	);
 }
 
-vec * compare_functions = NULL;
+vec* compare_functions = NULL;
 
-nil flag_sorting (str * options) {
+nil flag_sorting (str* options) {
 	switch (**options) {
-	case 'a':
+	case 'n':
 		if (not compare_functions) {
 			compare_functions = vector_new (4);
 		}
 		vector_append (
 			compare_functions,
-			compare_alphanumerically
+			compare_name
 		);
 		break;
 	case 'd':
@@ -37,7 +37,7 @@ nil flag_sorting (str * options) {
 		}
 		vector_append (
 			compare_functions,
-			compare_directories_first
+			compare_is_dir
 		);
 		break;
 	default:

@@ -15,7 +15,7 @@ printing            Impresión
 	printing(l)         en bucle
 sorting             Ordenamiendo
 	sorting(d)          directorios primero
-	sorting(a)          alfanuméricamente
+	sorting(n)          por nombre
 
 # count
 directories(0)      0 directorios
