@@ -49,7 +49,7 @@ nil help (enum flag flag) {
 		pputs (
 			"  -S           ", LANG ("sorting"),
 			"\n    -d           ", LANG ("sorting(d)"),
-			"\n    -a           ", LANG ("sorting(a)")
+			"\n    -n           ", LANG ("sorting(n)")
 		);
 		break;
 		
