@@ -22,7 +22,7 @@ struct file {
 	u32 size;
 };
 
-struct file * file_new (str name, str path, s32 mode) {
+struct file * file_new (str name, str path, struct stat * info) {
 	struct file * file = malloc (sizeof (struct file));
 	
 	strncpy (file -> name, name, NAME_SIZE);
@@ -30,8 +30,9 @@ struct file * file_new (str name, str path, s32 mode) {
 	
 	file -> is_link = false;
 	file -> exists = true;
-	file -> is_exe = mode & X_OK;
-	file -> type = mode & S_IFMT;
+	file -> is_exe = info -> st_mode & X_OK;
+	file -> type = info -> st_mode & S_IFMT;
+	file -> size = info -> st_size;
 	
 	return file;
 }
@@ -70,12 +71,12 @@ vec * get_files (str path) {
 			}
 		}
 		
-		pstrcpy (subpath, PATH_SIZE, path, "/", entry -> d_name);
+		pstrcpy (subpath, PATH_SIZE, path, "/", name);
 		if (lstat (subpath, &info)) {
 			continue;
 		}
 		
-		struct file * file = file_new (name, subpath, info.st_mode);
+		struct file * file = file_new (name, subpath, &info);
 		
 		type_switch:
 		switch (file -> type) {

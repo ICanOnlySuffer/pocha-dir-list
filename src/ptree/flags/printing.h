@@ -21,11 +21,13 @@ struct {
 	u08 alternative;
 	u32 delay;
 	u08 loop;
+	u08 size;
 } printing = {
 	.alternative = false,
 	.colors = {"\e[0m", "", "", "", ""},
 	.delay = 10,
-	.loop = false
+	.loop = false,
+	.size = false
 };
 
 nil parse_colors () {
@@ -81,6 +83,7 @@ nil flag_printing (str * args) {
 	case 'd': printing.delay = parse_number (args); break;
 	case 'a': printing.alternative = true; break;
 	case 'l': printing.loop = true; break;
+	case 's': printing.size = true; break;
 	case 'c': parse_colors (); break;
 	default:
 		help (PRINTING);

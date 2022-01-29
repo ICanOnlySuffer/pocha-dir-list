@@ -2,7 +2,7 @@
 # define _TREE_
 
 # include "flags/printing.h"
-# include <putils/stdio.h>
+# include "size.h"
 
 # define putf(...) \
 	pputs (__VA_ARGS__, reset_color)
@@ -23,6 +23,9 @@ nil tree (str padding, str path) {
 		is_last = i < files -> size - 1;
 		
 		pprint (padding, is_last ? "|-- " : "`-- ");
+		if (printing.size) {
+			print_size (file -> size);
+		}
 		
 		switch (file -> type) {
 		case S_IFDIR:
