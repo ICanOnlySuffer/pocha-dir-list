@@ -23,13 +23,13 @@ A simple directory visualizer based on 'tree'.
 
 ## Usage
 
-![](./images/help.png)
+![](./.images/help.png)
 
-![](./images/0.png)
+![](./.images/0.png)
 
-![](./images/1.png)
+![](./.images/1.png)
 
-![](./images/2.png)
+![](./.images/2.png)
 
 ## Contributing
 
