@@ -5,16 +5,17 @@ path_doesnt_exist   오류: '%s' 경로를 찾을 수 없습니다.
 
 # usage
 usage               용법
-listing             목록
-	listing(d)          디렉토리만
-	listing(r)          일반 것들만
-	listing(h)          숨겨진 것들만
-	listing(a)          모두
 printing            인쇄
 	printing(a)         대체 버퍼 (루프에서만)
 	printing(c)         LS_COLORS의 색상 사용
 	printinf(d)         지연 (루프에서만)
 	printing(l)         루프에
+	printing(s)         크기
+listing             목록
+	listing(d)          디렉토리만
+	listing(r)          일반 것들만
+	listing(h)          숨겨진 것들만
+	listing(a)          모두
 sorting             정렬
 	sorting(d)          디렉토리 먼저
 	sorting(a)          영숫자

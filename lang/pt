@@ -5,16 +5,17 @@ path_doesnt_exist   Erro: o caminho '%s' não existe.
 
 # usage
 usage               Uso
-listing             Listagem
-	listing(d)          apenas diretórios
-	listing(r)          apenas os regulares
-	listing(h)          apenas oculta
-	listing(a)          todos
 printing            Impressão
 	printing(a)         buffer alternativo (somente em loop)
 	printing(c)         usar cores do LS_COLORS
 	printing(d)         atraso (somente em loop)
 	printing(l)         em loop
+	printing(s)         tamanho
+listing             Listagem
+	listing(d)          apenas diretórios
+	listing(r)          apenas os regulares
+	listing(h)          apenas oculta
+	listing(a)          todos
 sorting             Sorting
 	sorting(d)          diretórios primeiro
 	sorting(n)          por nome

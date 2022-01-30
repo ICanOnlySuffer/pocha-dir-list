@@ -3,16 +3,17 @@ path_doesnt_exist   Error: path '%s' doesn't exist.
 
 # usage
 usage               Usage
-listing             Listing
-	listing(d)          only directories
-	listing(r)          only regular ones
-	listing(h)          only hidden
-	listing(a)          all
 printing            Printing
 	printing(a)         alternate buffer (on loop only)
 	printing(c)         use colors from LS_COLORS
 	printing(d)         delay (on loop only)
 	printing(l)         on loop
+	printing(s)         size
+listing             Listing
+	listing(d)          only directories
+	listing(r)          only regular ones
+	listing(h)          only hidden
+	listing(a)          all
 sorting             Sorting
 	sorting(d)          directories first
 	sorting(n)          by name

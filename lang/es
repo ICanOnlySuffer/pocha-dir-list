@@ -3,16 +3,17 @@ path_doesnt_exist   Error: camino '%s' no existe.
 
 # usage
 usage               Uso
-listing             Listado
-	listing(d)          solo directorios
-	listing(r)          solo regulares
-	listing(h)          solo ocultos
-	listing(a)          todos
 printing            Impresión
 	printing(a)         buffer alternativo (solo en bucle)
 	printing(c)         usar colores de LS_COLORS
 	printinf(d)         demora (solo en bucle)
 	printing(l)         en bucle
+	printing(s)         tamaño
+listing             Listado
+	listing(d)          solo directorios
+	listing(r)          solo regulares
+	listing(h)          solo ocultos
+	listing(a)          todos
 sorting             Ordenamiendo
 	sorting(d)          directorios primero
 	sorting(n)          por nombre

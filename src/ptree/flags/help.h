@@ -31,10 +31,11 @@ nil help (enum flag flag) {
 			"\n    -a           ", LANG ("printing(a)"),
 			"\n    -c           ", LANG ("printing(c)"),
 			"\n    -d(DELAY)    ", LANG ("printing(d)"),
-			"\n    -l           ", LANG ("printing(l)")
+			"\n    -l           ", LANG ("printing(l)"),
+			"\n    -s           ", LANG ("printing(s)")
 		);
 		break;
-	
+		
 	case LISTING:
 		pputs (
 			"  -L           ", LANG ("listing"),
