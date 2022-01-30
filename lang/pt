@@ -1,0 +1,34 @@
+# translated using Google Translate, may contain errors
+
+# error
+path_doesnt_exist   Erro: o caminho '%s' não existe.
+
+# usage
+usage               Uso
+listing             Listagem
+	listing(d)          apenas diretórios
+	listing(r)          apenas os regulares
+	listing(h)          apenas oculta
+	listing(a)          todos
+printing            Impressão
+	printing(a)         buffer alternativo (somente em loop)
+	printing(c)         usar cores do LS_COLORS
+	printing(d)         atraso (somente em loop)
+	printing(l)         em loop
+sorting             Sorting
+	sorting(d)          diretórios primeiro
+	sorting(n)          por nome
+
+# count
+directories(0)      0 diretórios
+directories(1)      1 diretório
+directories(2)      2 diretorios
+directories(+)      %u diretórios
+regular_ones(0)     0 regularess
+regular_ones(1)     1 regular
+regular_ones(2)     2 regulares
+regular_ones(+)     %u regulares
+
+# version
+credits             Baseado em 'tree', por:
+copyright           Autorais sob licença MIT
