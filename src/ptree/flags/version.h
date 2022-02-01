@@ -1,6 +1,6 @@
 # ifndef _FLAG_VERSION_
 # define _FLAG_VERSION_
-# define VERSION "1.2.0"
+# define VERSION "1.1.1"
 
 nil version () {
 	puts ("ptree v" VERSION " - Piero Estéfano Rojas Effio");
