@@ -19,7 +19,7 @@ nil help (enum flag flag) {
 	if (not called_already) {
 		called_already = true;
 		pprint (
-			LANG ("usage"), ": ptree [-Pacdl] [-Ldrha] [-Sdn]" \
+			LANG ("usage"), ": ptree [-Pacdls] [-Ldrha] [-Sdn]" \
 			"\nOptions:\n"
 		);
 	}
