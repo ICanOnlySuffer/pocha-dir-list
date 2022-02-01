@@ -2,7 +2,6 @@
 # define _FLAG_NUMBER_
 
 # include <stdlib.h>
-# include <stdio.h>
 # include "help.h"
 
 u32 parse_number (str *args) {
@@ -16,9 +15,4 @@ u32 parse_number (str *args) {
 }
 
 # endif // _FLAG_NUMBER_
-
-
-
-
-
 

@@ -1,7 +1,6 @@
 # ifndef _FLAG_PRINTING_
 # define _FLAG_PRINTING_
 
-# include <putils/string.h>
 # include "number.h"
 
 # define di_color printing.colors.di

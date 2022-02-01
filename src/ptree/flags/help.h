@@ -1,8 +1,8 @@
 # ifndef _PTREE_HELP_
 # define _PTREE_HELP_
 
-# include <putils/string.h>
-# include <putils/stdio.h>
+# include "../../putils/string.h"
+# include "../../putils/stdio.h"
 # include "../lang.h"
 
 enum flag {
