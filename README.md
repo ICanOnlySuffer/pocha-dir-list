@@ -4,15 +4,6 @@ A simple directory visualizer based on 'tree'.
 
 ## Installation
 
-**[putils](https://github.com/ICanOnlySuffer/putils)**
-(can be uninstalled afterwards)**:**
-
-	$ git clone https://github.com/ICanOnlySuffer/putils
-	$ cd putils
-	# ./install
-
-**ptree:**
-
 	$ git clone https://github.com/ICanOnlySuffer/ptree
 	$ cd ptree
 	# ./install
@@ -25,9 +16,13 @@ A simple directory visualizer based on 'tree'.
 
 ![](./.images/help.png)
 
-![](./.images/0.png)
-![](./.images/1.png)
-![](./.images/2.png)
+![](./.images/default.png)
+
+![](./.images/color.png)
+
+![](./.images/color+sorting.png)
+
+![](./.images/color+sorting+size.png)
 
 ## Contributing
 
@@ -37,10 +32,4 @@ Bug reports, suggestions and pull requests are welcome!
 
 This project is available as open source under terms of the
 [MIT Licence](https://opensource.org/licenses/MIT).
-
-
-
-
-
-
 
