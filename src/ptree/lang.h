@@ -1,7 +1,7 @@
 # ifndef _PTREE_LANG_
 # define _PTREE_LANG_
 
-# include "../putils/hashmap.h"
+# include <putils/hashmap.h>
 # include <stdlib.h>
 # include <stdio.h>
 

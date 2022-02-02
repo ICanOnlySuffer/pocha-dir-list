@@ -1,7 +1,7 @@
 # ifndef _PTREE_SIZE_
 # define _PTREE_SIZE_ 1
 
-# include "../putils/types.h"
+# include <putils/types.h>
 # include <stdio.h>
 
 nil print_size (u64 size) {

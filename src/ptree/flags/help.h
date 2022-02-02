@@ -1,8 +1,8 @@
 # ifndef _PTREE_HELP_
 # define _PTREE_HELP_
 
-# include "../../putils/string.h"
-# include "../../putils/stdio.h"
+# include <putils/string.h>
+# include <putils/stdio.h>
 # include "../lang.h"
 
 enum flag {
@@ -18,7 +18,7 @@ nil help (enum flag flag) {
 	
 	if (not called_already) {
 		called_already = true;
-		pprint (
+		print (
 			LANG ("usage"), ": ptree [-Pacdls] [-Ldrha] [-Sdn]" \
 			"\nOptions:\n"
 		);
@@ -26,31 +26,34 @@ nil help (enum flag flag) {
 	
 	switch (flag) {
 	case PRINTING:
-		pputs (
+		print (
 			"  -P           ", LANG ("printing"),
 			"\n    -a           ", LANG ("printing(a)"),
 			"\n    -c           ", LANG ("printing(c)"),
 			"\n    -d(DELAY)    ", LANG ("printing(d)"),
 			"\n    -l           ", LANG ("printing(l)"),
-			"\n    -s           ", LANG ("printing(s)")
+			"\n    -s           ", LANG ("printing(s)"),
+			"\n"
 		);
 		break;
 		
 	case LISTING:
-		pputs (
+		print (
 			"  -L           ", LANG ("listing"),
 			"\n    -d           ", LANG ("listing(d)"),
 			"\n    -r           ", LANG ("listing(r)"),
 			"\n    -h           ", LANG ("listing(h)"),
-			"\n    -a           ", LANG ("listing(a)")
+			"\n    -a           ", LANG ("listing(a)"),
+			"\n"
 		);
 		break;
 		
 	case SORTING:
-		pputs (
+		print (
 			"  -S           ", LANG ("sorting"),
 			"\n    -d           ", LANG ("sorting(d)"),
-			"\n    -n           ", LANG ("sorting(n)")
+			"\n    -n           ", LANG ("sorting(n)"),
+			"\n"
 		);
 		break;
 		

@@ -27,7 +27,7 @@ nil * ptree (nil * path) {
 	};
 	
 	tree_loop:
-	pputs (printing.colors.di, path, printing.colors.reset);
+	print (printing.colors.di, path, printing.colors.reset, "\n");
 	tree ("", path);
 	
 	putchar ('\n');

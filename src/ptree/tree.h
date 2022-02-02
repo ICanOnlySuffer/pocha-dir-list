@@ -5,7 +5,7 @@
 # include "size.h"
 
 # define putf(...) \
-	pputs (__VA_ARGS__, reset_color)
+	print (__VA_ARGS__, reset_color, "\n")
 
 nil tree (str padding, str path) {
 	chr sub_padding [MAX_PATH_SIZE];
@@ -22,7 +22,7 @@ nil tree (str padding, str path) {
 		struct file * file = files -> items [i];
 		is_last = i < files -> size - 1;
 		
-		pprint (padding, is_last ? "|-- " : "`-- ");
+		print (padding, is_last ? "|-- " : "`-- ");
 		if (printing.size) {
 			print_size (file -> size);
 		}
@@ -67,15 +67,4 @@ nil tree (str padding, str path) {
 }
 
 # endif // _TREE_
-
-
-
-
-
-
-
-
-
-
-
 
