@@ -1,53 +1,50 @@
-# ifndef _PTREE_LANG_
-# define _PTREE_LANG_
+# ifndef _PUTILS_LANG_
+# define _PUTILS_LANG_
 
-# include <putils/hashmap.h>
+# include "hashmap.h"
 # include <stdlib.h>
 # include <stdio.h>
+# include "types.h"
 
-# ifndef LANG_MAX_BUFFER_SIZE
-# define LANG_MAX_BUFFER_SIZE 4096
+# ifndef LANG_BUFFER_SIZE
+# define LANG_BUFFER_SIZE 4096
 # endif
 
-# ifndef LANG_MAP_MAX_BUFFER_SIZE
-# define LANG_MAP_MAX_BUFFER_SIZE 32
+# ifndef PATH_SIZE
+# define PATH_SIZE 1024
 # endif
 
-# ifndef MAX_PATH_SIZE
-# define MAX_PATH_SIZE 1024
-# endif
+chr lang_buffer [LANG_BUFFER_SIZE];
+vec * lang_map = NIL;
 
-chr lang_buffer [LANG_MAX_BUFFER_SIZE];
-vec * lang_map = NULL;
+str lang_get (str key) {
+	str value = hashmap_get (lang_map, key);
+	return value ? value : key;
+}
 
-# define LANG(key_) \
-	hashmap_get(lang_map, key_)
-
-nil set_lang_map (str path) {
+nil lang_load (str path) {
+	FILE * file;
+	if (lang_map) {
+		vector_free (lang_map);
+	}
 	lang_map = vector_new (32);
 	str lang_env = getenv ("LANG");
-	chr lang [3] = "en";
-	
+	chr lang_str [3] = "en";
 	if (lang_env) {
-		lang [0] = lang_env [0];
-		lang [1] = lang_env [1];
-	} else {
-		return;
+		lang_str [0] = lang_env [0];
+		lang_str [1] = lang_env [1];
 	}
 	
-	chr path_buffer [MAX_PATH_SIZE] = "";
-	pstrcpy (path_buffer, MAX_PATH_SIZE, path, lang);
+	chr path_buffer [PATH_SIZE] = "";
+	pstrcpy (path_buffer, PATH_SIZE, path, lang_str);
 	
-	FILE * file = fopen (path_buffer, "r");
-	
-	if (file || (
-		file = fopen (
-			pstrcpy (path_buffer, MAX_PATH_SIZE, path, lang), "r")
-		)
-	) {
-		
+	unless (file = fopen (path_buffer, "r")) {
+		pstrcpy (path_buffer, PATH_SIZE, path, lang_str);
+		file = fopen (path_buffer, "r");
+	}
+	if (file) {
 		enum {
-			READING_STRING,
+			READING_VALUE,
 			READING_KEY,
 			NEW_LINE,
 			COMMENT,
@@ -61,11 +58,9 @@ nil set_lang_map (str path) {
 		str key;
 		str value;
 		
-		while (c != EOF && i < LANG_MAX_BUFFER_SIZE) {	
-			c = fgetc (file);
-			
+		while ((c = fgetc (file)) != EOF and i < LANG_BUFFER_SIZE) {
 			switch (state) {
-			case READING_STRING:
+			case READING_VALUE:
 				if (c == '\n') {
 					state = NEW_LINE;
 					lang_buffer [i] = 0;
@@ -75,7 +70,6 @@ nil set_lang_map (str path) {
 				}
 				i++;
 				break;
-				
 			case READING_KEY:
 				if (c == ' ' or c == '\t') {
 					state = SPACES;
@@ -85,39 +79,31 @@ nil set_lang_map (str path) {
 				}
 				i++;
 				break;
-				
 			case NEW_LINE:
 				if (c == '#') {
 					state = COMMENT;
-				} else if (c != '\t' and c != ' ' and c != '\n') {
+				} elif (c != '\t' and c != ' ' and c != '\n') {
 					state = READING_KEY;
 					lang_buffer [i] = c;
 					key = &lang_buffer [i++];
 				}
 				break;
-				
 			case COMMENT:
 				if (c == '\n') {
 					state = NEW_LINE;
 				}
 				break;
-				
 			case SPACES:
 				if (c != ' ' and c != '\t') {
-					state = READING_STRING;
+					state = READING_VALUE;
 					lang_buffer [i] = c;
 					value = &lang_buffer [i++];
 				}
-				break;
 			}
 		}
-		
 		fclose (file);
 	}
 }
 
-# endif // _PTREE_LANG_
-
-
-
+# endif // _PUTILS_LANG_
 
