@@ -1,8 +1,16 @@
-# include <putils/getch.h>
+# include "putils/getch.h"
 # include <pthread.h>
 
-# include "ptree/flags.h"
+# include "ptree/options.h"
 # include "ptree/tree.h"
+
+# if __ANDROID__
+# define LANG_PATH "/data/data/com.termux/files/usr/share/ptree/lang/"
+# elif __linux__
+# define LANG_PATH "/usr/share/ptree/lang/"
+# else
+# error "Android and Linux suported only"
+# endif
 
 nil * ptree (nil * path) {
 	if (printing.alternative) {
@@ -13,17 +21,17 @@ nil * ptree (nil * path) {
 	}
 	
 	str lang_n_dirs [] = {
-		LANG ("directories(0)"),
-		LANG ("directories(1)"),
-		LANG ("directories(2)"),
-		LANG ("directories(+)")
+		lang_get ("directories(0)"),
+		lang_get ("directories(1)"),
+		lang_get ("directories(2)"),
+		lang_get ("directories(+)")
 	};
 	
 	str lang_n_regs [] = {
-		LANG ("regular_ones(0)"),
-		LANG ("regular_ones(1)"),
-		LANG ("regular_ones(2)"),
-		LANG ("regular_ones(+)")
+		lang_get ("regular_ones(0)"),
+		lang_get ("regular_ones(1)"),
+		lang_get ("regular_ones(2)"),
+		lang_get ("regular_ones(+)")
 	};
 	
 	tree_loop:
@@ -52,7 +60,7 @@ nil * ptree (nil * path) {
 			usleep (100000);
 		}
 		
-		goto tree_loop;
+		goto tree_loop; // sin
 	}
 }
 
@@ -69,42 +77,22 @@ nil * quit (nil *) {
 }
 
 chr main (u16 argc, str args []) {
-	set_lang_map ("/usr/share/ptree/lang/");
-	str path = parse_flags (argc, args);
-	
+	lang_load (LANG_PATH);
+	str path = parse_options (argc, args);
 	DIR * dir = opendir (path);
-	if (not dir) {
-		fprintf (stderr, LANG ("path_doesnt_exist"), path);
+	unless (dir) {
+		fprintf (stderr, lang_get ("path_doesnt_exist"), path);
 		putchar ('\n');
 		return 1;
 	}
 	closedir (dir);
 	
-	if (printing.loop) {
-		pthread_t ptree_thread;
-		pthread_t quit_thread;
-		
-		pthread_create (&ptree_thread, NULL, &ptree, path);
-		pthread_create (&quit_thread, NULL, &quit, NULL);
-		
-		pthread_exit (NULL);
-	} else {
-		ptree (path);
-	}
+	pthread_t ptree_thread;
+	pthread_t quit_thread;
+	
+	pthread_create (&ptree_thread, NULL, &ptree, path);
+	pthread_create (&quit_thread, NULL, &quit, NULL);
+	
+	pthread_exit (NULL);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
