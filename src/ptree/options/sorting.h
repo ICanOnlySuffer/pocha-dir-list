@@ -13,8 +13,8 @@ s32 compare_name (const nil* file_1, const nil* file_2) {
 
 s32 compare_is_dir (const nil* file_1, const nil* file_2) {
 	return (
-		S_ISREG ((*(struct file**) file_1) -> mode) -
-		S_ISREG ((*(struct file**) file_2) -> mode)
+		S_ISDIR ((*(struct file**) file_2) -> mode) -
+		S_ISDIR ((*(struct file**) file_1) -> mode)
 	);
 }
 

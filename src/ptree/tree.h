@@ -1,14 +1,14 @@
-# ifndef _TREE_
-# define _TREE_
+# ifndef _PTREE_TREE_
+# define _PTREE_TREE_
 
-# include "flags/printing.h"
+# include "options/printing.h"
 # include "size.h"
 
 # define putf(...) \
 	print (__VA_ARGS__, reset_color, "\n")
 
 nil tree (str padding, str path) {
-	chr sub_padding [MAX_PATH_SIZE];
+	chr sub_padding [PATH_SIZE];
 	vec * files = get_files (path);
 	u08 is_last;
 	
@@ -26,14 +26,14 @@ nil tree (str padding, str path) {
 		if (printing.size) {
 			print_size (file -> size);
 		}
+		if (file -> is_link) {
+			print (ln_color, file -> name, reset_color, " -> ");
+		}
 		
-		switch (file -> type) {
+		switch (file -> mode & S_IFMT) {
 		case S_IFDIR:
 			if (file -> is_link) {
-				putf (
-					ln_color, file -> name, "/", reset_color, " -> ",
-					di_color, file -> path
-				);
+				putf (di_color, file -> path, "/");
 			} else {
 				putf (di_color, file -> name, "/");
 				pstrcpy (
@@ -45,26 +45,21 @@ nil tree (str padding, str path) {
 			break;
 			
 		case S_IFREG:
-			if (file -> is_link) {
-				if (file -> exists) {
-					putf (
-						ln_color, file -> name, reset_color, " -> ",
-						file -> is_exe ? ex_color : fi_color, file -> path
-					);
-				} else {
-					putf (
-						ln_color, file -> name, reset_color, " -> ",
-						ln_color, file -> path
-					);
-				}
-			} else {
-				putf (file -> is_exe ? ex_color : fi_color, file -> name);
-			}
+			putf (
+				file -> mode & X_OK ? ex_color : fi_color,
+				file -> is_link ? file -> path : file -> name
+			);
+			break;
+		case S_IFLNK:
+			puts (file -> path);
+			break;
+		default:
+			puts (file -> name);
 		}
 	}
 	
 	vector_free (files);
 }
 
-# endif // _TREE_
+# endif // _PTREE_TREE_
 
