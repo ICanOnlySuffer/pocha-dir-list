@@ -1,5 +1,5 @@
-# ifndef _FLAG_PRINTING_
-# define _FLAG_PRINTING_
+# ifndef _OPTION_PRINTING_
+# define _OPTION_PRINTING_
 
 # include "number.h"
 
@@ -77,7 +77,7 @@ nil parse_colors () {
 	}
 }
 
-nil flag_printing (str * args) {
+nil option_printing (str * args) {
 	switch (**args) {
 	case 'd': printing.delay = parse_number (args); break;
 	case 'a': printing.alternative = true; break;
@@ -90,5 +90,5 @@ nil flag_printing (str * args) {
 	}
 }
 
-# endif // _FLAG_PRINTING_
+# endif // _OPTION_PRINTING_
 

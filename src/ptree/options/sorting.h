@@ -1,5 +1,5 @@
-# ifndef _FLAG_SORTING_
-# define _FLAG_SORTING_
+# ifndef _OPTION_SORTING_
+# define _OPTION_SORTING_
 
 # include "../file.h"
 # include "help.h"
@@ -13,14 +13,14 @@ s32 compare_name (const nil* file_1, const nil* file_2) {
 
 s32 compare_is_dir (const nil* file_1, const nil* file_2) {
 	return (
-		((*(struct file**) file_1) -> type == S_IFREG) -
-		((*(struct file**) file_2) -> type == S_IFREG)
+		S_ISREG ((*(struct file**) file_1) -> mode) -
+		S_ISREG ((*(struct file**) file_2) -> mode)
 	);
 }
 
-vec* compare_functions = NULL;
+vec * compare_functions = NULL;
 
-nil flag_sorting (str* options) {
+nil option_sorting (str * options) {
 	switch (**options) {
 	case 'n':
 		if (not compare_functions) {
@@ -46,5 +46,5 @@ nil flag_sorting (str* options) {
 	}
 }
 
-# endif // _FLAG_SORTING_
+# endif // _OPTION_SORTING_
 

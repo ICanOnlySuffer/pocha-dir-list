@@ -1,5 +1,5 @@
-# ifndef _FLAG_NUMBER_
-# define _FLAG_NUMBER_
+# ifndef _OPTION_NUMBER_
+# define _OPTION_NUMBER_
 
 # include <stdlib.h>
 # include "help.h"
@@ -14,5 +14,5 @@ u32 parse_number (str *args) {
 	return atoi (buffer);
 }
 
-# endif // _FLAG_NUMBER_
+# endif // _OPTION_NUMBER_
 

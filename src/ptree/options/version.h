@@ -1,11 +1,11 @@
-# ifndef _FLAG_VERSION_
-# define _FLAG_VERSION_
-# define VERSION "1.1.2"
+# ifndef _OPTION_VERSION_
+# define _OPTION_VERSION_
+# define VERSION "1.1.3"
 
 nil version () {
 	puts ("ptree v" VERSION " - Piero Estéfano Rojas Effio");
 	puts ("* https://github.com/ICanOnlySuffer/ptree");
-	puts (LANG ("credits"));
+	puts (lang_get ("credits"));
 	puts (
 		"  Steve Baker\n"
 		"  Thomas Moore\n"
@@ -13,8 +13,8 @@ nil version () {
 		"  Florian Sesser\n"
 		"  Kyosuke Tokoro"
 	);
-	puts (LANG ("copyright"));
+	puts (lang_get ("copyright"));
 }
 
-# endif // _FLAG_VERSION_
+# endif // _OPTION_VERSION_
 

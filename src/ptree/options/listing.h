@@ -1,5 +1,5 @@
-# ifndef _FLAG_LISTING_
-# define _FLAG_LISTING_
+# ifndef _OPTION_LISTING_
+# define _OPTION_LISTING_
 
 # include "help.h"
 
@@ -15,7 +15,7 @@ struct {
 	true
 };
 
-nil flag_listing (str *args) {
+nil option_listing (str *args) {
 	switch (**args) {
 	case 'd':
 		if (listing.hidden_regs) {
@@ -53,7 +53,7 @@ nil flag_listing (str *args) {
 	}
 }
 
-# endif // _FLAG_LISTING_
+# endif // _OPTION_LISTING_
 
 
 
