@@ -1,4 +1,13 @@
 #!/usr/bin/env sh
 
-rm -rf /usr/bin/ptree /usr/share/ptree
+case `uname -o` in
+'GNU/Linux')
+	rm -rf /usr/bin/ptree /usr/share/ptree;;
+'Android')
+	basepath='/data/data/com.termux/files/usr'
+	rm -rf $basepath/bin/ptree $basepath/share/ptree;;
+*)
+	echo "Operating system `uname -o` is not supported"
+	exit 1
+esac
 
