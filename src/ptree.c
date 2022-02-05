@@ -76,7 +76,7 @@ nil * quit (nil *) {
 	}
 }
 
-chr main (u16 argc, str args []) {
+chr main (s32 argc, str args []) {
 	lang_load (LANG_PATH);
 	str path = parse_options (argc, args);
 	DIR * dir = opendir (path);
