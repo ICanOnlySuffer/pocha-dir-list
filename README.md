@@ -6,11 +6,11 @@ A simple directory visualizer based on 'tree'.
 
 	$ git clone https://github.com/ICanOnlySuffer/ptree
 	$ cd ptree
-	# ./install
+	# make install
 
 ## Uninstallation
 
-	# ./uninstall
+	# make uninstall
 
 ## Usage
 
