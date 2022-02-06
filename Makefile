@@ -21,11 +21,9 @@ install: $(TARGET)
 	mkdir -pv $(DESTDIR)$(PREFIX)/share/$(TARGET)
 	cp -TRv lang $(DESTDIR)$(PREFIX)/share/$(TARGET)/lang
 	install -Dm755 $(TARGET) $(DISTDIR)$(PREFIX)/bin/$(TARGET)
+	rm $(TARGET)
 
 uninstall: $(TARGET)
 	rm -rf $(DESTDIR)$(PREFIX)/share/$(TARGET)
 	rm $(DESTDIR)$(PREFIX)/bin/$(TARGET)
-
-clean:
-	rm $(TARGET)
 
