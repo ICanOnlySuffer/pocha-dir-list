@@ -20,7 +20,7 @@ install: $(TARGET)
 	$(CC) src/$(TARGET).c -o $(TARGET) $(LIBS) $(CFLAGS)
 	mkdir -pv $(DESTDIR)$(PREFIX)/share/$(TARGET)
 	cp -TRv lang $(DESTDIR)$(PREFIX)/share/$(TARGET)/lang
-	install -Dm755 $(TARGET) $(DESTDiIR)$(PREFIX)/bin/$(TARGET)
+	install -Dm755 $(TARGET) $(DESTDIR)$(PREFIX)/bin/$(TARGET)
 	rm $(TARGET)
 
 uninstall: $(TARGET)
