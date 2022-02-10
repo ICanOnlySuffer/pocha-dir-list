@@ -1,9 +1,3 @@
-# include "putils/getch.h"
-# include <pthread.h>
-
-# include "ptree/options.h"
-# include "ptree/tree.h"
-
 # if __ANDROID__
 # define LANG_PATH "/data/data/com.termux/files/usr/share/ptree/lang/"
 # elif __linux__
@@ -12,29 +6,53 @@
 # error "Android and Linux suported only"
 # endif
 
-nil * ptree (nil * path) {
+# include "ptree/options.h"
+# include "putils/getch.h"
+# include "ptree/tree.h"
+# include <signal.h>
+
+nil at_exit (int) {
+	if (printing.alternative) {
+		printf ("\e[?1049l\x1b[?25h");
+	}
+	exit (0);
+}
+
+chr main (s32 argc, str args []) {
+	str path = parse_options (argc, args);
+	DIR * dir = opendir (path);
+	lang_map = lang_load (LANG_PATH, "en", 2048);
+	
+	unless (dir) {
+		fprintf (stderr, LANG ("path_doesnt_exist"), path);
+		putchar ('\n');
+		return 1;
+	}
+	closedir (dir);
+	
 	if (printing.alternative) {
 		printf ("\e[?1049h\x1b[?25l");
+		signal (SIGINT, at_exit);
 	}
 	if (printing.loop) {
 		printf ("\e[1;1H\e[2J");
 	}
 	
 	str lang_n_dirs [] = {
-		lang_get ("directories(0)"),
-		lang_get ("directories(1)"),
-		lang_get ("directories(2)"),
-		lang_get ("directories(+)")
+		LANG ("directories(0)"),
+		LANG ("directories(1)"),
+		LANG ("directories(2)"),
+		LANG ("directories(+)")
 	};
 	
 	str lang_n_regs [] = {
-		lang_get ("regular_ones(0)"),
-		lang_get ("regular_ones(1)"),
-		lang_get ("regular_ones(2)"),
-		lang_get ("regular_ones(+)")
+		LANG ("regular_ones(0)"),
+		LANG ("regular_ones(1)"),
+		LANG ("regular_ones(2)"),
+		LANG ("regular_ones(+)")
 	};
 	
-	tree_loop:
+tree_loop:
 	print (printing.colors.di, path, printing.colors.reset, "\n");
 	tree ("", path);
 	
@@ -62,37 +80,7 @@ nil * ptree (nil * path) {
 		
 		goto tree_loop; // sin
 	}
-}
-
-nil * quit (nil *) {
-	while (printing.loop) {
-		switch (getch ()) {
-		case 'q':
-			if (printing.alternative) {
-				printf ("\e[?1049l\x1b[?25h");
-			}
-			exit (0);
-		}
-	}
-}
-
-chr main (s32 argc, str args []) {
-	lang_load (LANG_PATH);
-	str path = parse_options (argc, args);
-	DIR * dir = opendir (path);
-	unless (dir) {
-		fprintf (stderr, lang_get ("path_doesnt_exist"), path);
-		putchar ('\n');
-		return 1;
-	}
-	closedir (dir);
 	
-	pthread_t ptree_thread;
-	pthread_t quit_thread;
-	
-	pthread_create (&ptree_thread, NULL, &ptree, path);
-	pthread_create (&quit_thread, NULL, &quit, NULL);
-	
-	pthread_exit (NULL);
+	at_exit (0);
 }
 
