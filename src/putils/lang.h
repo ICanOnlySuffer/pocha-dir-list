@@ -16,10 +16,9 @@ str lang_get (vec * lang_map, str key) {
 
 vec * lang_load (str path, str rescue, u16 size) {
 	vec * lang_map = vector_new (32);
-	str lang_buffer = malloc (size);
-	
+	str lang_buffer = calloc (size, sizeof (chr));
 	str lang_env = getenv ("LANG");
-	chr lang_str [3] = {lang_env [0], lang_env [1], 0};
+	chr lang_str [] = {lang_env [0], lang_env [1], 0};
 	
 	FILE * file;
 	chr path_buffer [PATH_SIZE];

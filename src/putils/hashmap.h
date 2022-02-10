@@ -24,7 +24,6 @@ str hashmap_get (vec * hashmap, str key) {
 			return hash -> value;
 		}
 	}
-	
 	return NIL;
 }
 

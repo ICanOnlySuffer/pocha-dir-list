@@ -19,9 +19,10 @@ nil at_exit (int) {
 }
 
 chr main (s32 argc, str args []) {
+	lang_map = lang_load (LANG_PATH, "en", 1024);
+	
 	str path = parse_options (argc, args);
 	DIR * dir = opendir (path);
-	lang_map = lang_load (LANG_PATH, "en", 2048);
 	
 	unless (dir) {
 		fprintf (stderr, LANG ("path_doesnt_exist"), path);
@@ -53,7 +54,7 @@ chr main (s32 argc, str args []) {
 	};
 	
 tree_loop:
-	print (printing.colors.di, path, printing.colors.reset, "\n");
+	print (di_color, path, reset_color "\n");
 	tree ("", path);
 	
 	putchar ('\n');
