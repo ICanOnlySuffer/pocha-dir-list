@@ -4,44 +4,34 @@
 # include "hashmap.h"
 # include <stdlib.h>
 # include <stdio.h>
-# include "types.h"
-
-# ifndef LANG_BUFFER_SIZE
-# define LANG_BUFFER_SIZE 4096
-# endif
 
 # ifndef PATH_SIZE
 # define PATH_SIZE 1024
 # endif
 
-chr lang_buffer [LANG_BUFFER_SIZE];
-vec * lang_map = NIL;
-
-str lang_get (str key) {
+str lang_get (vec * lang_map, str key) {
 	str value = hashmap_get (lang_map, key);
 	return value ? value : key;
 }
 
-nil lang_load (str path) {
-	FILE * file;
-	if (lang_map) {
-		vector_free (lang_map);
-	}
-	lang_map = vector_new (32);
+vec * lang_load (str path, str rescue, u16 size) {
+	vec * lang_map = vector_new (32);
+	str lang_buffer = malloc (size);
+	
 	str lang_env = getenv ("LANG");
-	chr lang_str [3] = "en";
-	if (lang_env) {
-		lang_str [0] = lang_env [0];
-		lang_str [1] = lang_env [1];
-	}
+	chr lang_str [3] = {lang_env [0], lang_env [1], 0};
 	
-	chr path_buffer [PATH_SIZE] = "";
+	FILE * file;
+	chr path_buffer [PATH_SIZE];
+	
 	pstrcpy (path_buffer, PATH_SIZE, path, lang_str);
+	file = fopen (path_buffer, "r");
 	
-	unless (file = fopen (path_buffer, "r")) {
-		pstrcpy (path_buffer, PATH_SIZE, path, lang_str);
+	unless (file) {
+		pstrcpy (path_buffer, PATH_SIZE, path, rescue);
 		file = fopen (path_buffer, "r");
 	}
+	
 	if (file) {
 		enum {
 			READING_VALUE,
@@ -54,11 +44,10 @@ nil lang_load (str path) {
 		chr string = 0;
 		chr c = ' ';
 		u16 i = 0;
-		
-		str key;
 		str value;
+		str key;
 		
-		while ((c = fgetc (file)) != EOF and i < LANG_BUFFER_SIZE) {
+		while ((c = fgetc (file)) != EOF and i < size) {
 			switch (state) {
 			case READING_VALUE:
 				if (c == '\n') {
@@ -103,6 +92,8 @@ nil lang_load (str path) {
 		}
 		fclose (file);
 	}
+	
+	return lang_map;
 }
 
 # endif // _PUTILS_LANG_

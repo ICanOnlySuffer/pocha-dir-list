@@ -1,5 +1,5 @@
-# ifndef _PUTILS_STDIO_
-# define _PUTILS_STDIO_
+# ifndef _PUTILS_PRINT_
+# define _PUTILS_PRINT_
 
 # include <stdio.h>
 # include "types.h"
@@ -16,5 +16,5 @@ nil print_ (u16 size, str strings []) {
 		(str []) {__VA_ARGS__}                          \
 	)
 
-# endif // _PUTILS_STDIO_
+# endif // _PUTILS_PRINT_
 
