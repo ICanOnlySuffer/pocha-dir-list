@@ -10,14 +10,13 @@ endif
 
 TARGET  = ptree
 CFLAGS  = -Ofast
-LIBS    = -lpthread
 
 all: $(TARGET)
 
 $(TARGET): src/$(TARGET).c
 
 install: $(TARGET)
-	$(CC) src/$(TARGET).c -o $(TARGET) $(LIBS) $(CFLAGS)
+	$(CC) src/$(TARGET).c -o $(TARGET) $(CFLAGS)
 	mkdir -pv $(DESTDIR)$(PREFIX)/share/$(TARGET)
 	cp -TRv lang $(DESTDIR)$(PREFIX)/share/$(TARGET)/lang
 	install -Dm755 $(TARGET) $(DESTDIR)$(PREFIX)/bin/$(TARGET)
