@@ -9,7 +9,7 @@ options             옵션
 printing            인쇄
 	printing(a)         대체 버퍼 (루프에서만)
 	printing(c)         LS_COLORS의 색상 사용
-	printinf(d)         지연 (루프에서만)
+	printing(d)         지연 (루프에서만)
 	printing(l)         루프에
 	printing(s)         크기
 listing             목록
@@ -19,7 +19,7 @@ listing             목록
 	listing(a)          모두
 sorting             정렬
 	sorting(d)          디렉토리 먼저
-	sorting(a)          영숫자
+	sorting(n)          영숫자
 
 # count
 directories(0)      디렉토리 0개
