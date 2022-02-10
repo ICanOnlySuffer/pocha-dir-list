@@ -3,6 +3,7 @@ path_doesnt_exist   Error: camino '%s' no existe.
 
 # usage
 usage               Uso
+options             Opciones
 printing            Impresión
 	printing(a)         buffer alternativo (solo en bucle)
 	printing(c)         usar colores de LS_COLORS

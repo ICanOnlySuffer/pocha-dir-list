@@ -3,6 +3,7 @@ path_doesnt_exist   Error: path '%s' doesn't exist.
 
 # usage
 usage               Usage
+options             Options
 printing            Printing
 	printing(a)         alternate buffer (on loop only)
 	printing(c)         use colors from LS_COLORS
