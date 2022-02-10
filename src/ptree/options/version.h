@@ -1,11 +1,12 @@
 # ifndef _OPTION_VERSION_
 # define _OPTION_VERSION_
-# define VERSION "1.1.2"
+# define VERSION "1.1.3"
+# include "../lang.h"
 
 nil version () {
 	puts ("ptree v" VERSION " - Piero Estéfano Rojas Effio");
 	puts ("* https://github.com/ICanOnlySuffer/ptree");
-	puts (lang_get ("credits"));
+	puts (LANG ("credits"));
 	puts (
 		"  Steve Baker\n"
 		"  Thomas Moore\n"
@@ -13,7 +14,7 @@ nil version () {
 		"  Florian Sesser\n"
 		"  Kyosuke Tokoro"
 	);
-	puts (lang_get ("copyright"));
+	puts (LANG ("copyright"));
 }
 
 # endif // _OPTION_VERSION_

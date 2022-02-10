@@ -2,8 +2,8 @@
 # define _OPTION_HELP_
 
 # include "../../putils/string.h"
-# include "../../putils/stdio.h"
-# include "../../putils/lang.h"
+# include "../../putils/print.h"
+# include "../lang.h"
 
 enum option {
 	PRINTING,
@@ -19,40 +19,40 @@ nil help (enum option option) {
 	if (not called_already) {
 		called_already = true;
 		print (
-			lang_get ("usage"), ": ptree [-Pacdls] [-Ldrha] [-Sdn]" \
-			"\nOptions:\n"
+			LANG ("usage"), ": ptree [-Pacdls] [-Ldrha] [-Sdn]\n",
+			LANG ("options"), ":\n"
 		);
 	}
 	
 	switch (option) {
 	case PRINTING:
 		print (
-			"  -P           ", lang_get ("printing"),
-			"\n    -a           ", lang_get ("printing(a)"),
-			"\n    -c           ", lang_get ("printing(c)"),
-			"\n    -d(DELAY)    ", lang_get ("printing(d)"),
-			"\n    -l           ", lang_get ("printing(l)"),
-			"\n    -s           ", lang_get ("printing(s)"),
+			"  -P           ", LANG ("printing"),
+			"\n    -a           ", LANG ("printing(a)"),
+			"\n    -c           ", LANG ("printing(c)"),
+			"\n    -d(DELAY)    ", LANG ("printing(d)"),
+			"\n    -l           ", LANG ("printing(l)"),
+			"\n    -s           ", LANG ("printing(s)"),
 			"\n"
 		);
 		break;
 		
 	case LISTING:
 		print (
-			"  -L           ", lang_get ("listing"),
-			"\n    -d           ", lang_get ("listing(d)"),
-			"\n    -r           ", lang_get ("listing(r)"),
-			"\n    -h           ", lang_get ("listing(h)"),
-			"\n    -a           ", lang_get ("listing(a)"),
+			"  -L           ", LANG ("listing"),
+			"\n    -d           ", LANG ("listing(d)"),
+			"\n    -r           ", LANG ("listing(r)"),
+			"\n    -h           ", LANG ("listing(h)"),
+			"\n    -a           ", LANG ("listing(a)"),
 			"\n"
 		);
 		break;
 		
 	case SORTING:
 		print (
-			"  -S           ", lang_get ("sorting"),
-			"\n    -d           ", lang_get ("sorting(d)"),
-			"\n    -n           ", lang_get ("sorting(n)"),
+			"  -S           ", LANG ("sorting"),
+			"\n    -d           ", LANG ("sorting(d)"),
+			"\n    -n           ", LANG ("sorting(n)"),
 			"\n"
 		);
 		break;
