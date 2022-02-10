@@ -7,11 +7,10 @@
 # define fi_color printing.colors.fi
 # define ln_color printing.colors.ln
 # define ex_color printing.colors.ex
-# define reset_color printing.colors.reset
+# define reset_color "\e[0m"
 
 struct {
 	struct {
-		str reset;
 		chr di [16];
 		chr fi [16];
 		chr ln [16];
@@ -23,7 +22,7 @@ struct {
 	u08 size;
 } printing = {
 	.alternative = false,
-	.colors = {"\e[0m", "", "", "", ""},
+	.colors = {"", "", "", ""},
 	.delay = 10,
 	.loop = false,
 	.size = false

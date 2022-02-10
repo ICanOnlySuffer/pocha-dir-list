@@ -4,9 +4,6 @@
 # include "options/printing.h"
 # include "size.h"
 
-# define putf(...) \
-	print (__VA_ARGS__, reset_color, "\n")
-
 nil tree (str padding, str path) {
 	chr sub_padding [PATH_SIZE];
 	vec * files = get_files (path);
@@ -32,9 +29,9 @@ nil tree (str padding, str path) {
 		switch (file -> mode & S_IFMT) {
 		case S_IFDIR:
 			if (file -> is_link) {
-				putf (di_color, file -> path);
+				print (di_color, file -> path, reset_color "\n");
 			} else {
-				putf (di_color, file -> name, "/");
+				print (di_color, file -> name, "/" reset_color "\n");
 				pstrcpy (
 					sub_padding, PATH_SIZE, padding,
 					is_last ? "|   " : "    "
@@ -43,9 +40,10 @@ nil tree (str padding, str path) {
 			}
 			break;
 		case S_IFREG:
-			putf (
+			print (
 				file -> mode & X_OK ? ex_color : fi_color,
-				file -> is_link ? file -> path : file -> name
+				file -> is_link ? file -> path : file -> name,
+				reset_color "\n"
 			);
 			break;
 		case S_IFLNK:
