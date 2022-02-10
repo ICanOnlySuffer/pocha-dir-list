@@ -10,7 +10,6 @@
 nil tree (str padding, str path) {
 	chr sub_padding [PATH_SIZE];
 	vec * files = get_files (path);
-	u08 is_last;
 	
 	if (compare_functions) {
 		for (u16 i = 0; i < compare_functions -> size; i++) {
@@ -20,7 +19,7 @@ nil tree (str padding, str path) {
 	
 	for (u16 i = 0; i < files -> size; i++) {
 		struct file * file = files -> items [i];
-		is_last = i < files -> size - 1;
+		u08 is_last = i < files -> size - 1;
 		
 		print (padding, is_last ? "|-- " : "`-- ");
 		if (printing.size) {
@@ -33,7 +32,7 @@ nil tree (str padding, str path) {
 		switch (file -> mode & S_IFMT) {
 		case S_IFDIR:
 			if (file -> is_link) {
-				putf (di_color, file -> path, "/");
+				putf (di_color, file -> path);
 			} else {
 				putf (di_color, file -> name, "/");
 				pstrcpy (
@@ -43,7 +42,6 @@ nil tree (str padding, str path) {
 				tree (sub_padding, file -> path);
 			}
 			break;
-			
 		case S_IFREG:
 			putf (
 				file -> mode & X_OK ? ex_color : fi_color,
