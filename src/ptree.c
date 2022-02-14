@@ -7,11 +7,10 @@
 # endif
 
 # include "ptree/options.h"
-# include "putils/getch.h"
 # include "ptree/tree.h"
 # include <signal.h>
 
-nil at_exit (int) {
+nil at_signal (int) {
 	if (printing.alternative) {
 		printf ("\e[?1049l\x1b[?25h");
 	}
@@ -33,7 +32,7 @@ chr main (s32 argc, str args []) {
 	
 	if (printing.alternative) {
 		printf ("\e[?1049h\x1b[?25l");
-		signal (SIGINT, at_exit);
+		signal (SIGINT, at_signal);
 	}
 	if (printing.loop) {
 		printf ("\e[1;1H\e[2J");
@@ -82,6 +81,6 @@ tree_loop:
 		goto tree_loop; // sin
 	}
 	
-	at_exit (0);
+	at_signal (0);
 }
 

@@ -1,6 +1,6 @@
 # ifndef _OPTION_VERSION_
 # define _OPTION_VERSION_
-# define VERSION "1.1.3"
+# define VERSION "1.1.4"
 # include "../lang.h"
 
 nil version () {
