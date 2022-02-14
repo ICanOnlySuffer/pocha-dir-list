@@ -4,13 +4,27 @@ A simple directory visualizer based on 'tree'.
 
 ## Installation
 
+**From source:**
+
 	$ git clone https://github.com/ICanOnlySuffer/ptree
 	$ cd ptree
 	# make install
 
+**From the AUR:**
+
+	$ git clone https://aur.archlinux.org/ptree
+	$ cd ptree
+	$ makepkg
+
 ## Uninstallation
 
+**From source:**
+
 	# make uninstall
+
+**With pacman (if installed from the AUR):**
+
+	# pacman -Rcns ptree
 
 ## Usage
 
@@ -21,6 +35,10 @@ A simple directory visualizer based on 'tree'.
 ## Contributing
 
 Bug reports, suggestions and pull requests are welcome!
+
+## Languages
+
+Currently available in English, Spanish, Portugese and Korean.
 
 ## Licence
 
