@@ -14,15 +14,9 @@ A simple directory visualizer based on 'tree'.
 
 ## Usage
 
-![](./.images/help.png)
+![](./readme/help.png)
 
-![](./.images/default.png)
-
-![](./.images/color.png)
-
-![](./.images/color+sorting.png)
-
-![](./.images/color+sorting+size.png)
+![](./readme/default.png) ![](./readme/PcSnd.png)
 
 ## Contributing
 
