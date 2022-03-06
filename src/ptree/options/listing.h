@@ -1,60 +1,17 @@
-# ifndef _OPTION_LISTING_
-# define _OPTION_LISTING_
 
-# include "help.h"
+# ifndef _PTREE_OPTIONS_LISTING_
+# define _PTREE_OPTIONS_LISTING_
 
-struct {
+# include "../../putils/extra.h"
+
+extern struct {
 	u08 hidden_regs;
 	u08 hidden_dirs;
 	u08 regs;
 	u08 dirs;
-} listing = {
-	false,
-	false,
-	true,
-	true
-};
+} listing;
 
-nil option_listing (str *args) {
-	switch (**args) {
-	case 'd':
-		if (listing.hidden_regs) {
-			listing.hidden_regs = false;
-		}
-		listing.dirs = true;
-		listing.regs = false;
-		break;
-		
-	case 'r':
-		if (listing.hidden_dirs) {
-			listing.hidden_dirs = false;
-		}
-		listing.regs = true;
-		listing.dirs = false;
-		break;
-		
-	case 'h':
-		listing.hidden_regs = true;
-		listing.hidden_dirs = true;
-		listing.regs = false;
-		listing.dirs = false;
-		break;
-		
-	case 'a':
-		listing.hidden_regs = true;
-		listing.hidden_dirs = true;
-		listing.regs = true;
-		listing.dirs = true;
-		break;
-		
-	default:
-		help (LISTING);
-		exit (1);
-	}
-}
+extern nil option_listing (str * args);
 
-# endif // _OPTION_LISTING_
-
-
-
+# endif // _PTREE_OPTIONS_LISTING_
 

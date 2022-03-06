@@ -1,12 +1,14 @@
-# ifndef PTREE_LANG_
-# define PTREE_LANG_
 
-# include "../putils/lang.h"
+# ifndef _PTREE_LANG_
+# define _PTREE_LANG_
 
-vec * lang_map;
+# include "../putils/extra.h"
+# include "../putils/lng.h"
+
+extern vec * lang_map;
 
 # define LANG(key_) \
-	lang_get (lang_map, key_)
+	lng_get (lang_map, key_)
 
-# endif // PTREE_LANG_
+# endif // _PTREE_LANG_
 

@@ -1,20 +1,16 @@
+
 # ifndef _PUTILS_PRINT_
 # define _PUTILS_PRINT_
+# include "extra.h"
 
-# include <stdio.h>
-# include "types.h"
+nil print (str string);
+nil print_many_ (str strings [], u08 n_strings);
 
-nil print_ (u16 size, str strings []) {
-	for (u16 i = 0; i < size; i++) {
-		printf (strings [i]);
-	}
-}
-
-# define print(...)                                     \
-	print_ (                                            \
-		sizeof ((str []) {__VA_ARGS__}) / sizeof (str), \
-		(str []) {__VA_ARGS__}                          \
+# define print_many(...)                               \
+	print_many_ (                                      \
+		(str []) {__VA_ARGS__},                        \
+		sizeof ((str []) {__VA_ARGS__}) / sizeof (str) \
 	)
 
-# endif // _PUTILS_PRINT_
+# endif
 

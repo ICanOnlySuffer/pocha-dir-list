@@ -1,24 +1,10 @@
-# ifndef _OPTION_OTHER_
-# define _OPTION_OTHER_
 
-# include "version.h"
-# include "help.h"
+# ifndef _PTREE_OPTION_OTHER_
+# define _PTREE_OPTION_OTHER_
 
-nil option_other (str *options) {
-	switch (**options) {
-	case 'v':
-		version ();
-		break;
-	default:
-		help (OTHER);
-	}
-	exit (0);
-}
+# include "../../putils/extra.h"
 
-# endif // _OPTION_OTHER_
+extern nil option_other (str * options);
 
-
-
-
-
+# endif // _PTREE_OPTION_OTHER_
 

@@ -8,7 +8,7 @@ ifeq ($(UNAME_S), Android)
 	PREFIX = /data/data/com.termux/files/usr
 endif
 
-TARGET  = ptree
+TARGET  = ptree-dev
 CFLAGS  = -Ofast
 
 all: $(TARGET)

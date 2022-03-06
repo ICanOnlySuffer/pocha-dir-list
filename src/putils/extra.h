@@ -1,6 +1,7 @@
-# ifndef _PUTILS_TYPES_
-# define _PUTILS_TYPES_
+# ifndef _PUTILS_EXTRA_
+# define _PUTILS_EXTRA_
 
+# include <stddef.h>
 # include <stdint.h>
 
 // values
@@ -9,19 +10,20 @@
 # define false 0
 # define true 1
 
-// syntax
-
-# define unless(stuff_) if(not (stuff_))
-# define until(stuff_) while(not (stuff_))
-# define elif else if
-
 // operators
 
 # define and &&
 # define not !
 # define or ||
 
+// logic
+
+# define unless(stuff) if (not (stuff))
+# define elif else if
+
 // typedefs
+
+# define con const
 
 typedef void nil;
 
@@ -41,5 +43,5 @@ typedef double dbl;
 typedef char chr;
 typedef char *str;
 
-# endif // _PUTILS_TYPES_
+# endif // _PUTILS_EXTRA_
 

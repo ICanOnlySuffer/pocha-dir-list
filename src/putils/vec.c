@@ -1,8 +1,5 @@
-# ifndef _PUTILS_VECTOR_
-# define _PUTILS_VECTOR_
-
 # include <stdlib.h>
-# include "types.h"
+# include "extra.h"
 
 u32 next_2n (u32 number) {
 	number |= number >> 0b00001;
@@ -19,7 +16,7 @@ typedef struct {
 	u16 size;
 } vec;
 
-vec * vector_new (u32 capacity) {
+vec * vec_new (u32 capacity) {
 	vec * vector = malloc (sizeof (vec));
 	vector -> items = malloc (sizeof (nil *) * capacity);
 	vector -> capacity = capacity;
@@ -28,7 +25,7 @@ vec * vector_new (u32 capacity) {
 	return vector;
 }
 
-nil vector_resize (vec * vector, u32 capacity) {
+nil vec_resize (vec * vector, u32 capacity) {
 	nil ** items = realloc (
 		vector -> items, sizeof (nil *) * capacity
 	);
@@ -38,29 +35,29 @@ nil vector_resize (vec * vector, u32 capacity) {
 	}
 }
 
-nil vector_resize_auto (vec * vector) {
+nil vec_resize_auto (vec * vector) {
 	if (vector -> size and vector -> size == vector -> capacity / 4) {
-		vector_resize (vector, vector -> capacity / 2);
+		vec_resize (vector, vector -> capacity / 2);
 	}
 }
 
-nil vector_append (vec * vector, nil * item) {
+nil vec_append (vec * vector, nil * item) {
 	if (vector -> capacity == vector -> size) {
-		vector_resize (vector, vector -> capacity * 2);
+		vec_resize (vector, vector -> capacity * 2);
 	}
 	vector -> items [vector -> size++] = item;
 }
 
-nil vector_append_array (vec * vector, u16 size, nil * items[]) {
+nil vec_append_array (vec * vector, nil * items [], u16 size) {
 	if (vector -> capacity < vector -> size + size) {
-		vector_resize (vector, next_2n (vector -> size + size));
+		vec_resize (vector, next_2n (vector -> size + size));
 	}
 	while (vector -> size < size) {
 		vector -> items [vector -> size++] = *items++;
 	}
 }
 
-nil vector_remove_at (vec * vector, u16 index) {
+nil vec_remove_at (vec * vector, u16 index) {
 	while (index < vector -> size) {
 		vector -> items [index] = vector -> items [index + 1];
 		index++;
@@ -68,29 +65,16 @@ nil vector_remove_at (vec * vector, u16 index) {
 	vector -> items [--vector -> size] = NIL;
 }
 
-nil vector_clear (vec * vector) {
+nil vec_clear (vec * vector) {
 	for (u32 i = 0; i < vector -> size; i++) {
 		free (vector -> items [i]);
 	}
 	vector -> size = 0;
 }
 
-nil vector_free (vec * vector) {
-	vector_clear (vector);
+nil vec_free (vec * vector) {
+	vec_clear (vector);
 	free (vector -> items);
 	vector -> capacity = 0;
 }
-
-# define vector_last(vector_) \
-	((vector_ -> size) ? vector_ -> items [vector_ -> size - 1] : NIL)
-
-# define vector_first(vector_) \
-	((vector_ -> size) ? vector_ -> items [0] : NIL)
-
-# define vector_sort(vector_, compare_)                             \
-	qsort (                                                         \
-		vector_ -> items, vector_ -> size, sizeof (nil *), compare_ \
-	)
-
-# endif // _PUTILS_VECTOR_
 

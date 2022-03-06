@@ -1,21 +1,18 @@
-# ifndef _PUTILS_LANG_
-# define _PUTILS_LANG_
-
-# include "hashmap.h"
 # include <stdlib.h>
 # include <stdio.h>
+# include "str-cpy.h"
+# include "extra.h"
+# include "dic.h"
 
-# ifndef PATH_SIZE
 # define PATH_SIZE 1024
-# endif
 
-str lang_get (vec * lang_map, str key) {
-	str value = hashmap_get (lang_map, key);
+str lng_get (vec * lang_dictionary, str key) {
+	str value = dic_get (lang_dictionary, key);
 	return value ? value : key;
 }
 
-vec * lang_load (str path, str rescue, u16 size) {
-	vec * lang_map = vector_new (32);
+vec * lng_load (str path, str rescue, u16 size) {
+	vec * lang_dictionary = vec_new (32);
 	str lang_buffer = calloc (size, sizeof (chr));
 	str lang_env = getenv ("LANG");
 	chr lang_str [] = {lang_env [0], lang_env [1], 0};
@@ -23,11 +20,11 @@ vec * lang_load (str path, str rescue, u16 size) {
 	FILE * file;
 	chr path_buffer [PATH_SIZE];
 	
-	pstrcpy (path_buffer, PATH_SIZE, path, lang_str);
+	str_cpy (path_buffer, PATH_SIZE, path, lang_str);
 	file = fopen (path_buffer, "r");
 	
 	unless (file) {
-		pstrcpy (path_buffer, PATH_SIZE, path, rescue);
+		str_cpy (path_buffer, PATH_SIZE, path, rescue);
 		file = fopen (path_buffer, "r");
 	}
 	
@@ -52,7 +49,7 @@ vec * lang_load (str path, str rescue, u16 size) {
 				if (c == '\n') {
 					state = NEW_LINE;
 					lang_buffer [i] = 0;
-					vector_append (lang_map, hash_new (key, value));
+					vec_append (lang_dictionary, par_new (key, value));
 				} else {
 					lang_buffer [i] = c;
 				}
@@ -92,8 +89,6 @@ vec * lang_load (str path, str rescue, u16 size) {
 		fclose (file);
 	}
 	
-	return lang_map;
+	return lang_dictionary;
 }
-
-# endif // _PUTILS_LANG_
 
