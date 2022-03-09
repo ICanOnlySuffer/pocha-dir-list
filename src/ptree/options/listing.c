@@ -1,11 +1,6 @@
-# include "help.h"
+# include "listing.h"
 
-struct {
-	u08 hidden_regs;
-	u08 hidden_dirs;
-	u08 regs;
-	u08 dirs;
-} listing = {
+struct listing listing = {
 	false,
 	false,
 	true,

@@ -1,5 +1,4 @@
-# include "../putils/extra.h"
-# include <stdio.h>
+# include "size.h"
 
 nil print_size (u64 size) {
 	putchar ('[');

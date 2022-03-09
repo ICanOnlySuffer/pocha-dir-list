@@ -1,6 +1,3 @@
-# include "../../putils/print.h"
-# include "../../putils/ioe.h"
-# include "../lang.h"
 # include "help.h"
 
 # define VERSION "1.1.5"
@@ -8,7 +5,7 @@
 nil option_other (str * options) {
 	switch (**options) {
 	case 'v':
-		print_many (
+		PUT_ARR (
 			"ptree v" VERSION " - Piero Estéfano Rojas Effio\n"
 			"* https://github.com/ICanOnlySuffer/ptree\n",
 			LANG ("credits"), "\n"
@@ -19,7 +16,7 @@ nil option_other (str * options) {
 			"  Kyosuke Tokoro\n",
 			LANG ("copyright")
 		);
-		put_chr ('\n');
+		put_chr (STD_OUT, '\n');
 		break;
 		
 	default:

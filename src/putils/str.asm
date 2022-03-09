@@ -1,10 +1,10 @@
-%include "base.inc"
+%include "inc.asm"
 
-str_len:					  ; u16 str_len u64: buffer do
-	mov ax, -1				  ; 	ax = -1
+str_len:					  ; u64 str_len u64: buffer do
+	mov rax, -1				  ; 	rax = -1
 	dec rdi					  ; 	rsi--
 	str_len_loop:			  ; 	do
-		inc ax				  ; 		ax++
+		inc rax				  ; 		rax++
 		inc rdi				  ; 		rsi++
 		cmp [rdi], byte 0	  ; 		cmp *rsi, 0
 		jne str_len_loop	  ; 		until *rsi == 0
@@ -57,6 +57,28 @@ u64_tos:					  ; nil u64_tos u64: number, u64: buffer do
 	pop rdi					  ; 	rdi = STACK.pop
 	cll str_rvs				  ; 	str_rvs rdi
 	ret						  ; 	ret
+
+%ifdef COMMENT
+; tmp_con PARAMS u64: string, u16: max, u64: strings, u16: n_strings do
+str_cpy:						  ; u64 str_cpy PARAMS do
+	psh rdi						  ; 	STACK << string
+	psh 0						  ; 	STACK << 0 (i)
+	psh 1						  ; 	STACK << 1 (size)
+	str_cpy_loop_1:				  ; 	do loop_1
+		cmp byte[rsp-8], cx		  ; 		cmp i, n_strings
+		jnb str_cpy_loop_1_end	  ; 		break if i >= n_strings
+		str_cpy_loop_2:			  ; 		do loop_2
+			cmp byte[rsp], si	  ; 			cmp size, max
+			jnb str_cpy_loop_2_end; 			break if size >= max
+			; *string++ = *strings [i]++
+			goto str_cpy_loop_2   ;				again
+		str_cpy_loop_2_end:		  ; 			end
+		dec rdi				 	  ; 		string--
+		goto str_loop_1			  ; 		again
+	str_loop_1_end:				  ; 		end
+	pop rax						  ; 	rax = STACK.pop
+	ret							  ; 	end
+%endif
 
 section .text
 	global str_len

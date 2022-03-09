@@ -1,6 +1,4 @@
-# include "../../putils/str.h"
-# include "../file.h"
-# include "help.h"
+# include "sorting.h"
 
 s32 compare_name (con nil * file_1, con nil * file_2) {
 	return strcmp (

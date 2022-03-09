@@ -1,26 +1,35 @@
 
-# ifndef _PUTILS_FILE_
-# define _PUTILS_FILE_
-# include "../putils/extra.h"
+# ifndef _PTREE_FILE_
+# define _PTREE_FILE_
+
+# include "../putils/str-cpy.h"
 # include "../putils/vec.h"
 # include <sys/stat.h>
 # include <unistd.h>
 # include <dirent.h>
+# include <string.h>
+
+# include "options/listing.h"
+
+# define PATH_SIZE 1024
+# define NAME_SIZE 256
 
 struct file {
-	chr name [1024];
-	chr path [256];
+	chr name [PATH_SIZE];
+	chr path [PATH_SIZE];
 	off_t size;
 	u08 is_link;
 	mode_t mode;
 };
 
-extern struct {
+struct n_files {
 	u32 regs;
 	u32 dirs;
-} n_files;
+};
+
+extern struct n_files n_files;
 
 extern vec * get_files (str path);
 
-# endif // _PUTILS_FILE
+# endif // _PTREE_FILE
 

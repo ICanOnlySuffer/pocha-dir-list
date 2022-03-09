@@ -2,10 +2,13 @@
 # ifndef _PTREE_OPTIONS_HELP_
 # define _PTREE_OPTIONS_HELP_
 
-# include "../../putils/extra.h"
+# include "../../putils/str-cpy.h"
+# include "../../putils/put.h"
+# include "../lang.h"
 # include <stdlib.h>
 
 enum option {
+	USAGE,
 	PRINTING,
 	SORTING,
 	LISTING,

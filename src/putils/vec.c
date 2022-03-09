@@ -1,5 +1,4 @@
-# include <stdlib.h>
-# include "extra.h"
+# include "vec.h"
 
 u32 next_2n (u32 number) {
 	number |= number >> 0b00001;
@@ -9,12 +8,6 @@ u32 next_2n (u32 number) {
 	number |= number >> 0b10000;
 	return number + 1;
 }
-
-typedef struct {
-	nil ** items;
-	u32 capacity;
-	u16 size;
-} vec;
 
 vec * vec_new (u32 capacity) {
 	vec * vector = malloc (sizeof (vec));

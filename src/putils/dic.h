@@ -2,6 +2,7 @@
 # ifndef _PUTILS_DIC_
 # define _PUTILS_DIC_
 
+# include "str.h"
 # include "vec.h"
 
 typedef struct {

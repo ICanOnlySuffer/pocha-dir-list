@@ -1,9 +1,9 @@
-# if __ANDROID__
-# define LANG_PATH "/data/data/com.termux/files/usr/share/ptree/lang/"
-# elif __linux__
-# define LANG_PATH "/usr/share/ptree/lang/"
+# ifndef PREFIX_BIN
+# error "PREFIX_BIN not defined: OS not suported"
 # else
-# error "Android and Linux suported only"
+# ifndef PREFIX_SHARE
+# error "PREFIX_SHARE not defined: OS not suported"
+# endif
 # endif
 
 # include "ptree/options.h"
@@ -12,39 +12,38 @@
 # include "ptree/size.h"
 # include "ptree/tree.h"
 
-# include "putils/print.h"
-# include "putils/ioe.h"
+# include "putils/put.h"
 # include "putils/lng.h"
 
 # include <signal.h>
 # include <stdio.h>
 
-nil at_signal (int) {
+nil at_signal (s32) {
 	if (printing.alternative) {
-		print ("\e[?1049l\x1b[?25h");
+		put ("\e[?1049l\x1b[?25h");
 	}
 	exit (0);
 }
 
 chr main (s32 argc, str args []) {
-	lang_map = lng_load (LANG_PATH, "en", 1024);
+	lang_map = lng_load (PREFIX_SHARE "ptree/lang", "en", 1024);
 	
 	str path = parse_options (argc, args);
 	DIR * dir = opendir (path);
 	
 	unless (dir) {
 		fprintf (stderr, LANG ("path_doesnt_exist"), path);
-		put_chr ('\n');
+		put_chr (STD_OUT, '\n');
 		return 1;
 	}
 	closedir (dir);
 	
 	if (printing.alternative) {
-		print ("\e[?1049h\x1b[?25l");
+		put ("\e[?1049h\x1b[?25l");
 		signal (SIGINT, at_signal);
 	}
 	if (printing.loop) {
-		printf ("\e[1;1H\e[2J");
+		put ("\e[1;1H\e[2J");
 	}
 	
 	str lang_n_dirs [] = {
@@ -62,7 +61,7 @@ chr main (s32 argc, str args []) {
 	};
 	
 tree_loop:
-	print_many (di_color, path, reset_color "\n");
+	PUT_ARR (DI_COLOR, path, RESET_COLOR "\n");
 	tree ("", path);
 	
 	putchar ('\n');
@@ -70,15 +69,15 @@ tree_loop:
 		lang_n_dirs [n_files.dirs > 3 ? 3 : n_files.dirs],
 		n_files.dirs
 	);
-	print (", ");
+	put (", ");
 	printf (
 		lang_n_regs [n_files.regs > 3 ? 3 : n_files.regs],
 		n_files.regs
 	);
-	put_chr ('\n');
+	put_chr (STD_OUT, '\n');
 	
 	if (printing.loop) {
-		print ("\e[1;1H\e[2J");
+		put ("\e[1;1H\e[2J");
 		
 		n_files.dirs = 0;
 		n_files.regs = 0;

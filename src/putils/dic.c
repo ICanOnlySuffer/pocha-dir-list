@@ -1,11 +1,4 @@
-# include <stdlib.h>
-# include "str.h"
-# include "vec.h"
-
-typedef struct {
-	str key;
-	nil * value;
-} par;
+# include "dic.h"
 
 par * par_new (str key, nil * value) {
 	par * pair = malloc (sizeof (par));

@@ -1,28 +1,15 @@
-# include "../../putils/str-cpy.h"
-# include "../../putils/print.h"
-# include "../../putils/extra.h"
-# include "../../putils/ioe.h"
-# include "../lang.h"
-
-enum option {
-	USAGE,
-	PRINTING,
-	SORTING,
-	LISTING,
-	NUMBER,
-	OTHER
-};
+# include "help.h"
 
 nil help (enum option option) {
 	switch (option) {
 	case USAGE:
-		print_many (
+		PUT_ARR (
 			LANG ("usage"), ": ptree [-Pacdls] [-Ldrha] [-Sdn]\n",
 			LANG ("options")
 		);
 		break;
 	case PRINTING:
-		print_many (
+		PUT_ARR (
 			"  -P        ", LANG ("printing"), "\n"
 			"    -a        ", LANG ("printing(a)"), "\n"
 			"    -c        ", LANG ("printing(c)"), "\n"
@@ -32,7 +19,7 @@ nil help (enum option option) {
 		);
 		break;
 	case LISTING:
-		print_many (
+		PUT_ARR (
 			"  -L        ", LANG ("listing"), "\n"
 			"    -d        ", LANG ("listing(d)"), "\n"
 			"    -r        ", LANG ("listing(r)"), "\n"
@@ -41,7 +28,7 @@ nil help (enum option option) {
 		);
 		break;
 	case SORTING:
-		print_many (
+		PUT_ARR (
 			"  -S        ", LANG ("sorting"), "\n"
 			"    -d        ", LANG ("sorting(d)"), "\n"
 			"    -n        ", LANG ("sorting(n)")
@@ -53,6 +40,6 @@ nil help (enum option option) {
 		help (LISTING);
 		help (SORTING);
 	}
-	put_chr ('\n');
+	put_chr (STD_OUT, '\n');
 }
 

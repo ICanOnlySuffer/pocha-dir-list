@@ -2,7 +2,6 @@
 # ifndef _PTREE_LANG_
 # define _PTREE_LANG_
 
-# include "../putils/extra.h"
 # include "../putils/lng.h"
 
 extern vec * lang_map;

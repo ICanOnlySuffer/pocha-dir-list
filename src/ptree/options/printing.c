@@ -1,19 +1,6 @@
-# include "../../putils/str.h"
-# include "number.h"
-# include "help.h"
+# include "printing.h"
 
-struct {
-	struct {
-		chr di [16];
-		chr fi [16];
-		chr ln [16];
-		chr ex [16];
-	} colors;
-	u08 alternative;
-	u32 delay;
-	u08 loop;
-	u08 size;
-} printing = {
+struct printing printing = {
 	.alternative = false,
 	.colors = {"", "", "", ""},
 	.delay = 10,

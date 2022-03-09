@@ -1,14 +1,4 @@
-# include "options/printing.h"
-# include "options/sorting.h"
-
-# include "../putils/str-cpy.h"
-# include "../putils/print.h"
-# include "../putils/vec.h"
-# include "../putils/ioe.h"
-# include "file.h"
-# include "size.h"
-
-# define PATH_SIZE 1024
+# include "tree.h"
 
 nil tree (str padding, str path) {
 	chr sub_padding [PATH_SIZE];
@@ -16,7 +6,7 @@ nil tree (str padding, str path) {
 	
 	if (compare_functions) {
 		for (u16 i = 0; i < compare_functions -> size; i++) {
-			vec_sort (files, compare_functions -> items [i]);
+			VEC_SORT (files, compare_functions -> items [i]);
 		}
 	}
 	
@@ -24,21 +14,21 @@ nil tree (str padding, str path) {
 		struct file * file = files -> items [i];
 		u08 is_last = i < files -> size - 1;
 		
-		print_many (padding, is_last ? "|-- " : "`-- ");
+		PUT_ARR (padding, is_last ? "|-- " : "`-- ");
 		if (printing.size) {
 			print_size (file -> size);
 		}
 		if (file -> is_link) {
-			print_many (ln_color, file -> name, reset_color, " -> ");
+			PUT_ARR (LN_COLOR, file -> name, RESET_COLOR, " -> ");
 		}
 		
 		switch (file -> mode & S_IFMT) {
 		case S_IFDIR:
 			if (file -> is_link) {
-				print_many (di_color, file -> path, reset_color "\n");
+				PUT_ARR (DI_COLOR, file -> path, RESET_COLOR "\n");
 			} else {
-				print_many (di_color, file -> name, "/" reset_color "\n");
-				str_cpy (
+				PUT_ARR (DI_COLOR, file -> name, "/" RESET_COLOR "\n");
+				STR_CPY (
 					sub_padding, PATH_SIZE, padding,
 					is_last ? "|   " : "    "
 				);
@@ -46,19 +36,19 @@ nil tree (str padding, str path) {
 			}
 			break;
 		case S_IFREG:
-			print_many (
-				file -> mode & X_OK ? ex_color : fi_color,
+			PUT_ARR (
+				file -> mode & X_OK ? EX_COLOR : FI_COLOR,
 				file -> is_link ? file -> path : file -> name,
-				reset_color "\n"
+				RESET_COLOR "\n"
 			);
 			break;
 		case S_IFLNK:
-			print (file -> path);
-			put_chr ('\n');
+			put (file -> path);
+			put_chr (STD_OUT, '\n');
 			break;
 		default:
-			print (file -> name);
-			put_chr ('\n');
+			put (file -> name);
+			put_chr (STD_OUT, '\n');
 		}
 	}
 	

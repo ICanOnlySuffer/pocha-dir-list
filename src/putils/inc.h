@@ -1,5 +1,6 @@
-# ifndef _PUTILS_EXTRA_
-# define _PUTILS_EXTRA_
+
+# ifndef _PUTILS_INC_
+# define _PUTILS_INC_
 
 # include <stddef.h>
 # include <stdint.h>
@@ -41,7 +42,7 @@ typedef float flt;
 typedef double dbl;
 
 typedef char chr;
-typedef char *str;
+typedef char * str;
 
-# endif // _PUTILS_EXTRA_
+# endif // _PUTILS_INC_
 

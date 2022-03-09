@@ -2,15 +2,16 @@
 # ifndef _PTREE_OPTION_PRINTING_
 # define _PTREE_OPTION_PRINTING_
 
-# include "../../putils/extra.h"
+# include "../../putils/str.h"
+# include "number.h"
 
-# define di_color printing.colors.di
-# define fi_color printing.colors.fi
-# define ln_color printing.colors.ln
-# define ex_color printing.colors.ex
-# define reset_color "\e[0m"
+# define DI_COLOR printing.colors.di
+# define FI_COLOR printing.colors.fi
+# define LN_COLOR printing.colors.ln
+# define EX_COLOR printing.colors.ex
+# define RESET_COLOR "\e[0m"
 
-extern struct {
+struct printing {
 	struct {
 		chr di [16];
 		chr fi [16];
@@ -21,8 +22,9 @@ extern struct {
 	u32 delay;
 	u08 loop;
 	u08 size;
-} printing;
+};
 
+extern struct printing printing;
 extern nil parse_colors ();
 extern nil option_printing (str * args);
 

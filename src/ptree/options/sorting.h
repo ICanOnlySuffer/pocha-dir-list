@@ -2,8 +2,10 @@
 # ifndef _OPTION_SORTING_
 # define _OPTION_SORTING_
 
-# include "../../putils/extra.h"
+# include "../../putils/str.h"
 # include "../../putils/vec.h"
+# include "../file.h"
+# include "help.h"
 
 extern s32 compare_name (con nil * file_1, con nil * file_2);
 extern s32 compare_is_dir (con nil * file_1, con nil * file_2);

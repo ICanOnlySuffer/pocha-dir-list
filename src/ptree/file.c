@@ -1,28 +1,6 @@
-# include "../putils/str-cpy.h"
-# include "../putils/vec.h"
-# include <sys/stat.h>
-# include <unistd.h>
-# include <dirent.h>
-# include <stdlib.h>
-# include <string.h>
+# include "file.h"
 
-# include "options/listing.h"
-
-# define PATH_SIZE 1024
-# define NAME_SIZE 256
-
-struct file {
-	chr name [NAME_SIZE];
-	chr path [PATH_SIZE];
-	off_t size;
-	u08 is_link;
-	mode_t mode;
-};
-
-struct {
-	u32 regs;
-	u32 dirs;
-} n_files = {
+struct n_files n_files = {
 	.regs = 0,
 	.dirs = 0
 };
@@ -50,7 +28,7 @@ vec * get_files (str path) {
 		) {
 			continue;
 		}
-		str_cpy (subpath, PATH_SIZE, path, "/", name);
+		STR_CPY (subpath, PATH_SIZE, path, "/", name);
 		if (lstat (subpath, &info)) {
 			continue;
 		}

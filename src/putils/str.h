@@ -3,7 +3,7 @@
 # define _PUTILS_STR_
 
 # include <string.h>
-# include "extra.h"
+# include "inc.h"
 
 extern u64 str_len (str string);
 extern nil str_rvs (str string);

@@ -1,9 +1,4 @@
-# include "options/printing.h"
-# include "options/sorting.h"
-# include "options/listing.h"
-# include "options/number.h"
-# include "options/other.h"
-# include "options/help.h"
+# include "options.h"
 
 str parse_options (u16 argc, str args []) {
 	str path = ".";

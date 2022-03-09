@@ -3,7 +3,7 @@
 # define _PUTILS_VEC_
 
 # include <stdlib.h>
-# include "extra.h"
+# include "inc.h"
 
 typedef struct {
 	nil ** items;
@@ -23,7 +23,7 @@ extern nil vec_remove_at (vec * vector, u16 index);
 extern nil vec_clear (vec * vector);
 extern nil vec_free (vec * vector);
 
-# define vec_sort(vector_, compare_) \
+# define VEC_SORT(vector_, compare_) \
 	qsort (vector_ -> items, vector_ -> size, sizeof (nil *), compare_)
 
 # endif // _PUTILS_VEC_

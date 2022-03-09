@@ -1,10 +1,4 @@
-# include <stdlib.h>
-# include <stdio.h>
-# include "str-cpy.h"
-# include "extra.h"
-# include "dic.h"
-
-# define PATH_SIZE 1024
+# include "lng.h"
 
 str lng_get (vec * lang_dictionary, str key) {
 	str value = dic_get (lang_dictionary, key);
@@ -20,11 +14,11 @@ vec * lng_load (str path, str rescue, u16 size) {
 	FILE * file;
 	chr path_buffer [PATH_SIZE];
 	
-	str_cpy (path_buffer, PATH_SIZE, path, lang_str);
+	STR_CPY (path_buffer, PATH_SIZE, path, lang_str);
 	file = fopen (path_buffer, "r");
 	
 	unless (file) {
-		str_cpy (path_buffer, PATH_SIZE, path, rescue);
+		STR_CPY (path_buffer, PATH_SIZE, path, rescue);
 		file = fopen (path_buffer, "r");
 	}
 	

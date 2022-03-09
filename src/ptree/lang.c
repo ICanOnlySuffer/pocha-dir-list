@@ -1,5 +1,4 @@
-# include "../putils/extra.h"
-# include "../putils/lng.h"
+# include "lang.h"
 
 vec * lang_map;
 
