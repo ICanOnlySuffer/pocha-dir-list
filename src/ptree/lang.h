@@ -4,10 +4,11 @@
 
 # include "../putils/lng.h"
 
-extern vec * lang_map;
+ext vec * dictionary;
+ext nil lang_load_env (str path, str rescue, u16 length);
 
 # define LANG(key_) \
-	lng_get (lang_map, key_)
+	lng_get (dictionary, key_)
 
 # endif // _PTREE_LANG_
 

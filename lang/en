@@ -1,5 +1,5 @@
 # error
-path_doesnt_exist   Error: path '%s' doesn't exist.
+path_doesnt_exist   Path doesn't exist
 
 # usage
 usage               Usage
@@ -20,14 +20,14 @@ sorting             Sorting
 	sorting(n)          by name
 
 # count
-directories(0)      0 directories
-directories(1)      1 directory
-directories(2)      2 directories
-directories(+)      %u directories
-regular_ones(0)     0 regular ones
-regular_ones(1)     1 regular one
-regular_ones(2)     2 regular ones
-regular_ones(+)     %u regular ones
+directories(0)      directories
+directories(1)      directory
+directories(2)      directories
+directories(+)      directories
+regular_ones(0)     regular ones
+regular_ones(1)     regular one
+regular_ones(2)     regular ones
+regular_ones(+)     regular ones
 
 # version
 credits             Based on 'tree', by:

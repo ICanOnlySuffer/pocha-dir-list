@@ -1,5 +1,5 @@
 # error
-path_doesnt_exist   Error: camino '%s' no existe.
+path_doesnt_exist   Camino no existe
 
 # usage
 usage               Uso
@@ -20,14 +20,14 @@ sorting             Ordenamiendo
 	sorting(n)          por nombre
 
 # count
-directories(0)      0 directorios
-directories(1)      1 directorio
-directories(2)      2 directorios
-directories(+)      %u directorios
-regular_ones(0)     0 regulares
-regular_ones(1)     1 regular
-regular_ones(2)     2 regulares
-regular_ones(+)     %u regulares
+directories(0)      directorios
+directories(1)      directorio
+directories(2)      directorios
+directories(+)      directorios
+regular_ones(0)     regulares
+regular_ones(1)     regular
+regular_ones(2)     regulares
+regular_ones(+)     regulares
 
 # version
 credits             Basado en 'tree', por:
