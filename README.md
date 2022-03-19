@@ -6,7 +6,7 @@ A simple directory visualizer based on 'tree'.
 
 **From source:**
 
-	$ git clone https://github.com/ICanOnlySuffer/ptree
+	$ git clone https://github.com/ICanOnlySuffer/ptree/releases/latest
 	$ cd ptree
 	# make install
 
@@ -14,7 +14,7 @@ A simple directory visualizer based on 'tree'.
 
 	$ git clone https://aur.archlinux.org/ptree
 	$ cd ptree
-	$ makepkg
+	$ makepkg -sirc
 
 ## Uninstallation
 
