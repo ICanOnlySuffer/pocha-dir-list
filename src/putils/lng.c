@@ -2,87 +2,75 @@
 
 str lng_get (vec * lang_dictionary, str key) {
 	str value = dic_get (lang_dictionary, key);
-	return value ? value : key;
+	ret value ? value : key;
 }
 
-vec * lng_load (str path, str rescue, u16 size) {
-	vec * lang_dictionary = vec_new (32);
-	str lang_buffer = calloc (size, sizeof (chr));
-	str lang_env = getenv ("LANG");
-	chr lang_str [] = {lang_env [0], lang_env [1], 0};
+enum {
+	READING_VALUE,
+	READING_KEY,
+	NEW_LINE,
+	COMMENT,
+	SPACES
+} state = NEW_LINE;
 	
-	FILE * file;
-	chr path_buffer [PATH_SIZE];
-	
-	STR_CPY (path_buffer, PATH_SIZE, path, lang_str);
-	file = fopen (path_buffer, "r");
-	
-	unless (file) {
-		STR_CPY (path_buffer, PATH_SIZE, path, rescue);
-		file = fopen (path_buffer, "r");
+vec * lng_lod (str path, u16 size) {
+	FILE * file = fopen (path, "r");
+	unl (file) {
+		ret NIL;
 	}
 	
-	if (file) {
-		enum {
-			READING_VALUE,
-			READING_KEY,
-			NEW_LINE,
-			COMMENT,
-			SPACES
-		} state = NEW_LINE;
-		
-		chr string = 0;
-		chr c = ' ';
-		u16 i = 0;
-		str value;
-		str key;
-		
-		while ((c = fgetc (file)) != EOF and i < size) {
-			switch (state) {
-			case READING_VALUE:
-				if (c == '\n') {
-					state = NEW_LINE;
-					lang_buffer [i] = 0;
-					vec_append (lang_dictionary, par_new (key, value));
-				} else {
-					lang_buffer [i] = c;
-				}
-				i++;
-				break;
-			case READING_KEY:
-				if (c == ' ' or c == '\t') {
-					state = SPACES;
-					lang_buffer [i] = 0;
-				} else {
-					lang_buffer [i] = c;
-				}
-				i++;
-				break;
-			case NEW_LINE:
-				if (c == '#') {
-					state = COMMENT;
-				} elif (c != '\t' and c != ' ' and c != '\n') {
-					state = READING_KEY;
-					lang_buffer [i] = c;
-					key = &lang_buffer [i++];
-				}
-				break;
-			case COMMENT:
-				if (c == '\n') {
-					state = NEW_LINE;
-				}
-				break;
-			case SPACES:
-				if (c != ' ' and c != '\t') {
-					state = READING_VALUE;
-					lang_buffer [i] = c;
-					value = &lang_buffer [i++];
-				}
+	vec * dictionary = vec_new (32);
+	str buffer = calloc (size, sizeof (chr));
+	
+	chr c = ' ';
+	str value;
+	str key;
+	
+	for (u16 i = 0; c != EOF and i < size; c = fgetc (file)) {
+		cse (state) {
+		whn READING_VALUE:
+			iff (c == '\n') {
+				state = NEW_LINE;
+				buffer [i] = 0;
+				vec_psh (dictionary, k_v_new (key, value));
+			} els {
+				buffer [i] = c;
+			}
+			i++;
+			break;
+		whn READING_KEY:
+			iff (c == ' ' or c == '\t') {
+				state = SPACES;
+				buffer [i] = 0;
+			} els {
+				buffer [i] = c;
+			}
+			i++;
+			break;
+		whn NEW_LINE:
+			iff (c == '#') {
+				state = COMMENT;
+			} elf (c != '\t' and c != ' ' and c != '\n') {
+				state = READING_KEY;
+				buffer [i] = c;
+				key = &buffer [i++];
+			}
+			break;
+		whn COMMENT:
+			iff (c == '\n') {
+				state = NEW_LINE;
+			}
+			break;
+		whn SPACES:
+			iff (c != ' ' and c != '\t') {
+				state = READING_VALUE;
+				buffer [i] = c;
+				value = &buffer [i++];
 			}
 		}
-		fclose (file);
 	}
+	fclose (file);
 	
-	return lang_dictionary;
+	ret dictionary;
 }
 

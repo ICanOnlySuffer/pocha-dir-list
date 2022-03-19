@@ -8,9 +8,9 @@
 typedef struct {
 	str key;
 	nil * value;
-} par;
+} k_v; // key_val
 
-extern par * par_new (str key, nil * value);
+extern k_v * k_v_new (str key, nil * value);
 extern str dic_get (vec * dictionary, str key);
 
 # endif // _PUTILS_DIC_
