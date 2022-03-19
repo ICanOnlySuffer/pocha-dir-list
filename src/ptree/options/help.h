@@ -2,7 +2,6 @@
 # ifndef _PTREE_OPTIONS_HELP_
 # define _PTREE_OPTIONS_HELP_
 
-# include "../../putils/str-cpy.h"
 # include "../../putils/put.h"
 # include "../lang.h"
 # include <stdlib.h>

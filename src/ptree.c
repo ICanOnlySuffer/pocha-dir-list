@@ -1,9 +1,5 @@
-# ifndef PREFIX_BIN
-# error "PREFIX_BIN not defined: OS not suported"
-# else
-# ifndef PREFIX_SHARE
-# error "PREFIX_SHARE not defined: OS not suported"
-# endif
+# ifndef SHARE_DIR
+# error "SHARE_DIR not defined: OS not suported"
 # endif
 
 # include "ptree/options.h"
@@ -19,31 +15,36 @@
 # include <stdio.h>
 
 nil at_signal (s32) {
-	if (printing.alternative) {
-		put ("\e[?1049l\x1b[?25h");
+	iff (printing.alternative) {
+		PUT ("\e[?1049l\x1b[?25h");
 	}
 	exit (0);
 }
 
 chr main (s32 argc, str args []) {
-	lang_map = lng_load (PREFIX_SHARE "ptree/lang", "en", 1024);
+	lang_load_env (SHARE_DIR "ptree/lang/", "es", 1024);
+	
+	unl (dictionary) {
+		PUT ("couldn't load dictionary\n");
+		ret 1;
+	}
 	
 	str path = parse_options (argc, args);
 	DIR * dir = opendir (path);
 	
-	unless (dir) {
-		fprintf (stderr, LANG ("path_doesnt_exist"), path);
-		put_chr (STD_OUT, '\n');
-		return 1;
+	unl (dir) {
+		PUT_ERR_ARR (path, ": ", LANG ("path_doesnt_exist"));
+		NEW_LNE_ERR ();
+		ret 1;
 	}
 	closedir (dir);
 	
-	if (printing.alternative) {
-		put ("\e[?1049h\x1b[?25l");
+	iff (printing.alternative) {
+		PUT ("\e[?1049h\x1b[?25l");
 		signal (SIGINT, at_signal);
 	}
-	if (printing.loop) {
-		put ("\e[1;1H\e[2J");
+	iff (printing.loop) {
+		PUT ("\e[1;1H\e[2J");
 	}
 	
 	str lang_n_dirs [] = {
@@ -59,25 +60,27 @@ chr main (s32 argc, str args []) {
 		LANG ("regular_ones(2)"),
 		LANG ("regular_ones(+)")
 	};
+	chr buffer [2][16];
 	
 tree_loop:
 	PUT_ARR (DI_COLOR, path, RESET_COLOR "\n");
 	tree ("", path);
 	
-	putchar ('\n');
-	printf (
+	str_frm_u64 (buffer [0], n_files.dirs);
+	str_frm_u64 (buffer [1], n_files.regs);
+	
+	NEW_LNE ();
+	PUT_ARR (
+		buffer [0], " ",
 		lang_n_dirs [n_files.dirs > 3 ? 3 : n_files.dirs],
-		n_files.dirs
+		", ",
+		buffer [1], " ",
+		lang_n_regs [n_files.regs > 3 ? 3 : n_files.regs]
 	);
-	put (", ");
-	printf (
-		lang_n_regs [n_files.regs > 3 ? 3 : n_files.regs],
-		n_files.regs
-	);
-	put_chr (STD_OUT, '\n');
+	NEW_LNE ();
 	
 	if (printing.loop) {
-		put ("\e[1;1H\e[2J");
+		PUT ("\e[1;1H\e[2J");
 		
 		n_files.dirs = 0;
 		n_files.regs = 0;

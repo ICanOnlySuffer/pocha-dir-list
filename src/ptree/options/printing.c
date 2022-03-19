@@ -22,13 +22,13 @@ nil parse_colors () {
 					reading = false;
 					buffer [i] = 0;
 					
-					if (streql (buffer, "di")) {
+					if (STR_EQL (buffer, "di")) {
 						color = printing.colors.di;
-					} else if (streql (buffer, "fi")) {
+					} else if (STR_EQL (buffer, "fi")) {
 						color = printing.colors.fi;
-					} else if (streql (buffer, "ln")) {
+					} else if (STR_EQL (buffer, "ln")) {
 						color = printing.colors.ln;
-					} else if (streql (buffer, "ex")) {
+					} else if (STR_EQL (buffer, "ex")) {
 						color = printing.colors.ex;
 					} else {
 						color = buffer;

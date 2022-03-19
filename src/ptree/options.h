@@ -9,7 +9,7 @@
 # include "options/other.h"
 # include "options/help.h"
 
-extern str parse_options (u16 argc, str args []);
+ext str parse_options (u16 argc, str args []);
 
 # endif // _PTREE_OPTIONS_
 

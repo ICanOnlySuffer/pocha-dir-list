@@ -2,12 +2,11 @@
 # ifndef _PTREE_FILE_
 # define _PTREE_FILE_
 
-# include "../putils/str-cpy.h"
+# include "../putils/str.h"
 # include "../putils/vec.h"
 # include <sys/stat.h>
 # include <unistd.h>
 # include <dirent.h>
-# include <string.h>
 
 # include "options/listing.h"
 
@@ -27,9 +26,8 @@ struct n_files {
 	u32 dirs;
 };
 
-extern struct n_files n_files;
-
-extern vec * get_files (str path);
+ext struct n_files n_files;
+ext vec * get_files (str path);
 
 # endif // _PTREE_FILE
 

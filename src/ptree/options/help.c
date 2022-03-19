@@ -1,14 +1,14 @@
 # include "help.h"
 
 nil help (enum option option) {
-	switch (option) {
-	case USAGE:
+	cse (option) {
+	whn USAGE:
 		PUT_ARR (
 			LANG ("usage"), ": ptree [-Pacdls] [-Ldrha] [-Sdn]\n",
 			LANG ("options")
 		);
 		break;
-	case PRINTING:
+	whn PRINTING:
 		PUT_ARR (
 			"  -P        ", LANG ("printing"), "\n"
 			"    -a        ", LANG ("printing(a)"), "\n"
@@ -18,7 +18,7 @@ nil help (enum option option) {
 			"    -s        ", LANG ("printing(s)")
 		);
 		break;
-	case LISTING:
+	whn LISTING:
 		PUT_ARR (
 			"  -L        ", LANG ("listing"), "\n"
 			"    -d        ", LANG ("listing(d)"), "\n"
@@ -27,19 +27,20 @@ nil help (enum option option) {
 			"    -a        ", LANG ("listing(a)")
 		);
 		break;
-	case SORTING:
+	whn SORTING:
 		PUT_ARR (
 			"  -S        ", LANG ("sorting"), "\n"
 			"    -d        ", LANG ("sorting(d)"), "\n"
 			"    -n        ", LANG ("sorting(n)")
 		);
 		break;
-	case OTHER:
+	whn OTHER:
 		help (USAGE);
 		help (PRINTING);
 		help (LISTING);
 		help (SORTING);
+		ret;
 	}
-	put_chr (STD_OUT, '\n');
+	NEW_LNE ();
 }
 
