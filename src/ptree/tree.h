@@ -2,7 +2,6 @@
 # ifndef _PTREE_TREE_
 # define _PTREE_TREE_
 
-# include "../putils/str-cpy.h"
 # include "../putils/put.h"
 # include "../putils/vec.h"
 # include "file.h"

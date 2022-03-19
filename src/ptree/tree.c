@@ -6,7 +6,7 @@ nil tree (str padding, str path) {
 	
 	if (compare_functions) {
 		for (u16 i = 0; i < compare_functions -> size; i++) {
-			VEC_SORT (files, compare_functions -> items [i]);
+			VEC_SRT (files, compare_functions -> items [i]);
 		}
 	}
 	
@@ -16,7 +16,7 @@ nil tree (str padding, str path) {
 		
 		PUT_ARR (padding, is_last ? "|-- " : "`-- ");
 		if (printing.size) {
-			print_size (file -> size);
+			// print_size (file -> size);
 		}
 		if (file -> is_link) {
 			PUT_ARR (LN_COLOR, file -> name, RESET_COLOR, " -> ");
@@ -29,7 +29,7 @@ nil tree (str padding, str path) {
 			} else {
 				PUT_ARR (DI_COLOR, file -> name, "/" RESET_COLOR "\n");
 				STR_CPY (
-					sub_padding, PATH_SIZE, padding,
+					sub_padding, padding,
 					is_last ? "|   " : "    "
 				);
 				tree (sub_padding, file -> path);
@@ -43,15 +43,15 @@ nil tree (str padding, str path) {
 			);
 			break;
 		case S_IFLNK:
-			put (file -> path);
-			put_chr (STD_OUT, '\n');
+			PUT (file -> path);
+			NEW_LNE ();
 			break;
 		default:
-			put (file -> name);
-			put_chr (STD_OUT, '\n');
+			PUT (file -> name);
+			NEW_LNE ();
 		}
 	}
 	
-	vec_free (files);
+	VEC_FRE (files);
 }
 
