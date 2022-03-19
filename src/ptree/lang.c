@@ -1,4 +1,5 @@
 # include "lang.h"
+# include "../putils/put.h"
 
 vec * dictionary;
 
@@ -8,11 +9,15 @@ nil lang_load_env (str path, str rescue, u16 length) {
 	
 	iff (env_lang) {
 		env_lang [2] = 0;
-		dictionary = lng_lod (STR_CAT (buffer, path, env_lang), length);
+		STR_CPY (buffer, path, env_lang);
+		dictionary = lng_lod (buffer, length);
 	}
 	unl (dictionary) {
-		buffer [0] = 0;
-		dictionary = lng_lod (STR_CAT (buffer, path, rescue), length);
+		STR_CPY (buffer, path, rescue);
+		dictionary = lng_lod (buffer, length);
 	}
+	
+	PUT (buffer);
+	NEW_LNE ();
 }
 

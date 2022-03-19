@@ -25,7 +25,7 @@ chr main (s32 argc, str args []) {
 	lang_load_env (SHARE_DIR "ptree/lang/", "es", 1024);
 	
 	unl (dictionary) {
-		PUT ("couldn't load dictionary\n");
+		PUT_ERR ("couldn't load dictionary\n");
 		ret 1;
 	}
 	

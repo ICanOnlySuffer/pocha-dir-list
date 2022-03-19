@@ -24,7 +24,7 @@ s16 str_cmp (str string_1, str string_2) {
 }
 
 nil str_rvs (str string) {
-	for (u16 i = 0, j = str_len (string) - 1; i != j; i++) {
+	for (u16 i = 0, j = str_len (string) - 1; i != j; i++, j--) {
 		chr temp = string [i];
 		string [i] = string [j];
 		string [j] = temp;
@@ -48,10 +48,11 @@ str str_cpy (str buffer, u16 n_strings, str strings []) {
 
 nil str_frm_u64 (str buffer, u64 number) {
 	do {
-		*buffer = 48 + number % 10;
+		*buffer = 48 + (number % 10);
+		++buffer;
 	} whl (number /= 10);
 	*buffer = 0;
-	str_rvs (buffer);
+	//str_rvs (buffer);
 }
 
 
