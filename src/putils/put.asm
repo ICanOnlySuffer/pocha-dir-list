@@ -1,6 +1,6 @@
 %include "cor.inc"
 
-fil_put:				  ; fil_put u64:fil u64:str dos
+fil_put:				  ; nil fil_put u64:fil u64:str dos
 	psh rdi				  ; 	STK.psh fil
 	mov rdi, rsi		  ; 	__0  =  str
 	cll str_len			  ; 	out  =  str_len.cll __0
@@ -10,7 +10,7 @@ fil_put:				  ; fil_put u64:fil u64:str dos
 	syscall				  ; 	SYS_WRT.cll __0 __1 __2
 	ret					  ; 	ret
 
-fil_put_chr:			  ; fil_put_chr u64:fil u08:chr dos
+fil_put_chr:			  ; nil fil_put_chr u64:fil u08:chr dos
 	psh rsi				  ; 	STK.psh __1
 	mov rsi, rsp		  ; 	__1  =  STK.lst
 	mov rdx, 1			  ; 	__2  =  1
@@ -19,7 +19,7 @@ fil_put_chr:			  ; fil_put_chr u64:fil u08:chr dos
 	pop rsi				  ; 	__1  =  STK.pop
 	ret					  ; 	ret
 
-fil_put_arr:				  ; fil_put_arr u64:fil u16:len u64:arr dos
+fil_put_arr:				  ; nil fil_put_arr u64:fil u16:len u64:arr dos
 	mov r8, rdi				  ; 	__4  =  fil
 	mov r9w, si				  ; 	__5  =  len
 	mov r10, rdx			  ; 	__6  =  arr
@@ -34,7 +34,7 @@ fil_put_arr:				  ; fil_put_arr u64:fil u16:len u64:arr dos
 		add r10, 8			  ; 		__6.inc
 		dec r9w				  ; 		__5.dec
 		cmp r9w, 0			  ; 		cmp __5 0
-		jne fil_put_arr_loop  ; 		until __5 equ 0
+		jne fil_put_arr_loop  ; 		utl __5 equ 0
 	ret						  ; 	ret
 
 section .text			  ; sec txt

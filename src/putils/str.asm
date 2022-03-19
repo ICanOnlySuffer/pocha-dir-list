@@ -93,14 +93,6 @@ str_frm_u64:				  ; nil str_frm_u64 u64:bff u64:num dos
 	cll str_rvs				  ; 	str_rvs.cll rdi
 	ret						  ; 	ret
 
-%ifdef COMMENT
-str_tou:					  ; u64 str_tou u64:str dos
-	psh rdi					  ; 	STK <<< str
-	pop rdi
-	mov rax, 69
-	ret						  ; 	ret
-%endif
-
 section .text					  ; sec txt
 	global str_len				  ; 	exp str_len u64:str
 	global str_chp				  ; 	exp str_chp u64:str

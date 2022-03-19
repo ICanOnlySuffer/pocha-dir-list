@@ -4,10 +4,12 @@ UNAME_S := $(shell uname -o)
 ifeq ($(UNAME_S), GNU/Linux)
 	BIN_DIR = /usr/bin/
 	SHARE_DIR = /usr/share/
+	PUTILS_SRC = putils/
 endif
 ifeq ($(UNAME_S), Android)
 	BIN_DIR = /data/data/com.termux/files/usr/bin/
 	SHARE_DIR = /data/data/com.termux/files/usr/share/
+	PUTILS_SRC = c_putils/
 endif
 
 BUILD_DIR = build/
@@ -21,6 +23,7 @@ define objs
 	$(foreach obj, $2, $(BUILD_DIR)$1$(obj).o)
 endef
 
+
 DIRS    = $(BUILD_DIR) $(addprefix $(BUILD_DIR), putils ptree ptree/options)
 PUTILS  = $(call objs,putils/, str put vec dic lng)
 PTREE   = $(call objs,ptree/, file lang options size tree)
@@ -32,26 +35,26 @@ all: $(DIRS) $(OBJECTS) $(BUILD_DIR)$(TARGET).bin
 $(DIRS):
 	mkdir $@
 
-$(BUILD_DIR)putils/%.o: src/putils/%.c
-	$(CC) $(C_FLAGS) -Isrc/putils -o $@ $< -c
+$(BUILD_DIR)putils/%.o: src/$(PUTILS_SRC)%.c
+	$(CC) $(C_FLAGS) -Isrc/$(PUTILS_SRC) -o $@ $< -c
 
-$(BUILD_DIR)putils/%.o: src/putils/%.asm
-	$(AC) $(A_FLAGS) -Isrc/putils -o $@ $<
+$(BUILD_DIR)putils/%.o: src/$(PUTILS_SRC)%.asm
+	$(AC) $(A_FLAGS) -Isrc/$(PUTILS_SRC) -o $@ $<
 
-$(BUILD_DIR)ptree/%.o: src/ptree/%.c
-	$(CC) $(C_FLAGS) -Isrc/putils -o $@ $< -c
+$(BUILD_DIR)$(TARGET)/%.o: src/$(TARGET)/%.c
+	$(CC) $(C_FLAGS) -Isrc/$(PUTILS_SRC) -o $@ $< -c
 
-$(BUILD_DIR)putils/%.o: src/ptree/%.asm
-	$(AC) $(A_FLAGS) -Isrc/putils -o $@ $<
+$(BUILD_DIR)$(TARGET)/%.o: src/$(TARGET)/%.asm
+	$(AC) $(A_FLAGS) -Isrc/$(PUTILS_SRC) -o $@ $<
 
-$(BUILD_DIR)ptree/options/%.o: src/ptree/options/%.c
-	$(CC) $(C_FLAGS) -Isrc/putils -o $@ $< -c
+$(BUILD_DIR)$(TARGET)/options/%.o: src/$(TARGET)/options/%.c
+	$(CC) $(C_FLAGS) -Isrc/$(PUTILS_SRC) -o $@ $< -c
 
-$(BUILD_DIR)putils/options/%.o: src/ptree/options/%.asm
-	$(AC) $(A_FLAGS) -Isrc/putils -o $@ $<
+$(BUILD_DIR)$(TARGET)/options/%.o: src/$(TARGET)/options/%.asm
+	$(AC) $(A_FLAGS) -Isrc/$(PUTILS_SRC) -o $@ $<
 
 $(BUILD_DIR)$(TARGET).bin: src/$(TARGET).c
-	$(CC) $(C_FLAGS) $(OBJECTS) -DSHARE_DIR='"$(SHARE_DIR)"' -Isrc/putils -o $@ $<
+	$(CC) $(C_FLAGS) $(OBJECTS) -DSHARE_DIR='"$(SHARE_DIR)"' -Isrc/$(PUTILS_SRC) -o $@ $<
 
 install: lang build/$(TARGET).bin
 	mkdir -p $(DEST_DIR)$(SHARE_DIR)$(TARGET)
