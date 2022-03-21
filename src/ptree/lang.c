@@ -16,8 +16,5 @@ nil lang_load_env (str path, str rescue, u16 length) {
 		STR_CPY (buffer, path, rescue);
 		dictionary = lng_lod (buffer, length);
 	}
-	
-	PUT (buffer);
-	NEW_LNE ();
 }
 
