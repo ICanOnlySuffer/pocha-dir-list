@@ -4,7 +4,7 @@ UNAME_S := $(shell uname -o)
 ifeq ($(UNAME_S), GNU/Linux)
 	BIN_DIR = /usr/bin/
 	SHARE_DIR = /usr/share/
-	PUTILS_SRC = c_putils/
+	PUTILS_SRC = putils/
 endif
 ifeq ($(UNAME_S), Android)
 	BIN_DIR = /data/data/com.termux/files/usr/bin/
