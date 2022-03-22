@@ -1,70 +1,42 @@
 
-UNAME_S := $(shell uname -o)
+OS := $(shell uname -o)
 
-ifeq ($(UNAME_S), GNU/Linux)
-	BIN_DIR = /usr/bin/
-	SHARE_DIR = /usr/share/
-	PUTILS_SRC = putils/
+ifeq ($(OS), GNU/Linux)
+	DIR_BIN = /usr/bin/
+	DIR_SHARE = /usr/share/
 endif
-ifeq ($(UNAME_S), Android)
-	BIN_DIR = /data/data/com.termux/files/usr/bin/
-	SHARE_DIR = /data/data/com.termux/files/usr/share/
-	PUTILS_SRC = c_putils/
+ifeq ($(OS), Android)
+	DIR_BIN = /data/data/com.termux/files/usr/bin/
+	DIR_SHARE = /data/data/com.termux/files/usr/share/
 endif
 
-BUILD_DIR = build/
-TARGET = ptree
+C_FLAGS = -Iinclude/ -O3
 
-AC      = nasm
-A_FLAGS = -f elf64
-C_FLAGS = -O
+LIB_PTREE = $(foreach obj, file lang options size tree, lib/$(obj).o) $(foreach obj, help listing number other printing sorting, lib/options/$(obj).o)
+BIN_PTREE = bin/ptree
+OBJECTS = lib/*.o lib/options/*.o /usr/lib/putils/*.o
 
-define objs
-	$(foreach obj, $2, $(BUILD_DIR)$1$(obj).o)
-endef
+all: lib/options/ $(LIB_PTREE) bin/ $(BIN_PTREE)
 
+%/:
+	mkdir -p $@
 
-DIRS    = $(BUILD_DIR) $(addprefix $(BUILD_DIR), putils ptree ptree/options)
-PUTILS  = $(call objs,putils/, str put vec dic lng)
-PTREE   = $(call objs,ptree/, file lang options size tree)
-OPTIONS = $(call objs,ptree/options/, help listing number other printing sorting)
-OBJECTS = $(PUTILS) $(PTREE) $(OPTIONS)
+lib/%.o: src/%.c
+	$(CC) $(C_FLAGS) -c $< -o $@
 
-all: $(DIRS) $(OBJECTS) $(BUILD_DIR)$(TARGET).bin
+lib/options/%.o: src/options/%.c
+	$(CC) $(C_FLAGS) -c $< -o $@
 
-$(DIRS):
-	mkdir $@
+bin/%: src/%.c
+	$(CC) $(C_FLAGS) $(OBJECTS) -DDIR_SHARE='"$(DIR_SHARE)"' $< -o $@
 
-$(BUILD_DIR)putils/%.o: src/$(PUTILS_SRC)%.c
-	$(CC) $(C_FLAGS) -Isrc/$(PUTILS_SRC) -o $@ $< -c
-
-$(BUILD_DIR)putils/%.o: src/$(PUTILS_SRC)%.asm
-	$(AC) $(A_FLAGS) -Isrc/$(PUTILS_SRC) -o $@ $<
-
-$(BUILD_DIR)$(TARGET)/%.o: src/$(TARGET)/%.c
-	$(CC) $(C_FLAGS) -Isrc/$(PUTILS_SRC) -o $@ $< -c
-
-$(BUILD_DIR)$(TARGET)/%.o: src/$(TARGET)/%.asm
-	$(AC) $(A_FLAGS) -Isrc/$(PUTILS_SRC) -o $@ $<
-
-$(BUILD_DIR)$(TARGET)/options/%.o: src/$(TARGET)/options/%.c
-	$(CC) $(C_FLAGS) -Isrc/$(PUTILS_SRC) -o $@ $< -c
-
-$(BUILD_DIR)$(TARGET)/options/%.o: src/$(TARGET)/options/%.asm
-	$(AC) $(A_FLAGS) -Isrc/$(PUTILS_SRC) -o $@ $<
-
-$(BUILD_DIR)$(TARGET).bin: src/$(TARGET).c
-	$(CC) $(C_FLAGS) $(OBJECTS) -DSHARE_DIR='"$(SHARE_DIR)"' -Isrc/$(PUTILS_SRC) -o $@ $<
-
-install: lang build/$(TARGET).bin
-	mkdir -p $(DEST_DIR)$(SHARE_DIR)$(TARGET)
-	cp -TR lang $(DEST_DIR)$(SHARE_DIR)$(TARGET)/lang
-	install -Dm755 build/$(TARGET).bin $(DEST_DIR)$(BIN_DIR)$(TARGET)
+install: all $(DEST_DIR)$(DIR_SHARE)ptree/
+	cp -TR share/lang $(DEST_DIR)$(DIR_SHARE)ptree/lang
+	install -Dm755 bin/ptree $(DEST_DIR)$(DIR_BIN)ptree
 
 uninstall:
-	$(RM) -rf $(DEST_DIR)$(SHARE_DIR)$(TARGET)
-	$(RM) -r $(DEST_DIR)$(BIN_DIR)$(TARGET)
+	rm -rf $(DEST_DIR)$(DIR_SHARE)ptree $(DEST_DIR)$(DIR_BIN)ptree
 
 clean:
-	$(RM) -r $(BUILD_DIR)
+	rm -rf lib/ bin/
 
