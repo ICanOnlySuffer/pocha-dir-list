@@ -1,6 +1,6 @@
 
-# ifndef _PTREE_OPTIONS_
-# define _PTREE_OPTIONS_
+# ifndef PTREE_OPTIONS_H
+# define PTREE_OPTIONS_H
 
 # include "options/printing.h"
 # include "options/sorting.h"
@@ -11,5 +11,5 @@
 
 ext str parse_options (u16 argc, str args []);
 
-# endif // _PTREE_OPTIONS_
+# endif // PTREE_OPTIONS_H
 
