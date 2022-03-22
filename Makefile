@@ -2,12 +2,12 @@
 OS := $(shell uname -o)
 
 ifeq ($(OS), GNU/Linux)
-	DIR_BIN = /usr/bin/
-	DIR_SHARE = /usr/share/
+	DIR_BIN = usr/bin
+	DIR_SHARE = usr/share
 endif
 ifeq ($(OS), Android)
-	DIR_BIN = /data/data/com.termux/files/usr/bin/
-	DIR_SHARE = /data/data/com.termux/files/usr/share/
+	DIR_BIN = data/data/com.termux/files/usr/bin
+	DIR_SHARE = data/data/com.termux/files/usr/share
 endif
 
 C_FLAGS = -Iinclude/ -O3
@@ -30,12 +30,12 @@ lib/options/%.o: src/options/%.c
 bin/%: src/%.c
 	$(CC) $(C_FLAGS) $(OBJECTS) -DDIR_SHARE='"$(DIR_SHARE)"' $< -o $@
 
-install: all $(DEST_DIR)$(DIR_SHARE)ptree/
-	cp -TR share/lang $(DEST_DIR)$(DIR_SHARE)ptree/lang
-	install -Dm755 bin/ptree $(DEST_DIR)$(DIR_BIN)ptree
+install: all $(DEST_DIR)/$(DIR_SHARE)/ptree/
+	cp -TR share/lang $(DEST_DIR)/$(DIR_SHARE)/ptree/lang
+	install -Dm755 bin/ptree $(DEST_DIR)/$(DIR_BIN)/ptree
 
 uninstall:
-	rm -rf $(DEST_DIR)$(DIR_SHARE)ptree $(DEST_DIR)$(DIR_BIN)ptree
+	rm -rf $(DEST_DIR)/$(DIR_SHARE)/ptree $(DEST_DIR)/$(DIR_BIN)/ptree
 
 clean:
 	rm -rf lib/ bin/
