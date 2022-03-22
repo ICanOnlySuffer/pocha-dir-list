@@ -1,14 +1,14 @@
 # ptree (pocha-tree)
 
-A simple directory visualizer based on 'tree'.
+A simple directory visualizer based on 'tree' for x86 Linux and armv7a Android.
 
 ## Installation
 
-**From source:**
+**From source (requires [putils](https://github.com/ICanOnlySuffer/putils)):**
 
 	$ git clone https://github.com/ICanOnlySuffer/ptree/releases/latest
 	$ cd ptree
-	# make && make install && make clean
+	# make install && make clean
 
 **From the AUR:**
 
@@ -28,9 +28,9 @@ A simple directory visualizer based on 'tree'.
 
 ## Usage
 
-![](./readme/help.png)
+![](./.readme/help.png)
 
-![](./readme/default.png) ![](./readme/PcSnd.png)
+![](./.readme/default.png) ![](./.readme/colored-and-sorted.png)
 
 ## Contributing
 
