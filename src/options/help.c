@@ -1,7 +1,7 @@
-# include "help.h"
+# include "options/help.h"
 
-nil help (enum option option) {
-	cse (option) {
+nil help (enm option option) fun
+	swi option dos
 	whn USAGE:
 		PUT_ARR (
 			LANG ("usage"), ": ptree [-Pacdls] [-Ldrha] [-Sdn]\n",
@@ -40,7 +40,7 @@ nil help (enum option option) {
 		help (LISTING);
 		help (SORTING);
 		ret;
-	}
+	end
 	NEW_LNE ();
-}
+end
 

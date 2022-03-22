@@ -1,4 +1,4 @@
-# include "listing.h"
+# include "options/listing.h"
 
 struct listing listing = {
 	false,
@@ -7,41 +7,37 @@ struct listing listing = {
 	true
 };
 
-nil option_listing (str * args) {
-	switch (**args) {
-	case 'd':
-		if (listing.hidden_regs) {
+nil option_listing (str * args) fun
+	swi **args dos
+	whn 'd':
+		iff listing.hidden_regs thn
 			listing.hidden_regs = false;
-		}
+		end
 		listing.dirs = true;
 		listing.regs = false;
 		break;
-		
-	case 'r':
-		if (listing.hidden_dirs) {
+	whn 'r':
+		iff listing.hidden_dirs thn
 			listing.hidden_dirs = false;
-		}
+		end
 		listing.regs = true;
 		listing.dirs = false;
 		break;
-		
-	case 'h':
+	whn 'h':
 		listing.hidden_regs = true;
 		listing.hidden_dirs = true;
 		listing.regs = false;
 		listing.dirs = false;
 		break;
-		
-	case 'a':
+	whn 'a':
 		listing.hidden_regs = true;
 		listing.hidden_dirs = true;
 		listing.regs = true;
 		listing.dirs = true;
 		break;
-		
-	default:
+	def:
 		help (LISTING);
-		exit (1);
-	}
-}
+		QUT (1);
+	end
+end
 

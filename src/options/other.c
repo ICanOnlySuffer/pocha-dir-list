@@ -1,7 +1,7 @@
-# include "other.h"
+# include "options/other.h"
 
-nil option_other (str * options) {
-	cse (**options) {
+nil option_other (str * options) fun
+	swi **options dos
 	whn 'v':
 		PUT_ARR (
 			"ptree v" VERSION " - Piero Estéfano Rojas Effio\n"
@@ -16,10 +16,9 @@ nil option_other (str * options) {
 		);
 		NEW_LNE ();
 		break;
-		
-	default:
+	def:
 		help (OTHER);
-	}
-	exit (0);
-}
+	end
+	QUT (0);
+end
 
