@@ -19,7 +19,7 @@ nil at_signal (s32) fun
 end
 
 chr main (s32 argc, str args []) fun
-	lang_load_env (DIR_SHARE "/ptree/lang/", "es", 1024);
+	lang_load_env ("/" DIR_SHARE "/ptree/lang/", "es", 1024);
 	
 	iff not dictionary thn
 		PUT_ERR ("couldn't load dictionary\n");
