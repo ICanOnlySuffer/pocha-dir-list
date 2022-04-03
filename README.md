@@ -1,30 +1,28 @@
-# ptree (pocha-tree)
+# ptv (pocha's tree visualizer)
 
-A simple directory visualizer based on 'tree' for x86 Linux and armv7a Android.
+A simple directory visualizer based on 'tree'.
 
 ## Installation
 
-**From source (requires [putils](https://github.com/ICanOnlySuffer/putils)):**
+**From source (requires [pul](https://github.com/ICanOnlySuffer/pul)):**
 
-	$ git clone https://github.com/ICanOnlySuffer/ptree/releases/latest
-	$ cd ptree
-	# make install && make clean
+	$ git clone https://github.com/ICanOnlySuffer/ptv
+	# make -C ptv install clean
 
 **From the AUR:**
 
-	$ git clone https://aur.archlinux.org/ptree
-	$ cd ptree
-	$ makepkg -sirc
+	$ git clone https://aur.archlinux.org/ptv
+	$ cd ptv && makepkg -sirc
 
 ## Uninstallation
 
 **From source:**
 
-	# make uninstall
+	# make -C ptv uninstall
 
 **With pacman (if installed from the AUR):**
 
-	# pacman -Rcns ptree
+	# pacman -Rcns ptv
 
 ## Usage
 
@@ -38,7 +36,7 @@ Bug reports, suggestions and pull requests are welcome!
 
 ## Languages
 
-Currently available in English, Spanish, Portugese and Korean.
+Currently available in English, Spanish and Portugese.
 
 ## Licence
 
