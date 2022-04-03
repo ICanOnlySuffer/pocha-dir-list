@@ -21,7 +21,7 @@ lib/option/%.o: src/option/%.c
 bin/%: src/%.c
 	$(CC) $(C_FLAGS) $(LIB) /usr/lib/pul/*.o -DPREFIX='"$(PREFIX)"' $< -o $@
 
-install: all $(BUILD)/share/ptv/
+install: all $(BUILD)/share/ptv/ $(BUILD)/bin/
 	cp -ur share/* $(BUILD)/share/ptv/
 	cp -u bin/ptv $(BUILD)/bin/ptv
 
