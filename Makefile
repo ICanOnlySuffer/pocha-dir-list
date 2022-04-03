@@ -1,22 +1,13 @@
 
 OS := $(shell uname -o)
-
-ifeq ($(OS), GNU/Linux)
-	DIR_BIN = usr/bin
-	DIR_SHARE = usr/share
-endif
-ifeq ($(OS), Android)
-	DIR_BIN = data/data/com.termux/files/usr/bin
-	DIR_SHARE = data/data/com.termux/files/usr/share
-endif
+PREFIX := /usr
+BUILD := $(DEST_DIR)$(PREFIX)
 
 C_FLAGS = -Iinclude/ -O3
 
-LIB_PTREE = $(foreach obj, file lang options size tree, lib/$(obj).o) $(foreach obj, help listing number other printing sorting, lib/options/$(obj).o)
-BIN_PTREE = bin/ptree
-OBJECTS = lib/*.o lib/options/*.o /usr/lib/putils/*.o
+LIB = $(foreach obj, file lang option tree, lib/$(obj).o) $(foreach obj, printing listing sorting miscellaneous, lib/option/$(obj).o)
 
-all: lib/options/ $(LIB_PTREE) bin/ $(BIN_PTREE)
+all: lib/option/ $(LIB) bin/ bin/ptv
 
 %/:
 	mkdir -p $@
@@ -24,18 +15,19 @@ all: lib/options/ $(LIB_PTREE) bin/ $(BIN_PTREE)
 lib/%.o: src/%.c
 	$(CC) $(C_FLAGS) -c $< -o $@
 
-lib/options/%.o: src/options/%.c
+lib/option/%.o: src/option/%.c
 	$(CC) $(C_FLAGS) -c $< -o $@
 
 bin/%: src/%.c
-	$(CC) $(C_FLAGS) $(OBJECTS) -DDIR_SHARE='"$(DIR_SHARE)"' $< -o $@
+	$(CC) $(C_FLAGS) $(LIB) /usr/lib/pul/*.o -DPREFIX='"$(PREFIX)"' $< -o $@
 
-install: all $(DEST_DIR)/$(DIR_SHARE)/ptree/
-	cp -TR share/lang $(DEST_DIR)/$(DIR_SHARE)/ptree/lang
-	install -Dm755 bin/ptree $(DEST_DIR)/$(DIR_BIN)/ptree
+install: all $(BUILD)/share/ptv/
+	cp -ur share/* $(BUILD)/share/ptv/
+	cp -u bin/ptv $(BUILD)/bin/ptv
 
 uninstall:
-	rm -rf $(DEST_DIR)/$(DIR_SHARE)/ptree $(DEST_DIR)/$(DIR_BIN)/ptree
+	rm -rf $(BUILD)/share/ptv
+	rm -rf $(BUILD)/bin/ptv
 
 clean:
 	rm -rf lib/ bin/
