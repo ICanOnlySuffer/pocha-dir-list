@@ -1,59 +1,60 @@
 # include "tree.h"
 
-nil tree (str padding, str path) fun
+nil tree (str padding, str path) {
 	chr sub_padding [PATH_SIZE];
 	vec * files = get_files (path);
 	
-	iff compare_functions thn
-		for u16 i = 0; i < compare_functions -> size; i++ dos
-			VEC_SRT (files, compare_functions -> items [i]);
-		end
-	end
+	IFF not files THN // couldn't open
+		ret;
+	END
 	
-	for u16 i = 0; i < files -> size; i++ dos
+	if (compare_functions) { // replace with array
+		for (u16 i = 0; i < compare_functions -> size; i++) {
+			VEC_SRT (files, compare_functions -> items [i]);
+		}
+	}
+	
+	for (u16 i = 0; i < files -> size; i++) {
 		struct file * file = files -> items [i];
 		u08 is_last = i < files -> size - 1;
 		
 		PUT_ARR (padding, is_last ? "|-- " : "`-- ");
-		iff printing.size thn
+		if (printing.size) {
 			chr size_buffer [8] = "[     ] ";
 			str_frm_filesize (size_buffer + 1, file -> size);
 			write (STD_OUT, size_buffer, 8);
-		end
-		iff file -> is_link thn
-			PUT_ARR (LN_COLOR, file -> name, RESET_COLOR, " -> ");
-		end
+		}
+		if (file -> is_link) {
+			PUT_ARR (LN_COLOR, file -> name, NO_COLOR, " -> ");
+		}
 		
-		swi file -> mode & S_IFMT dos
-		whn S_IFDIR:
-			iff file -> is_link thn
-				PUT_ARR (DI_COLOR, file -> path, RESET_COLOR "\n");
-			els
-				PUT_ARR (DI_COLOR, file -> name, "/" RESET_COLOR "\n");
-				STR_CPY (
-					sub_padding, padding,
-					is_last ? "|   " : "    "
-				);
+		switch (file -> mode & S_IFMT) {
+		case S_IFDIR:
+			if (file -> is_link) {
+				PUT_ARR (DI_COLOR, file -> path, NO_COLOR, "\n");
+			} else {
+				PUT_ARR (DI_COLOR, file -> name, "/", NO_COLOR, "\n");
+				STR_CPY (sub_padding, padding, is_last ? "|   " : "    ");
 				tree (sub_padding, file -> path);
-			end
+			}
 			break;
-		whn S_IFREG:
+		case S_IFREG:
 			PUT_ARR (
 				file -> mode & X_OK ? EX_COLOR : FI_COLOR,
 				file -> is_link ? file -> path : file -> name,
-				RESET_COLOR "\n"
+				NO_COLOR, "\n"
 			);
 			break;
-		whn S_IFLNK:
+		case S_IFLNK:
 			PUT (file -> path);
 			NEW_LNE ();
 			break;
-		def:
+		default:
 			PUT (file -> name);
 			NEW_LNE ();
-		end
-	end
+		}
+	}
 	
-	VEC_FRE (files);
-end
+	VEC_DEL (files);
+}
 

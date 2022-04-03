@@ -2,13 +2,12 @@
 # ifndef PTREE_TREE_H
 # define PTREE_TREE_H
 
-# include <putils/put.h>
-# include <putils/vec.h>
+# include <pul/put.h>
+# include <pul/vec.h>
 # include "file.h"
-# include "size.h"
 
-# include "options/printing.h"
-# include "options/sorting.h"
+# include "option/printing.h"
+# include "option/sorting.h"
 
 ext nil tree (str padding, str path);
 
