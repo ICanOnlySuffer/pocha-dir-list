@@ -1,34 +1,36 @@
 # error
-path_doesnt_exist   Camino no existe
+cannot_open_file    No se puede abrir el archivo
 
 # usage
 usage               Uso
 options             Opciones
-printing            Impresión
-	printing(a)         buffer alternativo (solo en bucle)
-	printing(c)         usar colores de LS_COLORS
-	printinf(d)         demora (solo en bucle)
-	printing(l)         en bucle
-	printing(s)         tamaño
+printing            Imprimir
+  printing.c          usar colores de LS_COLORS
+  printing.s          tamaño
 listing             Listado
-	listing(d)          solo directorios
-	listing(r)          solo regulares
-	listing(h)          solo ocultos
-	listing(a)          todos
-sorting             Ordenamiendo
-	sorting(d)          directorios primero
-	sorting(n)          por nombre
+  listing.d           solo directories
+  listing.r           solo regulares
+  listing.h           solo ocultos
+  listing.a           todos
+sorting             Ordenado
+  sorting.d           directorios primero
+  sorting.n           por nombre
+miscellaneous       Diversos
+  miscellaneous.c     créditos
+  miscellaneous.v     versión
+  miscellaneous.h     ayuda
 
 # count
-directories(0)      directorios
-directories(1)      directorio
-directories(2)      directorios
-directories(+)      directorios
-regular_ones(0)     regulares
-regular_ones(1)     regular
-regular_ones(2)     regulares
-regular_ones(+)     regulares
+directories.0   directorios
+directories.1   directorio
+directories.2   directorios
+directories.+   directorios
+regular-ones.0  regulares
+regular-ones.1  regular
+regular-ones.2  regulares
+regular-ones.+  regulares
 
-# version
-credits             Basado en 'tree', por:
-copyright           Bajo Licencia MIT
+# miscellaneous
+developer       Desarrollador
+based-on        Basado en 'tree'
+licence         Bajo Licencia de MIT

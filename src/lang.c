@@ -1,24 +1,23 @@
-# include <putils/put.h>
 # include "lang.h"
 
 vec * dictionary;
 
-nil lang_load_env (str path, str rescue, u16 length) fun
+nil lang_load_env (str path, str rescue, u16 length) FUN
 	str env_lang = getenv ("LANG");
 	
-	iff env_lang and str_len (env_lang) > 2 thn
+	IFF env_lang and str_len (env_lang) > 1 THN
 		env_lang [2] = 0;
-	els
+	ELS
 		env_lang = rescue;
-	end
+	END
 	
-	chr lang_path [1024] = "";
+	chr lang_path [64] = "";
 	STR_CPY (lang_path, path, env_lang);
 	dictionary = lng_lod (lang_path, length);
 	
-	iff not dictionary thn
+	IFF not dictionary THN
 		PUT_ERR_ARR ("couldn't load language path '", lang_path, "'\n");
-		QUT (1);
-	end
-end
+		QUT (2);
+	END
+END
 

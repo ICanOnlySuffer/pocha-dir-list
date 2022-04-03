@@ -1,34 +1,36 @@
 # error
-path_doesnt_exist   Path doesn't exist
+cannot_open_file    Cannot open file
 
 # usage
 usage               Usage
 options             Options
 printing            Printing
-	printing(a)         alternate buffer (on loop only)
-	printing(c)         use colors from LS_COLORS
-	printing(d)         delay (on loop only)
-	printing(l)         on loop
-	printing(s)         size
+  printing.c          use colors from LS_COLORS
+  printing.s          size
 listing             Listing
-	listing(d)          only directories
-	listing(r)          only regular ones
-	listing(h)          only hidden
-	listing(a)          all
+  listing.d           only directories
+  listing.r           only regular ones
+  listing.h           only hidden
+  listing.a           all
 sorting             Sorting
-	sorting(d)          directories first
-	sorting(n)          by name
+  sorting.d           directories first
+  sorting.n           by name
+miscellaneous       Miscellaneous
+  miscellaneous.c     credits
+  miscellaneous.v     version
+  miscellaneous.h     help
 
 # count
-directories(0)      directories
-directories(1)      directory
-directories(2)      directories
-directories(+)      directories
-regular_ones(0)     regular ones
-regular_ones(1)     regular one
-regular_ones(2)     regular ones
-regular_ones(+)     regular ones
+directories.0   directories
+directories.1   directory
+directories.2   directories
+directories.+   directories
+regular-ones.0  regular ones
+regular-ones.1  regular one
+regular-ones.2  regular ones
+regular-ones.+  regular ones
 
-# version
-credits             Based on 'tree', by:
-copyright           Under MIT Licence
+# miscellaneous
+developer       Developer
+based-on        Based on 'tree'
+licence         Under MIT Licence
