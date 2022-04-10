@@ -1,6 +1,6 @@
 
-# ifndef PTREE_OPTION_LISTING_H
-# define PTREE_OPTION_LISTING_H
+# ifndef PTV_OPTION_LISTING_H
+# define PTV_OPTION_LISTING_H
 
 # include "miscellaneous.h"
 
@@ -11,8 +11,8 @@ struct listing {
 	u08 dirs;
 };
 
-ext struct listing listing;
-ext nil option_listing (chr option);
+EXT struct listing listing;
+EXT nil option_listing (chr option);
 
-# endif // PTREE_OPTION_LISTING_H
+# endif // PTV_OPTION_LISTING_H
 

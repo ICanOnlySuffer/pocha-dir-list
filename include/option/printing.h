@@ -1,6 +1,6 @@
 
-# ifndef PTREE_OPTION_PRINTING_H
-# define PTREE_OPTION_PRINTING_H
+# ifndef PTV_OPTION_PRINTING_H
+# define PTV_OPTION_PRINTING_H
 
 # include "miscellaneous.h"
 # include <stdio.h>
@@ -22,10 +22,10 @@ struct printing {
 	u08 size;
 };
 
-ext struct printing printing;
-ext nil str_frm_filesize (str buffer, u64 size);
-ext nil parse_colors ();
-ext nil option_printing (chr option);
+EXT struct printing printing;
+EXT nil str_frm_filesize (str buffer, u64 size);
+EXT nil parse_colors ();
+EXT nil option_printing (chr option);
 
-# endif // PTREE_OPTION_PRINTING_H
+# endif // PTV_OPTION_PRINTING_H
 

@@ -8,24 +8,24 @@ str parse_options (u16 argc, str args []) FUN
 		IFF args [i][0] == '-' THN
 			WHL *++args [i] DOS
 				SWI *args [i] DOS
-				WHN 'P': current = PRINTING; break;
-				WHN 'L': current = LISTING; break;
-				WHN 'S': current = SORTING; break;
-				WHN 'M': current = MISCELLANEOUS; break;
+				WHN 'P': current = PRINTING; BRK;
+				WHN 'L': current = LISTING; BRK;
+				WHN 'S': current = SORTING; BRK;
+				WHN 'M': current = MISCELLANEOUS; BRK;
 				default:
 					SWI current DOS
 					WHN PRINTING:
 						option_printing (args [i][0]);
-						break;
+						BRK;
 					WHN SORTING:
 						option_sorting (args [i][0]);
-						break;
+						BRK;
 					WHN LISTING:
 						option_listing (args [i][0]);
-						break;
+						BRK;
 					WHN MISCELLANEOUS:
 						option_miscellaneous (args [i][0]);
-						break;
+						BRK;
 					END
 				END
 			END
@@ -34,6 +34,6 @@ str parse_options (u16 argc, str args []) FUN
 		END
 	END
 	
-	ret path;
+	RET path;
 END
 

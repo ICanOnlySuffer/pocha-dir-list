@@ -1,61 +1,43 @@
 # ifndef PREFIX
-# error "PREFIX not defined: OS not suported"
+# error "PREFIX not defined: filesystem not suported"
 # endif
 
 # include "option.h"
 # include "lang.h"
 # include "tree.h"
 
-# include <stdio.h>
-
 chr main (s32 argc, str args []) FUN
-	str lang_path = PREFIX "/share/ptv/lang/";
-	lang_load_env (lang_path, "es", 1024);
-	
-	IFF not dictionary THN
-		PUT_ERR_ARR (lang_path, ": ", LANG ("cannot_open_file"));
-		NEW_LNE_ERR ();
-		ret 2;
-	END
-	
+	lang_load_env (PREFIX "/share/ptv/lang/", "es", 1024);
 	str path = parse_options (argc, args);
-	DIR * dir = opendir (path);
-	
-	IFF not dir DOS
-		PUT_ERR_ARR (path, ": ", LANG ("cannot_open_file"));
-		NEW_LNE_ERR ();
-		ret 2;
-	END
-	closedir (dir);
 	
 	str lang_n_dirs [] = {
-		LANG ("directories.0"),
-		LANG ("directories.1"),
-		LANG ("directories.2"),
-		LANG ("directories.+")
+		LANG ('d', 'i', 'r', '.', '0'),
+		LANG ('d', 'i', 'r', '.', '1'),
+		LANG ('d', 'i', 'r', '.', '2'),
+		LANG ('d', 'i', 'r', '.', '+')
 	};
 	
 	str lang_n_regs [] = {
-		LANG ("regular-ones.0"),
-		LANG ("regular-ones.1"),
-		LANG ("regular-ones.2"),
-		LANG ("regular-ones.+")
+		LANG ('r', 'e', 'g', '.', '0'),
+		LANG ('r', 'e', 'g', '.', '1'),
+		LANG ('r', 'e', 'g', '.', '2'),
+		LANG ('r', 'e', 'g', '.', '+')
 	};
 	chr buffer [2][32];
 	
 	PUT_ARR (DI_COLOR, path, NO_COLOR, "\n");
 	tree ("", path);
 	
-	str_frm_u64 (buffer [0], n_files.dirs);
-	str_frm_u64 (buffer [1], n_files.regs);
+	str_frm_u64 (buffer [0], n_dirs);
+	str_frm_u64 (buffer [1], n_regs);
 	
 	NEW_LNE ();
 	PUT_ARR (
 		buffer [0], " ",
-		lang_n_dirs [n_files.dirs > 3 ? 3 : n_files.dirs],
+		lang_n_dirs [n_dirs > 3 ? 3 : n_dirs],
 		", ",
 		buffer [1], " ",
-		lang_n_regs [n_files.regs > 3 ? 3 : n_files.regs]
+		lang_n_regs [n_regs > 3 ? 3 : n_regs]
 	);
 	NEW_LNE ();
 }

@@ -1,81 +1,82 @@
 # include "option/miscellaneous.h"
 
-nil help (chr option) {
-	switch (option) {
-	case USAGE:
+nil help (chr option) FUN
+	SWI option DOS
+	WHN USAGE:
 		PUT_ARR (
-			LANG ("usage"), ": ptree [-Pcs] [-Ldrha] [-Sdn] [-Mcvh]\n",
-			LANG ("options")
+			LANG ('u', 's', 'e'),
+			": ptv [-Pcs] [-Ldrha] [-Sdn] [-Mcvh]\n",
+			LANG ('o', 'p', 't')
 		);
-		break;
-	case PRINTING:
+		BRK;
+	WHN PRINTING:
 		PUT_ARR (
-			"  -P    ", LANG ("printing"), "\n"
-			"    -c    ", LANG ("printing.c"), "\n"
-			"    -s    ", LANG ("printing.s")
+			"  -P    ", LANG ('p', 'u', 't'), "\n"
+			"    -c    ", LANG ('p', 'u', 't', '.', 'c'), "\n"
+			"    -s    ", LANG ('p', 'u', 't', '.', 's')
 		);
-		break;
-	case LISTING:
+		BRK;
+	WHN LISTING:
 		PUT_ARR (
-			"  -L    ", LANG ("listing"), "\n"
-			"    -d    ", LANG ("listing.d"), "\n"
-			"    -r    ", LANG ("listing.r"), "\n"
-			"    -h    ", LANG ("listing.h"), "\n"
-			"    -a    ", LANG ("listing.a")
+			"  -L    ", LANG ('l', 's', 't'), "\n"
+			"    -d    ", LANG ('l', 's', 't', '.', 'd'), "\n"
+			"    -r    ", LANG ('l', 's', 't', '.', 'r'), "\n"
+			"    -h    ", LANG ('l', 's', 't', '.', 'h'), "\n"
+			"    -a    ", LANG ('l', 's', 't', '.', 'a')
 		);
-		break;
-	case SORTING:
+		BRK;
+	WHN SORTING:
 		PUT_ARR (
-			"  -S    ", LANG ("sorting"), "\n"
-			"    -d    ", LANG ("sorting.d"), "\n"
-			"    -n    ", LANG ("sorting.n")
+			"  -S    ", LANG ('s', 'r', 't'), "\n"
+			"    -d    ", LANG ('s', 'r', 't', '.', 'd'), "\n"
+			"    -n    ", LANG ('s', 'r', 't', '.', 'n')
 		);
-		break;
-	case MISCELLANEOUS:
+		BRK;
+	WHN MISCELLANEOUS:
 		PUT_ARR (
-			"  -M    ", LANG ("miscellaneous"), "\n"
-			"    -c    ", LANG ("miscellaneous.c"), "\n"
-			"    -v    ", LANG ("miscellaneous.v"), "\n"
-			"    -h    ", LANG ("miscellaneous.h")
+			"  -M    ", LANG ('m', 's', 'c'), "\n"
+			"    -c    ", LANG ('m', 's', 'c', '.', 'c'), "\n"
+			"    -v    ", LANG ('m', 's', 'c', '.', 'v'), "\n"
+			"    -h    ", LANG ('m', 's', 'c', '.', 'h')
 		);
-		break;
+		BRK;
 	default:
 		help (USAGE);
 		help (PRINTING);
 		help (LISTING);
 		help (SORTING);
 		help (MISCELLANEOUS);
-		ret;
-	}
+		RET;
+	END
 	NEW_LNE ();
-}
+END
 
-nil option_miscellaneous (chr option) {
-	switch (option) {
-	case 'v':
+nil option_miscellaneous (chr option) FUN
+	SWI option DOS
+	WHN 'v':
 		PUT (
 			"ptree " VERSION "\n"
 			"* https://github.com/ICanOnlySuffer/ptree/releases/tag/"
 			VERSION "\n"
 		);
-		break;
-	case 'h':
+		BRK;
+	WHN 'h':
 		help ('0');
-		break;
-	case 'c':
+		BRK;
+	WHN 'c':
 		PUT_ARR (
-			LANG ("developer"),
+			LANG ('d', 'e', 'v'),
 			": Piero Estéfano Rojas Effio (ICanOnlySuffer)\n",
-			LANG ("based-on"),
+			LANG ('o', 'm', 'p'),
 			": https://gitlab.com/OldManProgrammer/unix-tree\n",
-			LANG ("licence")
+			LANG ('l', 'i', 'c')
 		);
 		NEW_LNE ();
-		break;
+		BRK;
 	default:
 		help ('0');
 		QUT (1);
-	}
+	END
 	QUT (0);
-}
+END
 

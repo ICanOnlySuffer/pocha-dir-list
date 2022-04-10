@@ -1,67 +1,64 @@
 # include "file.h"
 
-struct n_files n_files = {
-	.regs = 0,
-	.dirs = 0
-};
+u32 n_regs = 0;
+u32 n_dirs = 0;
 
-vec * get_files (str path) {
+vec get_files (str path) FUN
 	DIR * dir = opendir (path);
-	if (not dir) {
-		ret NIL;
-	}
+	IFF not dir DOS
+		RET VEC_NEW (0);
+	END
 	
-	vec * files = vec_new (16);
+	vec files = VEC_NEW (32);
 	struct dirent * entry;
 	struct stat info;
 	
 	chr subpath [PATH_SIZE];
 	
-	while (entry = readdir (dir)) {
+	WHL entry = readdir (dir) DOS
 		str name = entry -> d_name;
 		u08 is_hidden = name [0] == '.';
 		
-		if (
+		IFF
 			is_hidden and
 			(not name [1] or (name [1] == '.' and not name [2]))
-		) {
+		DOS
 			continue;
-		}
+		END
 		STR_CPY (subpath, path, "/", name);
-		if (lstat (subpath, &info)) {
+		IFF lstat (subpath, &info) DOS
 			continue;
-		}
+		END
 		
-		struct file * file = malloc (sizeof (struct file));
+		fil * file = malloc (sizeof (fil));
 		STR_CPY (file -> name, name);
 		file -> size = info.st_size;
 		
-		if (file -> is_link = S_ISLNK (info.st_mode)) {
+		IFF file -> is_link = S_ISLNK (info.st_mode) DOS
 			chr buffer [PATH_SIZE] = {0};
 			readlink (subpath, buffer, PATH_SIZE);
 			STR_CPY (file -> path, buffer);
 			lstat (file -> path, &info);
-		} else {
+		ELS
 			STR_CPY (file -> path, subpath);
-		}
+		END
 		file -> mode = info.st_mode;
-		
-		switch (info.st_mode & S_IFMT) {
-		case S_IFDIR:
-			if (is_hidden ? listing.hidden_dirs : listing.dirs) {
-				vec_psh (files, file);
-				n_files.dirs++;
-			}
-			break;
+		SWI info.st_mode & S_IFMT DOS
+		WHN S_IFDIR:
+			IFF is_hidden ? listing.hidden_dirs : listing.dirs DOS
+				vec_psh (&files, file);
+				n_dirs++;
+			END
+			BRK;
 		default:
-			if (is_hidden ? listing.hidden_regs : listing.regs) {
-				vec_psh (files, file);
-				n_files.regs++;
-			}
-		}
-	}
+			IFF is_hidden ? listing.hidden_regs : listing.regs DOS
+				vec_psh (&files, file);
+				n_regs++;
+			END
+		END
+	END
 	closedir (dir);
 	
-	ret files;
-}
+	RET files;
+END
 

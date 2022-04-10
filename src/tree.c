@@ -1,60 +1,65 @@
 # include "tree.h"
 
 nil tree (str padding, str path) {
-	chr sub_padding [PATH_SIZE];
-	vec * files = get_files (path);
+	vec files = get_files (path);
 	
-	IFF not files THN // couldn't open
-		ret;
+	IFF not files.capacity THN // couldn't open
+		PUT_ARR (
+			padding, "`-- [",
+			LANG ('e', 'r', 'r', '.', 'f', 'i', 'l'),
+			"]\n"
+		);
+		RET;
 	END
 	
-	if (compare_functions) { // replace with array
-		for (u16 i = 0; i < compare_functions -> size; i++) {
-			VEC_SRT (files, compare_functions -> items [i]);
-		}
-	}
+	FOR u08 i = 0; i < n_cmp_functions; i++ DOS
+		VEC_SRT (&files, cmp_functions [i]);
+	END
 	
-	for (u16 i = 0; i < files -> size; i++) {
-		struct file * file = files -> items [i];
-		u08 is_last = i < files -> size - 1;
+	FOR u16 i = 0; i < files.size; i++ DOS
+		fil * file = files.items [i];
+		u08 is_last = i < files.size - 1;
 		
 		PUT_ARR (padding, is_last ? "|-- " : "`-- ");
-		if (printing.size) {
-			chr size_buffer [8] = "[     ] ";
+		IFF printing.size DOS
+			chr size_buffer [8] = "[    ] ";
 			str_frm_filesize (size_buffer + 1, file -> size);
 			write (STD_OUT, size_buffer, 8);
-		}
-		if (file -> is_link) {
+		END
+		IFF file -> is_link DOS
 			PUT_ARR (LN_COLOR, file -> name, NO_COLOR, " -> ");
-		}
+		END
 		
-		switch (file -> mode & S_IFMT) {
-		case S_IFDIR:
-			if (file -> is_link) {
+		SWI file -> mode & S_IFMT DOS
+		WHN S_IFDIR:
+			IFF file -> is_link THN
 				PUT_ARR (DI_COLOR, file -> path, NO_COLOR, "\n");
-			} else {
+			ELS
+				chr sub_padding [128];
 				PUT_ARR (DI_COLOR, file -> name, "/", NO_COLOR, "\n");
-				STR_CPY (sub_padding, padding, is_last ? "|   " : "    ");
+				STR_CPY (
+					sub_padding, padding, is_last ? "|   " : "    "
+				);
 				tree (sub_padding, file -> path);
-			}
-			break;
-		case S_IFREG:
+			END
+			BRK;
+		WHN S_IFREG:
 			PUT_ARR (
 				file -> mode & X_OK ? EX_COLOR : FI_COLOR,
 				file -> is_link ? file -> path : file -> name,
 				NO_COLOR, "\n"
 			);
-			break;
-		case S_IFLNK:
+			BRK;
+		WHN S_IFLNK:
 			PUT (file -> path);
 			NEW_LNE ();
-			break;
+			BRK;
 		default:
 			PUT (file -> name);
 			NEW_LNE ();
-		}
-	}
+		END
+	END
 	
-	VEC_DEL (files);
-}
+	vec_clr (&files);
+END
 

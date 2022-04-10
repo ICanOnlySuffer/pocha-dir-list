@@ -1,6 +1,6 @@
 # include "lang.h"
 
-vec * dictionary;
+vec dictionary;
 
 nil lang_load_env (str path, str rescue, u16 length) FUN
 	str env_lang = getenv ("LANG");
@@ -13,10 +13,10 @@ nil lang_load_env (str path, str rescue, u16 length) FUN
 	
 	chr lang_path [64] = "";
 	STR_CPY (lang_path, path, env_lang);
-	dictionary = lng_lod (lang_path, length);
+	dictionary = cnf_get (lang_path, length);
 	
-	IFF not dictionary THN
-		PUT_ERR_ARR ("couldn't load language path '", lang_path, "'\n");
+	IFF not dictionary.capacity THN
+		PUT_ERR_ARR ("err 002: \"", lang_path, "\"\n");
 		QUT (2);
 	END
 END

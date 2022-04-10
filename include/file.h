@@ -1,6 +1,6 @@
 
-# ifndef PTREE_FILE_H
-# define PTREE_FILE_H
+# ifndef PTV_FILE_H
+# define PTV_FILE_H
 
 # include <sys/stat.h>
 # include <pul/str.h>
@@ -10,29 +10,21 @@
 
 # include "option/listing.h"
 
-# ifndef PATH_SIZE
+# define NAME_SIZE 128
 # define PATH_SIZE 256
-# endif
 
-# ifndef NAME_SIZE
-# define NAME_SIZE 64
-# endif
-
-struct file {
+typedef struct {
 	chr name [NAME_SIZE];
 	chr path [PATH_SIZE];
-	off_t size;
+	u64 size;
 	u08 is_link;
 	mode_t mode;
-};
+} fil;
 
-struct n_files {
-	u32 regs;
-	u32 dirs;
-};
+EXT u32 n_regs;
+EXT u32 n_dirs;
 
-ext struct n_files n_files;
-ext vec * get_files (str path);
+EXT vec get_files (str path);
 
-# endif // PTREE_FILE_H
+# endif // PTV_FILE_H
 

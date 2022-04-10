@@ -1,36 +1,33 @@
 # include "option/sorting.h"
 
-s32 compare_name (con ptr file_1, con ptr file_2) {
-	ret str_cmp (
-		(*(struct file **) file_1) -> name,
-		(*(struct file **) file_2) -> name
+s32 cmp_name (con nil * file_1, con nil * file_2) FUN
+	RET str_cmp (
+		(*(fil **) file_1) -> name,
+		(*(fil **) file_2) -> name
 	);
-}
+END
 
-s32 compare_is_dir (con ptr file_1, con ptr file_2) {
-	ret (
-		S_ISDIR ((*(struct file **) file_2) -> mode) -
-		S_ISDIR ((*(struct file **) file_1) -> mode)
+s32 cmp_dirs (con nil * file_1, con nil * file_2) FUN
+	RET (
+		S_ISDIR ((*(fil **) file_2) -> mode) -
+		S_ISDIR ((*(fil **) file_1) -> mode)
 	);
-}
+END
 
-vec * compare_functions = NIL;
+u08 n_cmp_functions = 0;
+s32 (*cmp_functions [4]) (con nil *, con nil *);
 
-nil option_sorting (chr option) {
-	if (not compare_functions) { // change to array
-		compare_functions = vec_new (4);
-	}
-	
-	switch (option) {
-	case 'n':
-		vec_psh (compare_functions, compare_name);
-		break;
-	case 'd':
-		vec_psh (compare_functions, compare_is_dir);
-		break;
+nil option_sorting (chr option) FUN
+	SWI option DOS
+	WHN 'n':
+		cmp_functions [n_cmp_functions++] = cmp_name;
+		BRK;
+	WHN 'd':
+		cmp_functions [n_cmp_functions++] = cmp_dirs;
+		BRK;
 	default:
 		help (SORTING);
 		QUT (1);
-	}
-}
+	END
+END
 

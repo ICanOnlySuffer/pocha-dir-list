@@ -1,15 +1,15 @@
 
-# ifndef PTREE_LANG_H
-# define PTREE_LANG_H
+# ifndef PTV_LANG_H
+# define PTV_LANG_H
 
-# include <pul/lng.h>
+# include <pul/cnf.h>
 # include <pul/put.h>
 
-ext vec * dictionary;
-ext nil lang_load_env (str path, str rescue, u16 length);
+EXT vec dictionary;
+EXT nil lang_load_env (str path, str rescue, u16 length);
 
-# define LANG(key_) \
-	lng_get (dictionary, key_)
+# define LANG(...) \
+	dic_get (&dictionary, *(u64 *)(chr [8]) {__VA_ARGS__})
 
-# endif // PTREE_LANG_H
+# endif // PTV_LANG_H
 
