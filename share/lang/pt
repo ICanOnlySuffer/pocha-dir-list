@@ -1,36 +1,32 @@
-# error
-cannot_open_file    Não pode abrir o arquivo
+err.fil Não pode abrir o arquivo
 
-# usage
-usage               Usage
-options             Opções
-printing            Impressão
-  printing.c          use cores de LS_COLORS
-  printing.s          tamanho
-listing             Listagem
-  listing.d           somente diretórios
-  listing.r           somente regulares
-  listing.h           somente escondidos
-  listing.a           todos
-  sorting             Ordenação
-  sorting.d           diretórios primeiro
-  sorting.n           por nome
-miscellaneous       Diversas
-  miscellaneous.c     créditos
-  miscellaneous.v     versão
-  miscellaneous.h     ajuda
+use     Usage
+opt     Opções
+put     Impressão
+put.c   use cores de LS_COLORS
+put.s   tamanho
+lst     Listagem
+lst.d   somente diretórios
+lst.r   somente regulares
+lst.h   somente escondidos
+lst.a   todos
+srt     Ordenação
+srt.d   diretórios primeiro
+srt.n   por nome
+msc     Diversas
+msc.c   créditos
+msc.v   versão
+msc.h   ajuda
 
-# count
-directories.0   diretórios
-directories.1   diretório
-directories.2   diretórios
-directories.+   diretórios
-regular-ones.0  regulares
-regular-ones.1  regular
-regular-ones.2  regulares
-regular-ones.+  regulares
+dir.0  diretórios
+dir.1  diretório
+dir.2  diretórios
+dir.+  diretórios
+reg.0  regulares
+reg.1  regular
+reg.2  regulares
+reg.+  regulares
 
-# miscellaneous
-developer       Desenvolvedor
-based-on        Baseado em 'tree'
-licence         Sob licença MIT
+dev    Desenvolvedor
+omp    Baseado em
+lic    Sob licença MIT
