@@ -16,6 +16,11 @@ nil lang_load_env (str path, str rescue, u16 length) FUN
 	dictionary = cnf_get (lang_path, length);
 	
 	IFF not dictionary.capacity THN
+		STR_CPY (lang_path, path, rescue);
+		dictionary = cnf_get (lang_path, length);
+	END
+	
+	IFF not dictionary.capacity THN
 		PUT_ERR_ARR ("err 002: \"", lang_path, "\"\n");
 		QUT (2);
 	END

@@ -1,5 +1,5 @@
-# ifndef PREFIX
-# error "PREFIX not defined: filesystem not suported"
+# ifndef DIR_SHR
+# error "DIR_SHR not defined: filesystem not suported"
 # endif
 
 # include "option.h"
@@ -7,7 +7,7 @@
 # include "tree.h"
 
 chr main (s32 argc, str args []) FUN
-	lang_load_env (PREFIX "/share/ptv/lang/", "es", 1024);
+	lang_load_env (DIR_SHR "/ptv/lang/", "es", 1024);
 	str path = parse_options (argc, args);
 	
 	str lang_n_dirs [] = {

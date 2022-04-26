@@ -1,34 +1,48 @@
 
+NAME = "Pocha's tree visualizer"
+VERSION = "v1.5.0"
+
 OS := $(shell uname -o)
-PREFIX := /usr
-BUILD := $(DEST_DIR)$(PREFIX)
 
-C_FLAGS = -Iinclude/ -O3
+ifeq ($(OS), GNU/Linux)
+	DIR_BIN = /usr/bin
+	DIR_LIB = /usr/lib
+	DIR_SHR = /usr/share
+	DIR_INSTALL_BIN := $(DIR_INSTALL)/usr/bin
+	DIR_INSTALL_SHR := $(DIR_INSTALL)/usr/share
+	BIN = bin/ptv
+else
+all: $(error operating system `$(OS)` not supported)
+endif
 
-LIB = $(foreach obj, file lang option tree, lib/$(obj).o) $(foreach obj, printing listing sorting miscellaneous, lib/option/$(obj).o)
+SRC = $(shell find src -type f ! -name ptv.c)
+LIB = $(addprefix $(DIR_LIB), /pul/{str,put,num,vec,cnf,dic}.o)
+OBJ = $(SRC:src/%.c=obj/%.o)
+DIR_SRC = $(shell find src -type d)
+DIR_OBJ = $(DIR_SRC:src/%=obj/%/)
 
-all: lib/option/ $(LIB) bin/ bin/ptv
+C_DEFIS = -DDIR_SHR='"$(DIR_SHR)"' -DVERSION='$(VERSION)'
+C_FLAGS = -Iinc/ -O3 $(C_DEFIS)
+
+all: $(BIN)
 
 %/:
 	mkdir -p $@
 
-lib/%.o: src/%.c
-	$(CC) $(C_FLAGS) -c $< -o $@
+obj/%.o: src/%.c
+	$(CC) $< -o $@ -c $(C_FLAGS)
 
-lib/option/%.o: src/option/%.c
-	$(CC) $(C_FLAGS) -c $< -o $@
+$(BIN): src/ptv.c bin/ $(DIR_OBJ) $(OBJ)
+	$(CC) $(LIB) $(OBJ) $< -o $@ $(C_FLAGS)
 
-bin/%: src/%.c
-	$(CC) $(C_FLAGS) $(LIB) /usr/lib/pul/*.o -DPREFIX='"$(PREFIX)"' $< -o $@
-
-install: uninstall all $(BUILD)/share/ptv/ $(BUILD)/bin/
-	cp -ur share/* $(BUILD)/share/ptv/
-	cp -u bin/ptv $(BUILD)/bin/ptv
+install: uninstall $(BIN) $(DIR_INSTALL_SHR)/ptv/ $(DIR_INSTALL_BIN)/
+	cp -ur shr/* $(DIR_INSTALL_SHR)/ptv
+	cp -u $(BIN) $(DIR_INSTALL_BIN)/ptv
 
 uninstall:
-	rm -rf $(BUILD)/share/ptv
-	rm -rf $(BUILD)/bin/ptv
+	rm -rf $(DIR_INSTALL_SHR)/ptv
+	rm -rf $(DIR_INSTALL_BIN)/ptv
 
 clean:
-	rm -rf lib/ bin/
+	rm -rf obj/ bin/
 

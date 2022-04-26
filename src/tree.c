@@ -22,7 +22,7 @@ nil tree (str padding, str path) {
 		
 		PUT_ARR (padding, is_last ? "|-- " : "`-- ");
 		IFF printing.size DOS
-			chr size_buffer [8] = "[    ] ";
+			chr size_buffer [8] = "[     ] ";
 			str_frm_filesize (size_buffer + 1, file -> size);
 			write (STD_OUT, size_buffer, 8);
 		END
