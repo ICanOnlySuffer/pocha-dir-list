@@ -3,7 +3,6 @@
 # define PTV_OPTION_PRINTING_H
 
 # include "miscellaneous.h"
-# include <stdio.h>
 
 # define DI_COLOR printing.colors.di
 # define FI_COLOR printing.colors.fi
