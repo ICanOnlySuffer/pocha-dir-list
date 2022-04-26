@@ -6,21 +6,22 @@ struct printing printing = {
 };
 
 nil str_frm_filesize (str buffer, u64 size) FUN
-	IFF size < 1000lu THN
-		sprintf (buffer, "%3lluB", size);
-	ELF size < 1024lu * 10 THN
-		sprintf (buffer, "%3.1fK", size / 1024.0);
-	ELF size < 1024lu * 1000 THN
-		sprintf (buffer, "%3lluK", size / 1024);
-	ELF size < 1024lu * 1024 * 10 THN
-		sprintf (buffer, "%3.1fM", size / 1024.0 / 1024);
-	ELF size < 1024lu * 1000 * 1000 THN
-		sprintf (buffer, "%3lluM", size / 1024 / 1024);
-	ELF size < 1024lu * 1024 * 1024 * 10 THN
-		sprintf (buffer, "%3.1fG", size / 1024.0 / 1024 / 1024);
+	chr character;
+	IFF size < 9999lu THN
+		character = 'B';
+	ELF size < 9999lu * 1024 THN
+		character = 'K';
+		size /= 1024;
+	ELF size < 9999lu * 1024 * 1024 THN
+		character = 'M';
+		size /= 1024 * 1024;
 	ELS
-		sprintf (buffer, "%3lluG", size / 1024 / 1024 / 1024);
+		character = 'G';
+		size /= 1024 * 1024 * 1024;
 	END
+	u08 len = size < 10 ? 1 : size < 100 ? 2 : size < 1000 ? 3 : 4;
+	str_frm_u64 (buffer + 4 - len, size);
+	buffer [4] = character;
 END
 
 nil parse_colors () FUN
