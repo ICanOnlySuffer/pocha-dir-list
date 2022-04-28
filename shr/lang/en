@@ -1,23 +1,22 @@
-err.fil Cannot open file
-
-use     Usage
-opt     Options
-put     Printing
+err.fil cannot open directory
+use     usage
+OPT     OPTION
+opt     options
+put     printing
 put.c   use colors from LS_COLORS
 put.s   size
-lst     Listing
+lst     listing
 lst.d   directories only
 lst.r   regular ones only
 lst.h   hidden only
 lst.a   all
-srt     Sorting
+srt     sorting
 srt.d   directories first
 srt.n   by name
-msc     Miscellaneous
+msc     miscellaneous
 msc.c   credits
 msc.v   version
 msc.h   help
-
 dir.0   directories
 dir.1   directory
 dir.2   directories
@@ -26,7 +25,3 @@ reg.0   regular ones
 reg.1   regular one
 reg.2   regular ones
 reg.+   regular ones
-
-dev     Developer
-omp     Based on
-lic     Under MIT Licence

@@ -1,32 +1,27 @@
-err.fil Não pode abrir o arquivo
-
-use     Usage
-opt     Opções
-put     Impressão
+err.fil não pode abrir o arquivo
+use     usage
+OPT     OPÇÕE
+opt     opções
+put     impressão
 put.c   use cores de LS_COLORS
 put.s   tamanho
-lst     Listagem
+lst     listagem
 lst.d   somente diretórios
 lst.r   somente regulares
 lst.h   somente escondidos
 lst.a   todos
-srt     Ordenação
+srt     ordenação
 srt.d   diretórios primeiro
 srt.n   por nome
-msc     Diversas
+msc     diversas
 msc.c   créditos
 msc.v   versão
 msc.h   ajuda
-
-dir.0  diretórios
-dir.1  diretório
-dir.2  diretórios
-dir.+  diretórios
-reg.0  regulares
-reg.1  regular
-reg.2  regulares
-reg.+  regulares
-
-dev    Desenvolvedor
-omp    Baseado em
-lic    Sob licença MIT
+dir.0   diretórios
+dir.1   diretório
+dir.2   diretórios
+dir.+   diretórios
+reg.0   regulares
+reg.1   regular
+reg.2   regulares
+reg.+   regulares

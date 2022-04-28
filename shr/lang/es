@@ -1,23 +1,22 @@
-err.fil No se puede abrir el archivo
-
-use     Uso
-opt     Opciones
-put     Imprimir
+err.fil no se puede abrir el directorio
+use     uso
+OPT     OPCIÓN
+opt     opciones
+put     imprimir
 put.c   usar colores de LS_COLORS
 put.s   tamaño
-lst     Listado
+lst     listado
 lst.d   solo directorios
 lst.r   solo regulares
 lst.h   solo ocultos
 lst.a   todos
-srt     Ordenado
+srt     ordenado
 srt.d   directorios primero
 srt.n   por nombre
-msc     Diversos
+msc     diversos
 msc.c   créditos
 msc.v   versión
 msc.h   ayuda
-
 dir.0   directorios
 dir.1   directorio
 dir.2   directorios
@@ -26,7 +25,3 @@ reg.0   regulares
 reg.1   regular
 reg.2   regulares
 reg.+   regulares
-
-dev     Desarrollador
-omp     Basado en
-lic     Bajo Licencia de MIT
