@@ -1,13 +1,16 @@
-# ptv (pocha's tree visualizer)
+# Pocha's Tree Visualizer
 
 A simple directory visualizer based on 'tree'.
 
 ## Installation
 
-- Install [pul](https://github.com/ICanOnlySuffer/pul)
-- Download the [latest release](https://github.com/ICanOnlySuffer/ptv/releases/latest)
-- Extract it (`$ tar -xf ptv-VERSION.tar.gz`)
-- Install it (`# make -C ptv-VERSION install clean`)
+**requirements:**
+
+- [pul](https://gitlab.com/ICanOnlySuffer/pul)
+
+**commands:**
+
+	# make install clean
 
 ## Contributing
 
