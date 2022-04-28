@@ -11,8 +11,8 @@ struct listing {
 	u08 dirs;
 };
 
-EXT struct listing listing;
-EXT nil option_listing (chr option);
+extern struct listing listing;
+extern nil option_listing (chr option);
 
 # endif // PTV_OPTION_LISTING_H
 

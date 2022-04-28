@@ -10,8 +10,8 @@
 # define SORTING 3
 # define MISCELLANEOUS 4
 
-EXT nil help (chr option);
-EXT nil option_miscellaneous (chr option);
+extern nil help (chr option);
+extern nil option_miscellaneous (chr option);
 
 # endif // PTV_OPTION_MISCELLANEOUS_H
 

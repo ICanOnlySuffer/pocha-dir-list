@@ -1,39 +1,39 @@
 # include "option.h"
 
-str parse_options (u16 argc, str args []) FUN
+str parse_options (u16 argc, str args []) {
 	chr current = MISCELLANEOUS;
 	str path = ".";
 	
-	FOR u16 i = 1; i < argc; i++ DOS
-		IFF args [i][0] == '-' THN
-			WHL *++args [i] DOS
-				SWI *args [i] DOS
-				WHN 'P': current = PRINTING; BRK;
-				WHN 'L': current = LISTING; BRK;
-				WHN 'S': current = SORTING; BRK;
-				WHN 'M': current = MISCELLANEOUS; BRK;
+	for (u16 i = 1; i < argc; i++) {
+		if (args [i][0] == '-') {
+			while (*++args [i]) {
+				switch (*args [i]) {
+				case 'P': current = PRINTING; break;
+				case 'L': current = LISTING; break;
+				case 'S': current = SORTING; break;
+				case 'M': current = MISCELLANEOUS; break;
 				default:
-					SWI current DOS
-					WHN PRINTING:
+					switch (current) {
+					case PRINTING:
 						option_printing (args [i][0]);
-						BRK;
-					WHN SORTING:
+						break;
+					case SORTING:
 						option_sorting (args [i][0]);
-						BRK;
-					WHN LISTING:
+						break;
+					case LISTING:
 						option_listing (args [i][0]);
-						BRK;
-					WHN MISCELLANEOUS:
+						break;
+					case MISCELLANEOUS:
 						option_miscellaneous (args [i][0]);
-						BRK;
-					END
-				END
-			END
-		ELS
+						break;
+					}
+				}
+			}
+		} else {
 			path = args [i];
-		END
-	END
+		}
+	}
 	
-	RET path;
-END
+	return path;
+}
 

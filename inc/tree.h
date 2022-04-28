@@ -9,7 +9,7 @@
 # include "option/printing.h"
 # include "option/sorting.h"
 
-EXT nil tree (str padding, str path);
+extern nil tree (str padding, str path);
 
 # endif // PTV_TREE_H
 

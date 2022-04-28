@@ -7,37 +7,37 @@ struct listing listing = {
 	true
 };
 
-nil option_listing (chr option) FUN
-	SWI option DOS
-	WHN 'd':
-		IFF listing.hidden_regs DOS
+nil option_listing (chr option) {
+	switch (option) {
+	case 'd':
+		if (listing.hidden_regs) {
 			listing.hidden_regs = false;
-		END
+		}
 		listing.dirs = true;
 		listing.regs = false;
-		BRK;
-	WHN 'r':
-		IFF listing.hidden_dirs DOS
+		break;
+	case 'r':
+		if (listing.hidden_dirs) {
 			listing.hidden_dirs = false;
-		END
+		}
 		listing.regs = true;
 		listing.dirs = false;
-		BRK;
-	WHN 'h':
+		break;
+	case 'h':
 		listing.hidden_regs = true;
 		listing.hidden_dirs = true;
 		listing.regs = false;
 		listing.dirs = false;
-		BRK;
-	WHN 'a':
+		break;
+	case 'a':
 		listing.hidden_regs = true;
 		listing.hidden_dirs = true;
 		listing.regs = true;
 		listing.dirs = true;
-		BRK;
+		break;
 	default:
 		help (LISTING);
-		QUT (1);
-	END
-END
+		exit (1);
+	}
+}
 

@@ -6,7 +6,7 @@
 # include "lang.h"
 # include "tree.h"
 
-chr main (s32 argc, str args []) FUN
+chr main (s32 argc, str args []) {
 	lang_load_env (DIR_SHR "/ptv/lang/", "es", 1024);
 	str path = parse_options (argc, args);
 	
@@ -31,7 +31,7 @@ chr main (s32 argc, str args []) FUN
 	str_frm_u64 (buffer [0], n_dirs);
 	str_frm_u64 (buffer [1], n_regs);
 	
-	NEW_LNE ();
+	new_lne ();
 	PUT_ARR (
 		buffer [0], " ",
 		lang_n_dirs [n_dirs > 3 ? 3 : n_dirs],
@@ -39,6 +39,6 @@ chr main (s32 argc, str args []) FUN
 		buffer [1], " ",
 		lang_n_regs [n_regs > 3 ? 3 : n_regs]
 	);
-	NEW_LNE ();
+	new_lne ();
 }
 

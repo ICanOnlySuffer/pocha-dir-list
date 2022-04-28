@@ -21,10 +21,10 @@ struct printing {
 	u08 size;
 };
 
-EXT struct printing printing;
-EXT nil str_frm_filesize (str buffer, u64 size);
-EXT nil parse_colors ();
-EXT nil option_printing (chr option);
+extern struct printing printing;
+extern nil str_frm_filesize (str buffer, u64 size);
+extern nil parse_colors ();
+extern nil option_printing (chr option);
 
 # endif // PTV_OPTION_PRINTING_H
 

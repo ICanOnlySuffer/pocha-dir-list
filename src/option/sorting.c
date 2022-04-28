@@ -1,33 +1,33 @@
 # include "option/sorting.h"
 
-s32 cmp_name (con nil * file_1, con nil * file_2) FUN
-	RET str_cmp (
+s32 cmp_name (const nil * file_1, const nil * file_2) {
+	return str_cmp (
 		(*(fil **) file_1) -> name,
 		(*(fil **) file_2) -> name
 	);
-END
+}
 
-s32 cmp_dirs (con nil * file_1, con nil * file_2) FUN
-	RET (
+s32 cmp_dirs (const nil * file_1, const nil * file_2) {
+	return (
 		S_ISDIR ((*(fil **) file_2) -> mode) -
 		S_ISDIR ((*(fil **) file_1) -> mode)
 	);
-END
+}
 
 u08 n_cmp_functions = 0;
-s32 (*cmp_functions [4]) (con nil *, con nil *);
+s32 (*cmp_functions [4]) (const nil *, const nil *);
 
-nil option_sorting (chr option) FUN
-	SWI option DOS
-	WHN 'n':
+nil option_sorting (chr option) {
+	switch (option) {
+	case 'n':
 		cmp_functions [n_cmp_functions++] = cmp_name;
-		BRK;
-	WHN 'd':
+		break;
+	case 'd':
 		cmp_functions [n_cmp_functions++] = cmp_dirs;
-		BRK;
+		break;
 	default:
 		help (SORTING);
-		QUT (1);
-	END
-END
+		exit (1);
+	}
+}
 

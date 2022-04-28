@@ -5,81 +5,81 @@ struct printing printing = {
 	.size = false
 };
 
-nil str_frm_filesize (str buffer, u64 size) FUN
+nil str_frm_filesize (str buffer, u64 size) {
 	chr character;
-	IFF size < 9999lu THN
+	if (size < 9999lu) {
 		character = 'B';
-	ELF size < 9999lu * 1024 THN
+	} else if (size < 9999lu * 1024) {
 		character = 'K';
 		size /= 1024;
-	ELF size < 9999lu * 1024 * 1024 THN
+	} else if (size < 9999lu * 1024 * 1024) {
 		character = 'M';
 		size /= 1024 * 1024;
-	ELS
+	} else {
 		character = 'G';
 		size /= 1024 * 1024 * 1024;
-	END
+	}
 	u08 len = size < 10 ? 1 : size < 100 ? 2 : size < 1000 ? 3 : 4;
 	str_frm_u64 (buffer + 4 - len, size);
 	buffer [4] = character;
-END
+}
 
-nil parse_colors () FUN
+nil parse_colors () {
 	str env_colors = getenv ("LS_COLORS");
 	printing.colors.reset = "\e[0m";
 	
-	IFF env_colors and *env_colors THN
+	if (env_colors and *env_colors) {
 		u08 reading = true;
 		chr buffer [16];
 		str color;
 		
-		FOR u08 i = 0, j = 2; ; env_colors++ DOS
-			IFF reading THN
-				IFF *env_colors == '=' THN
+		for (u08 i = 0, j = 2; ; env_colors++) {
+			if (reading) {
+				if (*env_colors == '=') {
 					reading = false;
 					buffer [i] = 0;
 					
-					IFF STR_EQL (buffer, "di") THN
+					if (str_eql (buffer, "di")) {
 						color = printing.colors.di;
-					ELF STR_EQL (buffer, "fi") THN
+					} else if (str_eql (buffer, "fi")) {
 						color = printing.colors.fi;
-					ELF STR_EQL (buffer, "ln") THN
+					} else if (str_eql (buffer, "ln")) {
 						color = printing.colors.ln;
-					ELF STR_EQL (buffer, "ex") THN
+					} else if (str_eql (buffer, "ex")) {
 						color = printing.colors.ex;
-					ELS
+					} else {
 						color = buffer;
-					END // add more here
+					} // add more here
 					
 					color [0] = '\e';
 					color [1] = '[';
-				ELS
+				} else {
 					buffer [i++] = *env_colors;
-				END
-			ELS // writing
-				IFF *env_colors == ':' THN
+				}
+			} else { // writing
+				if (*env_colors == ':') {
 					reading = true;
 					color [j] = 'm';
 					i = 0;
 					j = 2;
-				ELF not *env_colors THN
+				} else if (not *env_colors) {
 					color [j] = 'm';
-					BRK;
-				ELS
+					break;
+				} else {
 					color [j++] = *env_colors;
-				END
-			END
-		END
-	END
-END
+				}
+			}
+		}
+	}
+}
 
-nil option_printing (chr option) FUN
-	SWI option DOS
-	WHN 's': printing.size = true; BRK;
-	WHN 'c': parse_colors (); BRK;
+nil option_printing (chr option) {
+	switch (option) {
+	case 's': printing.size = true; break;
+	case 'c': parse_colors (); break;
 	default:
 		help (PRINTING);
-		QUT (1);
-	END
-END
+		exit (1);
+	}
+}
 

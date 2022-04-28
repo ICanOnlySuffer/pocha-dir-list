@@ -5,8 +5,8 @@
 # include <pul/cnf.h>
 # include <pul/put.h>
 
-EXT vec dictionary;
-EXT nil lang_load_env (str path, str rescue, u16 length);
+extern vec dictionary;
+extern nil lang_load_env (str path, str rescue, u16 length);
 
 # define LANG(...) \
 	dic_get (&dictionary, *(u64 *)(chr [8]) {__VA_ARGS__})

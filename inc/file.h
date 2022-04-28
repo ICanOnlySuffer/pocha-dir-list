@@ -21,10 +21,10 @@ typedef struct {
 	mode_t mode;
 } fil;
 
-EXT u32 n_regs;
-EXT u32 n_dirs;
+extern u32 n_regs;
+extern u32 n_dirs;
 
-EXT vec get_files (str path);
+extern vec get_files (str path);
 
 # endif // PTV_FILE_H
 

@@ -7,7 +7,7 @@
 # include "option/listing.h"
 # include "option/miscellaneous.h"
 
-EXT str parse_options (u16 argc, str args []);
+extern str parse_options (u16 argc, str args []);
 
 # endif // PTV_OPTIONS_H
 
