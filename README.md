@@ -20,8 +20,3 @@ Bug reports, suggestions and pull requests are welcome!
 
 Currently available in English, Spanish and Portugese.
 
-## Licence
-
-This project is available as open source under terms of the
-[MIT Licence](https://opensource.org/licenses/MIT).
-

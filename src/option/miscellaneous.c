@@ -54,10 +54,10 @@ nil option_miscellaneous (chr option) {
 	switch (option) {
 	case 'v':
 		put (
-			",-. -,- , ,  Pocha's Tree Visualizer " VERSION "\n"
+			",-. -,- , , Pocha's Tree Visualizer " VERSION "\n"
 			"| |  |  | |\n"
-			"|-´  |  | |  Copyright (c) 2022 " DEVELOPER "\n"
-			"'    '  `.´  " LICENSE "\n"
+			"|-´  |  | | Copyright (c) 2022 " DEVELOPER "\n"
+			"'    '  `.´ " LICENSE "\n"
 		);
 		break;
 	case 'h':

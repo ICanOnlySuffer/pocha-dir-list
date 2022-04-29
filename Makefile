@@ -1,6 +1,6 @@
 
 NAME = "Pocha's tree visualizer"
-VERSION = "v1.5.0"
+VERSION = "v1.5.1"
 DEVELOPER = "Piero Estéfano Rojas Effio"
 LICENSE = "GNU General Public License v3.0"
 
@@ -24,14 +24,17 @@ DIR_SRC = $(shell find src -type d)
 DIR_OBJ = $(DIR_SRC:src/%=obj/%/)
 
 C_DEFIS = -DVERSION='$(VERSION)' \
-		  -DDEVELOPER='$(DEVELOPER)' \
-		  -DLICENSE='$(LICENSE)'
-C_FLAGS = -Iinc/ -O3 $(C_DEFIS)
+          -DDEVELOPER='$(DEVELOPER)' \
+          -DLICENSE='$(LICENSE)'
+C_FLAGS = -Iinc/ -O3
 
 all: $(BIN)
 
 %/:
 	mkdir -p $@
+
+obj/option/miscellaneous.o: src/option/miscellaneous.c
+	$(CC) $< -o $@ -c $(C_FLAGS) $(C_DEFIS)
 
 obj/%.o: src/%.c
 	$(CC) $< -o $@ -c $(C_FLAGS)
