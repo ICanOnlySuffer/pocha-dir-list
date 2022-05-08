@@ -10,7 +10,7 @@
 # define EX_COLOR printing.colors.ex
 # define NO_COLOR printing.colors.reset
 
-struct printing {
+ext struct printing {
 	struct {
 		chr di [8];
 		chr fi [8];
@@ -19,12 +19,11 @@ struct printing {
 		str reset;
 	} colors;
 	u08 size;
-};
+} printing;
 
-extern struct printing printing;
-extern nil str_frm_filesize (str buffer, u64 size);
-extern nil parse_colors ();
-extern nil option_printing (chr option);
+ext nil str_frm_filesize (str destine, u64 size);
+ext nil parse_colors ();
+ext nil option_printing (chr option);
 
 # endif // PTV_OPTION_PRINTING_H
 

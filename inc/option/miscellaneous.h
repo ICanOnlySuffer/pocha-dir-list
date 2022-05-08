@@ -1,8 +1,7 @@
 
 # ifndef PTV_OPTION_MISCELLANEOUS_H
 # define PTV_OPTION_MISCELLANEOUS_H
-
-# include "lang.h"
+# include <pul/cor.h>
 
 # define USAGE 0
 # define PRINTING 1
@@ -10,8 +9,8 @@
 # define SORTING 3
 # define MISCELLANEOUS 4
 
-extern nil help (chr option);
-extern nil option_miscellaneous (chr option);
+ext nil help (chr option);
+ext nil option_miscellaneous (chr option);
 
 # endif // PTV_OPTION_MISCELLANEOUS_H
 

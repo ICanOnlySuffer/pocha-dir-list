@@ -1,14 +1,8 @@
 
 # ifndef PTV_FILE_H
 # define PTV_FILE_H
-
-# include <sys/stat.h>
-# include <pul/str.h>
-# include <pul/vec.h>
 # include <unistd.h>
-# include <dirent.h>
-
-# include "option/listing.h"
+# include <pul/vec.h>
 
 # define NAME_SIZE 128
 # define PATH_SIZE 256
@@ -19,12 +13,11 @@ typedef struct {
 	u64 size;
 	u08 is_link;
 	mode_t mode;
-} fil;
+} file_t;
 
-extern u32 n_regs;
-extern u32 n_dirs;
-
-extern vec get_files (str path);
+ext u32 n_regs;
+ext u32 n_dirs;
+ext vec get_files (str path);
 
 # endif // PTV_FILE_H
 

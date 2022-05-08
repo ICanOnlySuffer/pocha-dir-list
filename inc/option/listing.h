@@ -4,15 +4,13 @@
 
 # include "miscellaneous.h"
 
-struct listing {
+ext struct listing {
 	u08 hidden_regs;
 	u08 hidden_dirs;
 	u08 regs;
 	u08 dirs;
-};
-
-extern struct listing listing;
-extern nil option_listing (chr option);
+} listing;
+ext nil option_listing (chr option);
 
 # endif // PTV_OPTION_LISTING_H
 
