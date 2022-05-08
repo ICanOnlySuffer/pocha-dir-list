@@ -4,7 +4,7 @@ VERSION = "v1.6.0"
 DEVELOPER = "Piero Estéfano Rojas Effio"
 LICENSE = "GNU General Public License v3.0"
 
-OS := $(shell uname -n)
+OS := $(shell uname -s)
 
 ifeq ($(OS), linux)
 	PREFIX := $(if $(PREFIX),$(PREFIX),/usr)
