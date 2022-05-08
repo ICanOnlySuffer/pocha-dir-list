@@ -1,13 +1,12 @@
-# ifndef DIR_SHR
-# error "DIR_SHR not defined: filesystem not suported"
-# endif
+# include "../inc/option/printing.h"
+# include "../inc/option.h"
+# include "../inc/buffer.h"
+# include "../inc/lang.h"
+# include "../inc/tree.h"
+# include "../inc/file.h"
 
-# include "option.h"
-# include "lang.h"
-# include "tree.h"
-
-chr main (s32 argc, str args []) {
-	lang_load_env (DIR_SHR "/ptv/lang/", "es", 1024);
+s32 main (s32 argc, str args []) {
+	lang_load_env (SHR_DIR "/ptv/lang/", "es", 1024);
 	str path = parse_options (argc, args);
 	
 	str lang_n_dirs [] = {
@@ -23,22 +22,19 @@ chr main (s32 argc, str args []) {
 		LANG ('r', 'e', 'g', '.', '2'),
 		LANG ('r', 'e', 'g', '.', '+')
 	};
-	chr buffer [2][32];
 	
-	PUT_ARR (DI_COLOR, path, NO_COLOR, "\n");
+	STR_CPY (BUFFER, DI_COLOR, path, NO_COLOR, "\n");
+	put (BUFFER);
 	tree ("", path);
 	
-	str_frm_u64 (buffer [0], n_dirs);
-	str_frm_u64 (buffer [1], n_regs);
-	
-	new_lne ();
-	PUT_ARR (
-		buffer [0], " ",
-		lang_n_dirs [n_dirs > 3 ? 3 : n_dirs],
-		", ",
-		buffer [1], " ",
-		lang_n_regs [n_regs > 3 ? 3 : n_regs]
+	STR_FRM_FMT (
+		BUFFER,
+		"\n%u %s, %u %s\n",
+		(u64) n_dirs,
+		(u64) lang_n_dirs [n_dirs > 3 ? 3 : n_dirs],
+		(u64) n_regs,
+		(u64) lang_n_regs [n_regs > 3 ? 3 : n_regs]
 	);
-	new_lne ();
+	put (BUFFER);	
 }
 

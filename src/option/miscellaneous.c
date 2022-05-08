@@ -1,23 +1,28 @@
-# include "option/miscellaneous.h"
+# include "../../inc/option/miscellaneous.h"
+# include "../../inc/buffer.h"
+# include "../../inc/lang.h"
 
 nil help (chr option) {
 	switch (option) {
 	case USAGE:
-		PUT_ARR (
+		STR_CPY (
+			BUFFER,
 			LANG ('u', 's', 'e'),
 			": ptv [", LANG ('O', 'P', 'T'), "]...\n",
 			LANG ('o', 'p', 't'), ":"
 		);
 		break;
 	case PRINTING:
-		PUT_ARR (
+		STR_CPY (
+			BUFFER,
 			"  -P    ", LANG ('p', 'u', 't'), "\n"
 			"    -c    ", LANG ('p', 'u', 't', '.', 'c'), "\n"
 			"    -s    ", LANG ('p', 'u', 't', '.', 's')
 		);
 		break;
 	case LISTING:
-		PUT_ARR (
+		STR_CPY (
+			BUFFER,
 			"  -L    ", LANG ('l', 's', 't'), "\n"
 			"    -d    ", LANG ('l', 's', 't', '.', 'd'), "\n"
 			"    -r    ", LANG ('l', 's', 't', '.', 'r'), "\n"
@@ -26,14 +31,16 @@ nil help (chr option) {
 		);
 		break;
 	case SORTING:
-		PUT_ARR (
+		STR_CPY (
+			BUFFER,
 			"  -S    ", LANG ('s', 'r', 't'), "\n"
 			"    -d    ", LANG ('s', 'r', 't', '.', 'd'), "\n"
 			"    -n    ", LANG ('s', 'r', 't', '.', 'n')
 		);
 		break;
 	case MISCELLANEOUS:
-		PUT_ARR (
+		STR_CPY (
+			BUFFER,
 			"  -M    ", LANG ('m', 's', 'c'), "\n"
 			"    -v    ", LANG ('m', 's', 'c', '.', 'v'), "\n"
 			"    -h    ", LANG ('m', 's', 'c', '.', 'h')
@@ -47,6 +54,7 @@ nil help (chr option) {
 		help (MISCELLANEOUS);
 		return;
 	}
+	put (BUFFER);
 	new_lne ();
 }
 

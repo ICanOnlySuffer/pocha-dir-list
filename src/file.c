@@ -1,4 +1,10 @@
-# include "file.h"
+# include "../inc/option/listing.h"
+# include "../inc/file.h"
+# include <sys/stat.h>
+# include <pul/str.h>
+# include <pul/vec.h>
+# include <unistd.h>
+# include <dirent.h>
 
 u32 n_regs = 0;
 u32 n_dirs = 0;
@@ -6,7 +12,7 @@ u32 n_dirs = 0;
 vec get_files (str path) {
 	DIR * dir = opendir (path);
 	if (not dir) {
-		return VEC (0);
+		return (vec) {.capacity = 0};
 	}
 	
 	vec files = VEC (32);
@@ -15,7 +21,11 @@ vec get_files (str path) {
 	
 	chr subpath [PATH_SIZE];
 	
-	while (entry = readdir (dir)) {
+	while (true) {
+		entry = readdir (dir);
+		if (not entry) {
+			break;
+		}
 		str name = entry -> d_name;
 		u08 is_hidden = name [0] == '.';
 		
@@ -30,11 +40,12 @@ vec get_files (str path) {
 			continue;
 		}
 		
-		fil * file = malloc (sizeof (fil));
+		file_t * file = malloc (sizeof (file_t));
 		STR_CPY (file -> name, name);
 		file -> size = info.st_size;
+		file -> is_link = S_ISLNK (info.st_mode);
 		
-		if (file -> is_link = S_ISLNK (info.st_mode)) {
+		if (file -> is_link) {
 			chr buffer [PATH_SIZE] = {0};
 			readlink (subpath, buffer, PATH_SIZE);
 			STR_CPY (file -> path, buffer);

@@ -1,16 +1,19 @@
-# include "option/sorting.h"
+# include "../../inc/option/sorting.h"
+# include "../../inc/file.h"
+# include <sys/stat.h>
+# include <pul/str.h>
 
 s32 cmp_name (const nil * file_1, const nil * file_2) {
 	return str_cmp (
-		(*(fil **) file_1) -> name,
-		(*(fil **) file_2) -> name
+		(*(file_t **) file_1) -> name,
+		(*(file_t **) file_2) -> name
 	);
 }
 
 s32 cmp_dirs (const nil * file_1, const nil * file_2) {
 	return (
-		S_ISDIR ((*(fil **) file_2) -> mode) -
-		S_ISDIR ((*(fil **) file_1) -> mode)
+		S_ISDIR ((*(file_t **) file_2) -> mode) -
+		S_ISDIR ((*(file_t **) file_1) -> mode)
 	);
 }
 

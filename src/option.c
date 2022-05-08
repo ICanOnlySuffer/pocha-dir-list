@@ -1,6 +1,17 @@
-# include "option.h"
+# include "../inc/option/miscellaneous.h"
+# include "../inc/option/printing.h"
+# include "../inc/option/sorting.h"
+# include "../inc/option/listing.h"
+# include "../inc/option.h"
 
-str parse_options (u16 argc, str args []) {
+static nil (* options []) (chr) = {
+	option_printing,
+	option_listing,
+	option_sorting,
+	option_miscellaneous
+};
+
+str parse_options (u08 argc, str args []) {
 	chr current = MISCELLANEOUS;
 	str path = ".";
 	
@@ -13,20 +24,7 @@ str parse_options (u16 argc, str args []) {
 				case 'S': current = SORTING; break;
 				case 'M': current = MISCELLANEOUS; break;
 				default:
-					switch (current) {
-					case PRINTING:
-						option_printing (args [i][0]);
-						break;
-					case SORTING:
-						option_sorting (args [i][0]);
-						break;
-					case LISTING:
-						option_listing (args [i][0]);
-						break;
-					case MISCELLANEOUS:
-						option_miscellaneous (args [i][0]);
-						break;
-					}
+					options [(u32) current - 1] (args [i][0]);
 				}
 			}
 		} else {

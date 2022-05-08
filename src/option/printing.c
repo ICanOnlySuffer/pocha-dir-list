@@ -1,11 +1,13 @@
-# include "option/printing.h"
+# include "../../inc/option/printing.h"
+# include <pul/str.h>
+# include <stdlib.h>
 
 struct printing printing = {
 	.colors = {"", "", "", "", ""},
 	.size = false
 };
 
-nil str_frm_filesize (str buffer, u64 size) {
+nil str_frm_filesize (str destine, u64 size) {
 	chr character;
 	if (size < 9999lu) {
 		character = 'B';
@@ -20,8 +22,8 @@ nil str_frm_filesize (str buffer, u64 size) {
 		size /= 1024 * 1024 * 1024;
 	}
 	u08 len = size < 10 ? 1 : size < 100 ? 2 : size < 1000 ? 3 : 4;
-	str_frm_u64 (buffer + 4 - len, size);
-	buffer [4] = character;
+	str_frm_u64 (destine + 4 - len, size);
+	destine [4] = character;
 }
 
 nil parse_colors () {
