@@ -1,11 +1,13 @@
 # include "../inc/buffer.h"
 # include "../inc/lang.h"
-# include <pul/cnf.h>
+# include <stdlib.h>
+# include <stdio.h>
 
-vec dictionary;
+chr LANG [ARR_LEN (LANG)][ARR_LEN (*LANG)];
 
-nil lang_load_env (str path, str rescue, u16 length) {
+nil lang_load_env (str path, str rescue) {
 	str env_lang = getenv ("LANG");
+	FILE * file;
 	
 	if (env_lang and str_len (env_lang) > 1) {
 		env_lang [2] = 0;
@@ -14,16 +16,23 @@ nil lang_load_env (str path, str rescue, u16 length) {
 	}
 	
 	STR_CPY (BUFFER, path, env_lang);
-	dictionary = cnf_get (BUFFER, length);
+	file = fopen (BUFFER, "r");
 	
-	if (not dictionary.capacity) {
+	if (not file) {
 		STR_CPY (BUFFER, path, rescue);
-		dictionary = cnf_get (BUFFER, length);
-		
-		if (not dictionary.capacity) {
+		file = fopen (BUFFER, "r");
+		if (not file) {
 			PUT_ERR ("err 002: \"", BUFFER, "\"\n");
 			exit (2);
 		}
 	}
+	
+	u08 i = 0;
+	do {
+		fgets (LANG [i], ARR_LEN (*LANG), file);
+		str_chp (LANG [i]);
+	} while (i++ < ARR_LEN (LANG));
+	
+	fclose (file);
 }
 

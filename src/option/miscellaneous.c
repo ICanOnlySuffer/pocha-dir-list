@@ -1,49 +1,49 @@
 # include "../../inc/option/miscellaneous.h"
 # include "../../inc/buffer.h"
 # include "../../inc/lang.h"
+# include <stdlib.h>
 
 nil help (chr option) {
 	switch (option) {
 	case USAGE:
 		STR_CPY (
 			BUFFER,
-			LANG ('u', 's', 'e'),
-			": ptv [", LANG ('O', 'P', 'T'), "]...\n",
-			LANG ('o', 'p', 't'), ":"
+			LANG_USE, ": ptv [", LANG_OPT, "]..."/*,
+			LANG_OPTS, ":"*/
 		);
 		break;
 	case PRINTING:
 		STR_CPY (
 			BUFFER,
-			"  -P    ", LANG ('p', 'u', 't'), "\n"
-			"    -c    ", LANG ('p', 'u', 't', '.', 'c'), "\n"
-			"    -s    ", LANG ('p', 'u', 't', '.', 's')
+			"-P (", LANG_PUT, "):\n"
+			"  -c  ", LANG_PUT_C, "\n"
+			"  -s  ", LANG_PUT_S
 		);
 		break;
 	case LISTING:
 		STR_CPY (
 			BUFFER,
-			"  -L    ", LANG ('l', 's', 't'), "\n"
-			"    -d    ", LANG ('l', 's', 't', '.', 'd'), "\n"
-			"    -r    ", LANG ('l', 's', 't', '.', 'r'), "\n"
-			"    -h    ", LANG ('l', 's', 't', '.', 'h'), "\n"
-			"    -a    ", LANG ('l', 's', 't', '.', 'a')
+			"-L (", LANG_LST, "):\n"
+			"  -d  ", LANG_LST_D, "\n"
+			"  -r  ", LANG_LST_R, "\n"
+			"  -h  ", LANG_LST_H, "\n"
+			"  -a  ", LANG_LST_A
 		);
 		break;
 	case SORTING:
 		STR_CPY (
 			BUFFER,
-			"  -S    ", LANG ('s', 'r', 't'), "\n"
-			"    -d    ", LANG ('s', 'r', 't', '.', 'd'), "\n"
-			"    -n    ", LANG ('s', 'r', 't', '.', 'n')
+			"-S (", LANG_SRT, "):\n"
+			"  -d  ", LANG_SRT_D, "\n"
+			"  -n  ", LANG_SRT_N
 		);
 		break;
 	case MISCELLANEOUS:
 		STR_CPY (
 			BUFFER,
-			"  -M    ", LANG ('m', 's', 'c'), "\n"
-			"    -v    ", LANG ('m', 's', 'c', '.', 'v'), "\n"
-			"    -h    ", LANG ('m', 's', 'c', '.', 'h')
+			"-M (", LANG_MSC, "):\n"
+			"  -v  ", LANG_MSC_V, "\n"
+			"  -h  ", LANG_MSC_H
 		);
 		break;
 	default:
@@ -72,7 +72,8 @@ nil option_miscellaneous (chr option) {
 		help ('0');
 		break;
 	default:
-		help ('0');
+		help (USAGE);
+		help (MISCELLANEOUS);
 		exit (1);
 	}
 	exit (0);

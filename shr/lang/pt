@@ -1,27 +1,27 @@
-err.fil não pode abrir o arquivo
-use     usage
-OPT     OPÇÕE
-opt     opções
-put     impressão
-put.c   use cores de LS_COLORS
-put.s   tamanho
-lst     listagem
-lst.d   somente diretórios
-lst.r   somente regulares
-lst.h   somente escondidos
-lst.a   todos
-srt     ordenação
-srt.d   diretórios primeiro
-srt.n   por nome
-msc     diversas
-msc.c   créditos
-msc.v   versão
-msc.h   ajuda
-dir.0   diretórios
-dir.1   diretório
-dir.2   diretórios
-dir.+   diretórios
-reg.0   regulares
-reg.1   regular
-reg.2   regulares
-reg.+   regulares
+não pode abrir o arquivo
+usage
+OPÇÕE
+opções
+impressão
+use cores de LS_COLORS
+tamanho
+listagem
+somente diretórios
+somente regulares
+somente escondidos
+todos
+ordenação
+diretórios primeiro
+por nome
+diversas
+créditos
+versão
+ajuda
+diretórios
+diretório
+diretórios
+diretórios
+regulares
+regular
+regulares
+regulares

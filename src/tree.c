@@ -9,21 +9,22 @@
 # include <pul/vec.h>
 # include <unistd.h>
 
-nil tree (str padding, str path) {
+static chr PADDING [128] = "";
+static str padding = PADDING;
+static str buffer;
+
+# define BFF_CPY(...) \
+	STR_CPY (buffer, __VA_ARGS__)
+
+nil tree (str path) {
 	vec files = get_files (path);
 	
 	if (not files.capacity) {
-		STR_CPY (
-			BUFFER,
-			padding,
-			"`-- [",
-			LANG ('e', 'r', 'r', '.', 'f', 'i', 'l'),
-			"]\n"
-		);
+		STR_CPY (BUFFER, PADDING, "`-- [", LANG_ERR_FIL, "]\n");
 		put (BUFFER);
 		return;
 	}
-
+	
 	for (u08 i = 0; i < n_cmp_functions; i++) {
 		vec_srt (&files, cmp_functions [i]);
 	}
@@ -32,56 +33,34 @@ nil tree (str padding, str path) {
 		file_t * file = files.items [i];
 		u08 is_last = i < files.size - 1;
 		
-		STR_CPY (BUFFER, padding, is_last ? "|-- " : "`-- ");
+		buffer = STR_CPY (BUFFER, PADDING, is_last ? "|-- " : "`-- ");
 		
 		if (printing.size) {
-			chr size_buffer [9] = "[     ] ";
-			str_frm_filesize (size_buffer + 1, file -> size);
-			str_cat (BUFFER, size_buffer);
+			str_frm_size (buffer, file -> size);
+			buffer += 8;
 		}
 		if (file -> is_link) {
-			STR_CAT (
-				BUFFER,
-				LN_COLOR,
-				file -> name,
-				NO_COLOR,
-				" -> "
+			buffer = BFF_CPY (
+				LN_COLOR, file -> name, NO_COLOR, " -> "
 			);
 		}
 		
 		switch (file -> mode & S_IFMT) {
 		case S_IFDIR:
 			if (file -> is_link) {
-				STR_CAT (
-					BUFFER,
-					DI_COLOR,
-					file -> path,
-					NO_COLOR,
-					"\n"
-				);
+				BFF_CPY (DI_COLOR, file -> path, NO_COLOR, "\n");
 				put (BUFFER);
 			} else {
-				chr sub_padding [128];
-				STR_CAT (
-					BUFFER,
-					DI_COLOR,
-					file -> name,
-					"/",
-					NO_COLOR,
-					"\n"
-				);
+				BFF_CPY (DI_COLOR, file -> name, "/", NO_COLOR, "\n");
 				put (BUFFER);
-				STR_CPY (
-					sub_padding,
-					padding,
-					is_last ? "|   " : "    "
-				);
-				tree (sub_padding, file -> path);
+				STR_CPY (padding, is_last ? "|   " : "    ");
+				padding += 4;
+				tree (file -> path);
+				*(padding -= 4) = 0;
 			}
 			break;
 		case S_IFREG:
-			STR_CAT (
-				BUFFER,
+			BFF_CPY (
 				file -> mode & X_OK ? EX_COLOR : FI_COLOR,
 				file -> is_link ? file -> path : file -> name,
 				NO_COLOR, "\n"
@@ -89,11 +68,11 @@ nil tree (str padding, str path) {
 			put (BUFFER);
 			break;
 		case S_IFLNK:
-			STR_CAT (BUFFER, file -> path, "\n");
+			BFF_CPY (file -> path, "\n");
 			put (BUFFER);
 			break;
 		default:
-			STR_CAT (BUFFER, file -> name, "\n");
+			BFF_CPY (file -> name, "\n");
 			put (BUFFER);
 		}
 	}

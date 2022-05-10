@@ -1,27 +1,27 @@
-err.fil no se puede abrir el directorio
-use     uso
-OPT     OPCIÓN
-opt     opciones
-put     imprimir
-put.c   usar colores de LS_COLORS
-put.s   tamaño
-lst     listado
-lst.d   solo directorios
-lst.r   solo regulares
-lst.h   solo ocultos
-lst.a   todos
-srt     ordenado
-srt.d   directorios primero
-srt.n   por nombre
-msc     diversos
-msc.c   créditos
-msc.v   versión
-msc.h   ayuda
-dir.0   directorios
-dir.1   directorio
-dir.2   directorios
-dir.+   directorios
-reg.0   regulares
-reg.1   regular
-reg.2   regulares
-reg.+   regulares
+no se puede abrir el directorio
+uso
+OPCIÓN
+opciones
+imprimir
+usar colores de LS_COLORS
+tamaño
+listado
+solo directorios
+solo regulares
+solo ocultos
+todos
+ordenado
+directorios primero
+por nombre
+diversos
+créditos
+versión
+ayuda
+directorios
+directorio
+directorios
+directorios
+regulares
+regular
+regulares
+regulares

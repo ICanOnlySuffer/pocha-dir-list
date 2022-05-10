@@ -6,26 +6,26 @@
 # include "../inc/file.h"
 
 s32 main (s32 argc, str args []) {
-	lang_load_env (SHR_DIR "/ptv/lang/", "es", 1024);
+	lang_load_env (SHR_DIR "/ptv/lang/", "es");
 	str path = parse_options (argc, args);
 	
 	str lang_n_dirs [] = {
-		LANG ('d', 'i', 'r', '.', '0'),
-		LANG ('d', 'i', 'r', '.', '1'),
-		LANG ('d', 'i', 'r', '.', '2'),
-		LANG ('d', 'i', 'r', '.', '+')
+		LANG_DIR_0,
+		LANG_DIR_1,
+		LANG_DIR_2,
+		LANG_DIR_X
 	};
 	
 	str lang_n_regs [] = {
-		LANG ('r', 'e', 'g', '.', '0'),
-		LANG ('r', 'e', 'g', '.', '1'),
-		LANG ('r', 'e', 'g', '.', '2'),
-		LANG ('r', 'e', 'g', '.', '+')
+		LANG_REG_0,
+		LANG_REG_1,
+		LANG_REG_2,
+		LANG_REG_X
 	};
 	
 	STR_CPY (BUFFER, DI_COLOR, path, NO_COLOR, "\n");
 	put (BUFFER);
-	tree ("", path);
+	tree (path);
 	
 	STR_FRM_FMT (
 		BUFFER,
