@@ -6,7 +6,7 @@ LICENSE = "GNU General Public License v3.0"
 
 OS := $(shell uname -s)
 
-ifeq ($(OS), linux)
+ifeq ($(OS), Linux)
 	PREFIX := $(if $(PREFIX),$(PREFIX),/usr)
 	BIN_DIR = $(PREFIX)/bin
 	LIB_DIR = $(PREFIX)/lib
@@ -19,7 +19,7 @@ all: $(error operating system `$(OS)` not supported)
 endif
 
 SRC = $(shell find src -type f ! -name ptv.c)
-LIB = $(addprefix $(LIB_DIR), /pul/{str,put,num,vec,cnf,dic}.o)
+LIB = $(foreach obj, str put num vec dic, $(LIB_DIR)/pul/${obj}.o)
 OBJ = $(SRC:src/%.c=obj/%.o)
 SRC_DIR = $(shell find src -type d)
 OBJ_DIR = $(SRC_DIR:src/%=obj/%/)

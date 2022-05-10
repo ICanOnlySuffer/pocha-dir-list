@@ -7,7 +7,7 @@ struct printing printing = {
 	.size = false
 };
 
-nil str_frm_filesize (str destine, u64 size) {
+nil str_frm_size (str destine, u64 size) {
 	chr character;
 	if (size < 9999lu) {
 		character = 'B';
@@ -21,9 +21,10 @@ nil str_frm_filesize (str destine, u64 size) {
 		character = 'G';
 		size /= 1024 * 1024 * 1024;
 	}
+	str_cpy (destine, "[     ] ");
 	u08 len = size < 10 ? 1 : size < 100 ? 2 : size < 1000 ? 3 : 4;
-	str_frm_u64 (destine + 4 - len, size);
-	destine [4] = character;
+	str_frm_u64 (destine + 5 - len, size);
+	destine [5] = character;
 }
 
 nil parse_colors () {
@@ -80,6 +81,7 @@ nil option_printing (chr option) {
 	case 's': printing.size = true; break;
 	case 'c': parse_colors (); break;
 	default:
+		help (USAGE);
 		help (PRINTING);
 		exit (1);
 	}

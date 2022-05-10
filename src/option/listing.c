@@ -37,6 +37,7 @@ nil option_listing (chr option) {
 		listing.dirs = true;
 		break;
 	default:
+		help (USAGE);
 		help (LISTING);
 		exit (1);
 	}

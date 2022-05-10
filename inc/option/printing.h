@@ -21,7 +21,7 @@ ext struct printing {
 	u08 size;
 } printing;
 
-ext nil str_frm_filesize (str destine, u64 size);
+ext nil str_frm_size (str destine, u64 size);
 ext nil parse_colors ();
 ext nil option_printing (chr option);
 

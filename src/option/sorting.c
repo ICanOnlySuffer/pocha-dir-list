@@ -29,6 +29,7 @@ nil option_sorting (chr option) {
 		cmp_functions [n_cmp_functions++] = cmp_dirs;
 		break;
 	default:
+		help (USAGE);
 		help (SORTING);
 		exit (1);
 	}
