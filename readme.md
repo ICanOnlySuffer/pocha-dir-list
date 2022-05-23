@@ -1,10 +1,10 @@
 # Pocha's Tree Visualizer
 
-A simple directory visualizer based on 'tree'.
+A lightweight tree directory visualizer based on `tree`.
 
 ## Installation
 
-**requirements:**
+**make dependencies:**
 
 - [pul](https://gitlab.com/ICanOnlySuffer/pul)
 
