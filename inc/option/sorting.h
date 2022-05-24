@@ -6,7 +6,7 @@
 # include "../file.h"
 
 ext u08 n_cmp_functions;
-ext s32 (*cmp_functions [4]) (const nil *, const nil *);
+ext s32 (*cmp_functions [4]) (ptr, ptr);
 ext nil option_sorting (chr option);
 
 # endif // PTV_OPTION_SORTING_H

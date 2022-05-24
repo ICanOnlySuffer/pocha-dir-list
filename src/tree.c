@@ -22,7 +22,7 @@ nil tree (str path) {
 	if (not files.capacity) {
 		STR_CPY (BUFFER, PADDING, "`-- [", LANG_ERR_FIL, "]\n");
 		put (BUFFER);
-		return;
+		ret;
 	}
 	
 	for (u08 i = 0; i < n_cmp_functions; i++) {

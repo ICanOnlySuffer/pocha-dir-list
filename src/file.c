@@ -12,10 +12,10 @@ u32 n_dirs = 0;
 vec get_files (str path) {
 	DIR * dir = opendir (path);
 	if (not dir) {
-		return (vec) {.capacity = 0};
+		ret (vec) {.capacity = 0};
 	}
 	
-	vec files = VEC (32);
+	vec files = vec_new (32);
 	struct dirent * entry;
 	struct stat info;
 	
