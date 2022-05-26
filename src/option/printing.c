@@ -29,7 +29,7 @@ nil str_frm_size (str destine, u64 size) {
 
 nil parse_colors () {
 	str env_colors = getenv ("LS_COLORS");
-	printing.colors.reset = "\e[0m";
+	printing.colors.reset = "\033[0m";
 	
 	if (env_colors and *env_colors) {
 		u08 reading = true;
@@ -54,7 +54,7 @@ nil parse_colors () {
 						color = buffer;
 					} // add more here
 					
-					color [0] = '\e';
+					color [0] = '\033';
 					color [1] = '[';
 				} else {
 					buffer [i++] = *env_colors;
