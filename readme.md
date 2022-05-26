@@ -4,11 +4,11 @@ A lightweight tree directory visualizer based on `tree`.
 
 ## Installation
 
-**make dependencies:**
+**dependencies:**
 
-- [pul](https://gitlab.com/ICanOnlySuffer/pul)
+- [pul](https://gitlab.com/ICanOnlySuffer/pul) (make)
 
-**commands:**
+**command:**
 
 	# make install clean
 
