@@ -1,25 +1,23 @@
 
-NAME = "Pocha's tree visualizer"
+NAME = "Pocha's Tree Visualizer"
 VERSION = "v1.6.0"
 DEVELOPER = "Piero Estéfano Rojas Effio"
 LICENSE = "GNU General Public License v3.0"
 
-OS := $(shell uname -s)
+KERNEL := $(shell uname -s)
 
-ifeq ($(OS), Linux)
+ifeq ($(KERNEL), Linux)
 	PREFIX := $(if $(PREFIX),$(PREFIX),/usr)
 	BIN_DIR = $(PREFIX)/bin
-	LIB_DIR = $(PREFIX)/lib
 	SHR_DIR = $(PREFIX)/share
 	INSTALL_BIN_DIR := $(INSTALL_DIR)$(BIN_DIR)
 	INSTALL_SHR_DIR := $(INSTALL_DIR)$(SHR_DIR)
 	BIN = bin/ptv
 else
-all: $(error operating system `$(OS)` not supported)
+all: $(error kernel `$(KERNEL)` not supported)
 endif
 
 SRC = $(shell find src -type f ! -name ptv.c)
-LIB = $(foreach obj, str put num vec dic, $(LIB_DIR)/pul/${obj}.o)
 OBJ = $(SRC:src/%.c=obj/%.o)
 SRC_DIR = $(shell find src -type d)
 OBJ_DIR = $(SRC_DIR:src/%=obj/%/)
@@ -27,7 +25,7 @@ OBJ_DIR = $(SRC_DIR:src/%=obj/%/)
 C_DEFIS = -DVERSION='$(VERSION)' \
           -DDEVELOPER='$(DEVELOPER)' \
           -DLICENSE='$(LICENSE)'
-C_FLAGS = -O3 -Wall
+C_FLAGS = -O3 -Wall -pedantic
 
 all: $(BIN)
 
@@ -41,7 +39,7 @@ obj/%.o: src/%.c
 	$(CC) $< -o $@ -c $(C_FLAGS)
 
 $(BIN): src/ptv.c bin/ $(OBJ_DIR) $(OBJ)
-	$(CC) $(LIB) $(OBJ) $< -o $@ $(C_FLAGS) -DSHR_DIR='"$(SHR_DIR)"'
+	$(CC) -lpul $(OBJ) $< -o $@ $(C_FLAGS) -DSHR_DIR='"$(SHR_DIR)"'
 
 install: uninstall $(BIN) $(INSTALL_SHR_DIR)/ptv/ $(INSTALL_BIN_DIR)/
 	cp -ur shr/* $(INSTALL_SHR_DIR)/ptv
