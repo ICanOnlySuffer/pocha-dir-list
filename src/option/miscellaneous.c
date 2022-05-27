@@ -1,15 +1,20 @@
 # include "../../inc/option/miscellaneous.h"
 # include "../../inc/buffer.h"
 # include "../../inc/lang.h"
+# include <pul/ver.h>
 # include <stdlib.h>
+
+# if PUL_VERSION_MAYOR != 0 or PUL_VERSION_MINOR != 6
+# error `libpul` version must be 0.6.x
+# endif
 
 nil help (chr option) {
 	switch (option) {
 	case USAGE:
 		STR_CPY (
 			BUFFER,
-			LANG_USE, ": ptv [", LANG_OPT, "]..."/*,
-			LANG_OPTS, ":"*/
+			LANG_USE, ": ptv [", LANG_OPT, "]...\n",
+			LANG_OPTS, ":"
 		);
 		break;
 	case PRINTING:
