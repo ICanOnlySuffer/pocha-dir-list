@@ -1,6 +1,6 @@
 
 NAME = "Pocha's Tree Visualizer"
-VERSION = "v1.6.0"
+VERSION = "v1.5.1"
 DEVELOPER = "Piero Estéfano Rojas Effio"
 LICENSE = "GNU General Public License v3.0"
 
@@ -40,6 +40,7 @@ obj/%.o: src/%.c
 
 $(BIN): src/ptv.c bin/ $(OBJ_DIR) $(OBJ)
 	$(CC) -lpul $(OBJ) $< -o $@ $(C_FLAGS) -DSHR_DIR='"$(SHR_DIR)"'
+	strip $@
 
 install: uninstall $(BIN) $(INSTALL_SHR_DIR)/ptv/ $(INSTALL_BIN_DIR)/
 	cp -ur shr/* $(INSTALL_SHR_DIR)/ptv
