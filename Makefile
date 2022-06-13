@@ -39,7 +39,7 @@ obj/%.o: src/%.c
 	$(CC) $< -o $@ -c $(C_FLAGS)
 
 $(BIN): src/ptv.c bin/ $(OBJ_DIR) $(OBJ)
-	$(CC) -lpul $(OBJ) $< -o $@ $(C_FLAGS) -DSHR_DIR='"$(SHR_DIR)"'
+	$(CC) $(OBJ) $< -o $@ $(C_FLAGS) -lpul -DSHR_DIR='"$(SHR_DIR)"'
 	strip $@
 
 install: uninstall $(BIN) $(INSTALL_SHR_DIR)/ptv/ $(INSTALL_BIN_DIR)/
