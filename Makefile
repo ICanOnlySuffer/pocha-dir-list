@@ -1,6 +1,6 @@
 
 NAME = "Pocha's Tree Visualizer"
-VERSION = "v1.5.1"
+VERSION = "v1.6.1"
 DEVELOPER = "Piero Estéfano Rojas Effio"
 LICENSE = "GNU General Public License v3.0"
 
