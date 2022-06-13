@@ -1,6 +1,7 @@
 # Pocha's Tree Visualizer
 
-A lightweight tree directory visualizer based on `tree`.
+A lightweight tree directory visualizer inspired on
+[tree](https://gitlab.com/OldManProgrammer/unix-tree).
 
 ## Installation
 
@@ -8,7 +9,7 @@ Available at the [AUR](https://aur.archlinux.org/packages/ptv)
 
 **dependencies:**
 
-- [pul](https://gitlab.com/ICanOnlySuffer/pul) (make & runtime)
+- [pul](https://gitlab.com/ICanOnlySuffer/pul) (make)
 
 **command:**
 
