@@ -1,8 +1,5 @@
 
 TARGET = pdt
-VERSION = "v1.7.0"
-DEVELOPER = "Piero Rojas"
-LICENSE = "GNU General Public License v3.0"
 
 KERNEL := $(shell uname)
 ifeq ($(KERNEL), Linux)
@@ -21,16 +18,9 @@ OBJ = $(SRC:src/%.c=obj/%.o)
 SRC_DIR = $(shell find src -type d)
 OBJ_DIR = $(SRC_DIR:src/%=obj/%/)
 
-C_DEFIS = -DVERSION='$(VERSION)' \
-          -DDEVELOPER='$(DEVELOPER)' \
-          -DLICENSE='$(LICENSE)'
 C_FLAGS = -O3 -Wall -pedantic
 
 all: $(BIN)
-
-obj/option/misc.o: src/option/misc.c
-	@mkdir -p $(OBJ_DIR)/
-	$(CC) $< -o $@ -c $(C_FLAGS) $(C_DEFIS)
 
 obj/%.o: src/%.c
 	@mkdir -p $(OBJ_DIR)/
