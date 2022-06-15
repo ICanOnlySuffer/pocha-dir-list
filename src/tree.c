@@ -4,9 +4,9 @@
 # include "../inc/file.h"
 # include "../inc/tree.h"
 # include "../inc/lang.h"
+# include <pocha/put.h>
+# include <pocha/vec.h>
 # include <sys/stat.h>
-# include <pul/put.h>
-# include <pul/vec.h>
 # include <unistd.h>
 
 static chr PADDING [128] = "";
@@ -26,7 +26,7 @@ nil tree (str path) {
 	}
 	
 	for (u08 i = 0; i < n_cmp_functions; i++) {
-		vec_srt (&files, cmp_functions [i]);
+		vec_srt (&files, (s32 (*) (ptr, ptr)) cmp_functions [i]);
 	}
 	
 	for (u16 i = 0; i < files.size; i++) {

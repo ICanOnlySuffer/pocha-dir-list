@@ -1,7 +1,7 @@
 
-# ifndef PTV_BUFFER_H
-# define PTV_BUFFER_H
-# include <pul/put.h>
+# ifndef PDT_BUFFER_H
+# define PDT_BUFFER_H
+# include <pocha/put.h>
 
 ext chr BUFFER [256];
 

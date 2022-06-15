@@ -1,9 +1,9 @@
 
-# ifndef PTV_OPTION_H
-# define PTV_OPTION_H
-# include <pul/cor.h>
+# ifndef PDT_OPTION_H
+# define PDT_OPTION_H
+# include <pocha/cor.h>
 
 ext str parse_options (u08 argc, str args []);
 
-# endif // PTV_OPTION_H
+# endif // PDT_OPTION_H
 

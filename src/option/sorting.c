@@ -1,24 +1,23 @@
 # include "../../inc/option/sorting.h"
-# include "../../inc/file.h"
+# include <pocha/str.h>
 # include <sys/stat.h>
-# include <pul/str.h>
 
-s32 cmp_name (ptr file_1, ptr file_2) {
-	return str_cmp (
-		(*(file_t **) file_1) -> name,
-		(*(file_t **) file_2) -> name
+static s32 cmp_name (file_t ** file_1, file_t ** file_2) {
+	ret str_cmp (
+		(*file_1) -> name,
+		(*file_2) -> name
 	);
 }
 
-s32 cmp_dirs (ptr file_1, ptr file_2) {
-	return (
-		S_ISDIR ((*(file_t **) file_2) -> mode) -
-		S_ISDIR ((*(file_t **) file_1) -> mode)
+static s32 cmp_dirs (file_t ** file_1, file_t ** file_2) {
+	ret (
+		S_ISDIR ((*file_2) -> mode) -
+		S_ISDIR ((*file_1) -> mode)
 	);
 }
 
 u08 n_cmp_functions = 0;
-s32 (*cmp_functions [4]) (ptr, ptr);
+s32 (*cmp_functions [4]) (file_t **, file_t **);
 
 nil option_sorting (chr option) {
 	switch (option) {

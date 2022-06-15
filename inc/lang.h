@@ -1,8 +1,8 @@
 
-# ifndef PTV_LANG_H
-# define PTV_LANG_H
+# ifndef PDT_LANG_H
+# define PDT_LANG_H
 
-# include <pul/cor.h>
+# include <pocha/cor.h>
 
 # define LANG_ERR_FIL LANG [0]
 # define LANG_USE     LANG [1]
@@ -35,5 +35,5 @@
 ext chr LANG [27][36];
 ext nil lang_load_env (str path, str rescue);
 
-# endif // PTV_LANG_H
+# endif // PDT_LANG_H
 

@@ -1,8 +1,8 @@
 
-# ifndef PTV_OPTION_LISTING_H
-# define PTV_OPTION_LISTING_H
+# ifndef PDT_OPTION_LISTING_H
+# define PDT_OPTION_LISTING_H
 
-# include "miscellaneous.h"
+# include "misc.h"
 
 ext struct listing {
 	u08 hidden_regs;
@@ -12,5 +12,5 @@ ext struct listing {
 } listing;
 ext nil option_listing (chr option);
 
-# endif // PTV_OPTION_LISTING_H
+# endif // PDT_OPTION_LISTING_H
 

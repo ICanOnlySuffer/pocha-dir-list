@@ -1,4 +1,4 @@
-# include <pul/cor.h>
+# include <pocha/cor.h>
 
 chr BUFFER [256];
 

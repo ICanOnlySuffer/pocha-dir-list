@@ -1,15 +1,17 @@
-# Pocha's Tree Visualizer
+# Pocha Directory Tree
 
-A lightweight tree directory visualizer inspired on
-[tree](https://gitlab.com/OldManProgrammer/unix-tree).
+Lightweight directory listing program inspired by
+[tree](https://gitlab.com/OldManProgrammer/unix-tree). Prints the
+contents of a directory in a tree shape in the terminal.
 
 ## Installation
 
-Available at the [AUR](https://aur.archlinux.org/packages/ptv)
+Available at the [AUR](
+https://aur.archlinux.org/packages/pocha-directory-tree)
 
 **dependencies:**
 
-- [pul](https://gitlab.com/ICanOnlySuffer/pul) (make)
+- [libpocha](https://gitlab.com/ICanOnlySuffer/libpocha) (make)
 
 **command:**
 
@@ -17,10 +19,10 @@ Available at the [AUR](https://aur.archlinux.org/packages/ptv)
 
 ## Usage
 
-	$ ptv -h
+	$ pdt -h
 
 ```
-usage: ptv [OPTION]...
+usage: pdt [OPTION]...
 options:
 -P (printing):
   -c  use colors from LS_COLORS
@@ -40,7 +42,7 @@ options:
 
 **default output:**
 
-	$ ptv
+	$ pdt
 
 ```
 .
@@ -58,7 +60,7 @@ options:
 |-- src/
 |   |-- tree.c
 |   |-- buffer.c
-|   |-- ptv.c
+|   |-- pdt.c
 |   |-- option.c
 |   |-- file.c
 |   |-- lang.c
@@ -81,7 +83,7 @@ options:
 
 **sorting by name then directories first:**
 
-	$ ptv -Snd
+	$ pdt -Snd
 
 ```
 .
@@ -111,7 +113,7 @@ options:
 |   |-- file.c
 |   |-- lang.c
 |   |-- option.c
-|   |-- ptv.c
+|   |-- pdt.c
 |   `-- tree.c
 |-- Makefile
 |-- license.txt

@@ -1,11 +1,11 @@
-# include "../../inc/option/miscellaneous.h"
+# include "../../inc/option/misc.h"
 # include "../../inc/buffer.h"
 # include "../../inc/lang.h"
-# include <pul/ver.h>
+# include <pocha/ver.h>
 # include <stdlib.h>
 
-# if PUL_VERSION_MAYOR != 0 or PUL_VERSION_MINOR != 6
-# error `libpul` version must be 0.6.x
+# if LIBPOCHA_VERSION_MAYOR != 0 or LIBPOCHA_VERSION_MINOR != 7
+# error `libpocha` version must be 0.7.x
 # endif
 
 nil help (chr option) {
@@ -13,7 +13,7 @@ nil help (chr option) {
 	case USAGE:
 		STR_CPY (
 			BUFFER,
-			LANG_USE, ": ptv [", LANG_OPT, "]...\n",
+			LANG_USE, ": pdt [", LANG_OPT, "]...\n",
 			LANG_OPTS, ":"
 		);
 		break;
@@ -43,7 +43,7 @@ nil help (chr option) {
 			"  -n  ", LANG_SRT_N
 		);
 		break;
-	case MISCELLANEOUS:
+	case MISC:
 		STR_CPY (
 			BUFFER,
 			"-M (", LANG_MSC, "):\n"
@@ -56,21 +56,21 @@ nil help (chr option) {
 		help (PRINTING);
 		help (LISTING);
 		help (SORTING);
-		help (MISCELLANEOUS);
-		return;
+		help (MISC);
+		ret;
 	}
 	put (BUFFER);
 	new_lne ();
 }
 
-nil option_miscellaneous (chr option) {
+nil option_misc (chr option) {
 	switch (option) {
 	case 'v':
 		put (
-			",-. -,- , , Pocha's Tree Visualizer " VERSION "\n"
-			"| |  |  | |\n"
-			"|-´  |  | | Copyright (c) 2022 " DEVELOPER "\n"
-			"'    '  `.´ " LICENSE "\n"
+			",-. --. -,- Pocha Directory Tree " VERSION "\n"
+			"| | | |  |\n"
+			"|-´ | |  |  Copyright (c) 2022 " DEVELOPER "\n"
+			"'   --'  '  " LICENSE "\n"
 		);
 		break;
 	case 'h':
@@ -78,7 +78,7 @@ nil option_miscellaneous (chr option) {
 		break;
 	default:
 		help (USAGE);
-		help (MISCELLANEOUS);
+		help (MISC);
 		exit (1);
 	}
 	exit (0);
