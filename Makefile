@@ -28,7 +28,7 @@ obj/%.o: src/%.c
 
 $(BIN): src/$(TARGET).c $(OBJ)
 	@mkdir -p bin/
-	$(CC) $(OBJ) $< -o $@ $(C_FLAGS) -lpul -DSHR_DIR='"$(SHR_DIR)"'
+	$(CC) $(OBJ) $< -o $@ $(C_FLAGS) -lpocha -DSHR_DIR='"$(SHR_DIR)"'
 	strip $@
 
 install: uninstall all
