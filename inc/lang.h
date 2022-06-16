@@ -1,6 +1,6 @@
 
-# ifndef PDT_LANG_H
-# define PDT_LANG_H
+# ifndef PDL_LANG_H
+# define PDL_LANG_H
 
 # include <pocha/cor.h>
 
@@ -35,5 +35,5 @@
 ext chr LANG [27][36];
 ext nil lang_load_env (str path, str rescue);
 
-# endif // PDT_LANG_H
+# endif // PDL_LANG_H
 

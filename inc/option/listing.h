@@ -1,6 +1,6 @@
 
-# ifndef PDT_OPTION_LISTING_H
-# define PDT_OPTION_LISTING_H
+# ifndef PDL_OPTION_LISTING_H
+# define PDL_OPTION_LISTING_H
 
 # include "misc.h"
 
@@ -12,5 +12,5 @@ ext struct listing {
 } listing;
 ext nil option_listing (chr option);
 
-# endif // PDT_OPTION_LISTING_H
+# endif // PDL_OPTION_LISTING_H
 

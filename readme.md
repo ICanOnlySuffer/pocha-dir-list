@@ -1,4 +1,4 @@
-# Pocha Directory Tree
+# Pocha Dir List
 
 Lightweight directory listing program inspired by
 [tree](https://gitlab.com/OldManProgrammer/unix-tree). Prints the
@@ -7,7 +7,7 @@ contents of a directory in a tree shape in the terminal.
 ## Installation
 
 Available at the [AUR](
-https://aur.archlinux.org/packages/pocha-directory-tree)
+https://aur.archlinux.org/packages/pocha-dir-list)
 
 **dependencies:**
 
@@ -19,10 +19,10 @@ https://aur.archlinux.org/packages/pocha-directory-tree)
 
 ## Usage
 
-	$ pdt -h
+	$ pdl -h
 
 ```
-usage: pdt [OPTION]...
+usage: pdl [OPTION]...
 options:
 -P (printing):
   -c  use colors from LS_COLORS
@@ -35,14 +35,14 @@ options:
 -S (sorting):
   -d  directories first
   -n  by name
--M (miscellaneous):
+-M (misc):
   -v  version
   -h  help
 ```
 
 **default output:**
 
-	$ pdt
+	$ pdl
 
 ```
 .
@@ -54,13 +54,13 @@ options:
 |   |-- file.h
 |   `-- option/
 |       |-- listing.h
-|       |-- miscellaneous.h
+|       |-- misc.h
 |       |-- printing.h
 |       `-- sorting.h
 |-- src/
 |   |-- tree.c
 |   |-- buffer.c
-|   |-- pdt.c
+|   |-- pdl.c
 |   |-- option.c
 |   |-- file.c
 |   |-- lang.c
@@ -68,13 +68,12 @@ options:
 |       |-- printing.c
 |       |-- listing.c
 |       |-- sorting.c
-|       `-- miscellaneous.c
+|       `-- misc.c
 |-- readme.md
 |-- shr/
-|   `-- lang/
-|       |-- en
-|       |-- pt
-|       `-- es
+|   |-- en
+|   |-- pt
+|   `-- es
 |-- Makefile
 `-- license.txt
 
@@ -83,14 +82,14 @@ options:
 
 **sorting by name then directories first:**
 
-	$ pdt -Snd
+	$ pdl -Snd
 
 ```
 .
 |-- inc/
 |   |-- option/
 |   |   |-- listing.h
-|   |   |-- miscellaneous.h
+|   |   |-- misc.h
 |   |   |-- printing.h
 |   |   `-- sorting.h
 |   |-- buffer.h
@@ -99,21 +98,20 @@ options:
 |   |-- option.h
 |   `-- tree.h
 |-- shr/
-|   `-- lang/
-|       |-- en
-|       |-- es
-|       `-- pt
+|   |-- en
+|   |-- es
+|   `-- pt
 |-- src/
 |   |-- option/
 |   |   |-- listing.c
-|   |   |-- miscellaneous.c
+|   |   |-- misc.c
 |   |   |-- printing.c
 |   |   `-- sorting.c
 |   |-- buffer.c
 |   |-- file.c
 |   |-- lang.c
 |   |-- option.c
-|   |-- pdt.c
+|   |-- pdl.c
 |   `-- tree.c
 |-- Makefile
 |-- license.txt

@@ -6,7 +6,7 @@
 # include "../inc/file.h"
 
 s32 main (s32 argc, str args []) {
-	lang_load_env (SHR_DIR "/pdt/lang/", "es");
+	lang_load_env (SHR_DIR "/pdl/", "es");
 	str path = parse_options (argc, args);
 	
 	str lang_n_dirs [] = {

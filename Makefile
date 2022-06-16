@@ -1,5 +1,5 @@
 
-TARGET = pdt
+TARGET = pdl
 
 KERNEL := $(shell uname)
 ifeq ($(KERNEL), Linux)

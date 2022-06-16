@@ -1,6 +1,6 @@
 
-# ifndef PDT_FILE_H
-# define PDT_FILE_H
+# ifndef PDL_FILE_H
+# define PDL_FILE_H
 # include <pocha/vec.h>
 # include <unistd.h>
 
@@ -19,5 +19,5 @@ ext u32 n_regs;
 ext u32 n_dirs;
 ext vec get_files (str path);
 
-# endif // PDT_FILE_H
+# endif // PDL_FILE_H
 

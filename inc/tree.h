@@ -1,9 +1,9 @@
 
-# ifndef PDT_TREE_H
-# define PDT_TREE_H
+# ifndef PDL_TREE_H
+# define PDL_TREE_H
 # include <pocha/cor.h>
 
 ext nil tree (str path);
 
-# endif // PDT_TREE_H
+# endif // PDL_TREE_H
 

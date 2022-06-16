@@ -1,6 +1,6 @@
 
-# ifndef PDT_OPTION_MISC_H
-# define PDT_OPTION_MISC_H
+# ifndef PDL_OPTION_MISC_H
+# define PDL_OPTION_MISC_H
 # include <pocha/cor.h>
 
 # define USAGE 0
@@ -12,5 +12,5 @@
 ext nil help (chr option);
 ext nil option_misc (chr option);
 
-# endif // PDT_OPTION_MISC_H
+# endif // PDL_OPTION_MISC_H
 

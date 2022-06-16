@@ -1,6 +1,6 @@
 
-# ifndef PDT_OPTION_PRINTING_H
-# define PDT_OPTION_PRINTING_H
+# ifndef PDL_OPTION_PRINTING_H
+# define PDL_OPTION_PRINTING_H
 
 # include "misc.h"
 
@@ -25,5 +25,5 @@ ext nil str_frm_size (str destine, u64 size);
 ext nil parse_colors ();
 ext nil option_printing (chr option);
 
-# endif // PDT_OPTION_PRINTING_H
+# endif // PDL_OPTION_PRINTING_H
 
