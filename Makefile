@@ -18,7 +18,7 @@ OBJ = $(SRC:src/%.c=obj/%.o)
 SRC_DIR = $(shell find src -type d)
 OBJ_DIR = $(SRC_DIR:src/%=obj/%/)
 
-C_FLAGS = -O3 -Wall -pedantic
+C_FLAGS = -O3 -Wall -Wextra -pedantic -g3
 
 all: $(BIN)
 

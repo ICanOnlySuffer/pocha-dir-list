@@ -67,7 +67,7 @@ nil option_misc (chr option) {
 	switch (option) {
 	case 'v':
 		put (
-			"Pocha Directory Tree - v1.7.0\n"
+			"Pocha Directory Tree v1.7.0\n"
 			"Copyright (c) 2022 Piero Rojas\n"
 			"GNU General Public License v3.0\n"
 		);
