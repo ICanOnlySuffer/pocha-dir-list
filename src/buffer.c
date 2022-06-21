@@ -1,4 +1,4 @@
 # include <pocha/cor.h>
 
-chr BUFFER [256];
+chr BUFFER [512];
 
