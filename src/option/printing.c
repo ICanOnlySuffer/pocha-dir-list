@@ -21,9 +21,9 @@ nil str_frm_size (str destine, u64 size) {
 		character = 'G';
 		size /= 1024 * 1024 * 1024;
 	}
-	str_cpy (destine, "[     ] ");
+	STR_COPY (destine, "[     ] ");
 	u08 len = size < 10 ? 1 : size < 100 ? 2 : size < 1000 ? 3 : 4;
-	str_frm_u64 (destine + 5 - len, size);
+	str_from_num (destine + 5 - len, size);
 	destine [5] = character;
 }
 
@@ -42,13 +42,13 @@ nil parse_colors () {
 					reading = false;
 					buffer [i] = 0;
 					
-					if (str_eql (buffer, "di")) {
+					if (str_equal (buffer, "di")) {
 						color = printing.colors.di;
-					} else if (str_eql (buffer, "fi")) {
+					} else if (str_equal (buffer, "fi")) {
 						color = printing.colors.fi;
-					} else if (str_eql (buffer, "ln")) {
+					} else if (str_equal (buffer, "ln")) {
 						color = printing.colors.ln;
-					} else if (str_eql (buffer, "ex")) {
+					} else if (str_equal (buffer, "ex")) {
 						color = printing.colors.ex;
 					} else {
 						color = buffer;

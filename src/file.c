@@ -35,35 +35,35 @@ vec get_files (str path) {
 		) {
 			continue;
 		}
-		STR_CPY (subpath, path, "/", name);
+		STR_COPY (subpath, path, "/", name);
 		if (lstat (subpath, &info)) {
 			continue;
 		}
 		
 		file_t * file = malloc (sizeof (file_t));
-		STR_CPY (file -> name, name);
+		STR_COPY (file -> name, name);
 		file -> size = info.st_size;
 		file -> is_link = S_ISLNK (info.st_mode);
 		
 		if (file -> is_link) {
 			chr buffer [PATH_SIZE] = {0};
 			readlink (subpath, buffer, PATH_SIZE);
-			STR_CPY (file -> path, buffer);
+			STR_COPY (file -> path, buffer);
 			lstat (file -> path, &info);
 		} else {
-			STR_CPY (file -> path, subpath);
+			STR_COPY (file -> path, subpath);
 		}
 		file -> mode = info.st_mode;
 		switch (info.st_mode & S_IFMT) {
 		case S_IFDIR:
 			if (is_hidden ? listing.hidden_dirs : listing.dirs) {
-				vec_psh (&files, file);
+				vec_push (&files, file);
 				n_dirs++;
 			}
 			break;
 		default:
 			if (is_hidden ? listing.hidden_regs : listing.regs) {
-				vec_psh (&files, file);
+				vec_push (&files, file);
 				n_regs++;
 			}
 		}

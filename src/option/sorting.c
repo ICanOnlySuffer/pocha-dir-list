@@ -2,14 +2,14 @@
 # include <pocha/str.h>
 # include <sys/stat.h>
 
-static s32 cmp_name (file_t ** file_1, file_t ** file_2) {
-	ret str_cmp (
+prv s32 cmp_name (file_t ** file_1, file_t ** file_2) {
+	ret str_compare (
 		(*file_1) -> name,
 		(*file_2) -> name
 	);
 }
 
-static s32 cmp_dirs (file_t ** file_1, file_t ** file_2) {
+prv s32 cmp_dirs (file_t ** file_1, file_t ** file_2) {
 	ret (
 		S_ISDIR ((*file_2) -> mode) -
 		S_ISDIR ((*file_1) -> mode)
